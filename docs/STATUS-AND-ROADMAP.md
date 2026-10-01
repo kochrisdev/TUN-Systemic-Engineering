@@ -1,0 +1,68 @@
+# TUN Systemic Engineering — Status and Roadmap
+
+Updated: 1 October 2026.
+
+[Documentation index](README.md) · [Scope](SCOPE.md) · [Validation plan](VALIDATION-PLAN-v0.1.md)
+
+## Current status
+
+The project has an initial draft documentation set and a documentation checker. Runtime implementation and validation are future work.
+
+| Area | Current state | Evidence or next artifact |
+|---|---|---|
+| Concept and principles | Written | [Concept note](CONCEPT-NOTE-v0.1.md), [Manifesto](MANIFESTO-v0.1.md) |
+| Behavioral requirements | Draft-specified | [Specification](SPECIFICATION-v0.1.md) |
+| Logical components and architecture | Draft-specified | [Components](COMPONENTS-v0.1.md), [Architecture](ARCHITECTURE.md) |
+| Records and state | Proposed | [Contracts](CONTRACTS-v0.1.md), [Lifecycles](LIFECYCLES-v0.1.md) |
+| Design component integration | Mapping documented; adapter not implemented | [Design integration](DESIGN-INTEGRATION-v0.1.md) |
+| Threats and assessment | Planned procedures; no runtime results | [Threat model](THREAT-MODEL.md), [Conformance matrix](CONFORMANCE-MATRIX.md) |
+| Documentation checker | Implemented | [Check description](DOCUMENTATION-CHECKS.md), [source](../scripts/check_docs.py) |
+| Runtime schemas and types | Not implemented | Valid/invalid fixtures and versioned schemas |
+| Authority and execution kernel | Not implemented | Durable local host and operation records |
+| Provider and verification adapters | Not implemented | Local publication/readback provider |
+| Runtime conformance runner | Not implemented | Executable cases for the planned procedures |
+| Distribution and hosted engineering site | Not supplied | Separate future decisions |
+
+## Design baseline
+
+The [design integration guide](DESIGN-INTEGRATION-v0.1.md) records the exact companion source revision inspected. The design project has an existing local host pilot; the engineering project can build on its lessons without claiming it already satisfies this draft.
+
+## Milestone 1 — Review the draft contract
+
+Resolve record envelopes, material binding, operation/attempt identity, supported claim scopes, and applicability. Review the requirements against at least two concrete workflows, including the local publication example.
+
+Exit: the specification, contract model, lifecycle guidance, and scenario map agree on those decisions. The initial draft provides a starting point; expert review is still needed.
+
+## Milestone 2 — Publish schema fixtures
+
+Implement runtime schemas for the pilot's canonical records and request boundaries. Include invalid cross-record references, unsupported versions, material mutation, and migration cases.
+
+Exit: fixtures can be validated repeatably, with semantic checks documented separately from structural validation. Schema validation is not runtime conformance.
+
+## Milestone 3 — Implement the publication pilot
+
+Build one host, durable journal, local provider, verification path, and presentation adapter. Use fixture identity and content.
+
+Exit: a version-bound approval can produce one verified local publication; stale approval is blocked; a lost response survives restart and is reconciled without another publication. Unavailable readback remains unknown. Record source revisions and test evidence.
+
+## Milestone 4 — Add supervision and recovery
+
+Implement cancellation before dispatch, budget controls, reconciliation, and separately authorized withdrawal or correction. Expand to partial effects only when the provider model supports them.
+
+Exit: control acknowledgements and actual outcomes remain distinct, recovery preserves the original action history, and applicable fault scenarios have recorded results.
+
+## Milestone 5 — Validate a second provider
+
+Choose a controlled provider with documented idempotency, lookup, and cancellation semantics. Record its differences from the local provider.
+
+Exit: shared contracts handle those differences explicitly, the adapter passes its applicable scenarios, and unsupported guarantees are documented.
+
+## Milestone 6 — Prepare distribution
+
+Decide package boundaries from actual reuse, publish supported contracts and compatibility guidance, and document operations for the target deployment scope. A website can be built from the documentation after its content and release status are settled.
+
+Exit: the distributed artifacts and stated compatibility are supported by named tests and ownership.
+
+## Reporting progress
+
+Update this page when an artifact actually exists or a named check has run. Preserve historical evidence with its original revision and environment. New implementation does not retroactively turn planned scenarios into passed tests.

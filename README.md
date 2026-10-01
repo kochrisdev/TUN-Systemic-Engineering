@@ -4,16 +4,22 @@ Engineering AI actions with explicit authority, evidence, and recovery.
 
 TUN Systemic Engineering is a proposed companion to [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design). It explores how an AI product can connect a person's intent to an action, enforce the authority to perform it, and report what actually happened.
 
-**Current status: concept stage.** This repository contains a concept note and manifesto. There is no released specification, schema package, runtime, or conformance suite yet.
+**Current status: draft engineering documentation.** The library now includes a draft specification, logical components, architecture, contracts, and planned validation procedures. No stable specification, schema package, reference runtime, or executable conformance suite has been released.
 
 ## Start here
 
 | Document | What it covers |
 |---|---|
+| [Documentation library](docs/README.md) | Reading paths and the complete engineering reference |
+| [Getting started](docs/GETTING-STARTED.md) | Apply the draft to one bounded workflow |
+| [Specification v0.1](docs/SPECIFICATION-v0.1.md) | 32 proposed engineering requirements and their applicability |
+| [Components v0.1](docs/COMPONENTS-v0.1.md) | 12 logical components, ownership, inputs, outputs, and failure behavior |
+| [Architecture](docs/ARCHITECTURE.md) | Trust boundaries, persistence, dispatch, evidence, and recovery |
+| [Contracts v0.1](docs/CONTRACTS-v0.1.md) | Record relationships and semantic invariants; not released schemas |
 | [Concept Note v0.1](docs/CONCEPT-NOTE-v0.1.md) | Scope, proposed records, architecture, engineering constraints, and the first pilot |
 | [Manifesto v0.1](docs/MANIFESTO-v0.1.md) | The commitments that guide the project |
 
-The concept note explains proposed behavior and open decisions. The manifesto states principles. Neither document establishes a compliance standard.
+The concept note explains the rationale; the manifesto states principles. The draft specification is the source of proposed requirements. The [conformance matrix](docs/CONFORMANCE-MATRIX.md) connects each requirement to a component and a planned procedure; all runtime requirements remain unassessed. See [status and roadmap](docs/STATUS-AND-ROADMAP.md) for what exists and what remains to be built.
 
 ## The problem we address
 
@@ -37,9 +43,9 @@ Recovery depends on the action and provider. Some effects can be restored; other
 
 The design project defines how people understand and control AI behavior, including obligations for the host application. This project develops the proposed engineering contracts and tests for those obligations.
 
-The intended integration is a host that supplies trustworthy records to TUN components such as `ApprovalGate` and `ActionReceipt`. Compatibility remains to be demonstrated by a working pilot.
+The intended integration is a host that supplies trustworthy records to TUN components such as `ApprovalGate` and `ActionReceipt`. The [design integration guide](docs/DESIGN-INTEGRATION-v0.1.md) maps all 14 design patterns to engineering responsibilities against a pinned design baseline. Compatibility remains to be demonstrated by a working pilot.
 
-## First milestone
+## Next implementation milestone
 
 Build a local publication pilot with versioned approval, authorization at dispatch, durable operation records, duplicate protection at the provider boundary, and verification through readback. Include a deliberate lost-response scenario and show that restarting the host does not cause another publication.
 
@@ -48,6 +54,8 @@ The [concept note](docs/CONCEPT-NOTE-v0.1.md#9-first-pilot-and-acceptance-criter
 ## Contributing
 
 Feedback is welcome through [issues](https://github.com/kochrisdev/TUN-Systemic-Engineering/issues) or pull requests. Useful contributions include concrete failure scenarios, corrections to proposed semantics, and examples of provider guarantees or limitations. Include expected behavior and evidence where possible.
+
+Read the [contribution guide](CONTRIBUTING.md) and run the [documentation checks](docs/DOCUMENTATION-CHECKS.md) when editing the library.
 
 ## License
 

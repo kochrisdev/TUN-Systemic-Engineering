@@ -8,7 +8,7 @@ Status: draft principles
 
 Revision: 1 October 2026
 
-[Project overview](../README.md) · [Concept note](CONCEPT-NOTE-v0.1.md)
+[Project overview](../README.md) · [Documentation library](README.md) · [Concept note](CONCEPT-NOTE-v0.1.md)
 
 AI products can interpret a person's request, choose tools, prepare changes, and carry out work across services. Each connection gives engineering a responsibility: preserve the person's intent, enforce the limits of authority, and establish what happened.
 
@@ -16,7 +16,7 @@ Software has automated consequential work for decades. AI adds variable interpre
 
 TUN Systemic Engineering is a proposed set of contracts and practices for that purpose. Its ambition is to make AI actions understandable through their records, controllable through their runtime, and accountable through their evidence.
 
-These are commitments that guide the project. The [concept note](CONCEPT-NOTE-v0.1.md) describes the proposed implementation and its limits. A specification and conformance suite remain future work.
+These are commitments that guide the project. The [concept note](CONCEPT-NOTE-v0.1.md) describes the rationale and limits. The [draft specification](SPECIFICATION-v0.1.md) translates the commitments into proposed requirements. A reference runtime and executable conformance suite remain future work.
 
 ## 01 — Begin With Human Purpose
 

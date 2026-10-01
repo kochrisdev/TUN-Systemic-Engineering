@@ -8,9 +8,9 @@ Revision: 1 October 2026
 
 Companion: [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design)
 
-[Project overview](../README.md) · [Manifesto](MANIFESTO-v0.1.md)
+[Project overview](../README.md) · [Documentation library](README.md) · [Manifesto](MANIFESTO-v0.1.md)
 
-This note proposes an engineering model. Record names and examples are provisional; they are not a published API or normative specification. This repository currently contains documentation only.
+This note explains the rationale for an engineering model. Record names and examples are provisional; they are not a published API. The [draft specification](SPECIFICATION-v0.1.md) is the source of proposed requirements, while the [contracts](CONTRACTS-v0.1.md) develop the record semantics. The repository contains documentation and a documentation checker, not a reference runtime.
 
 ## 1. Purpose and initial scope
 
@@ -217,7 +217,7 @@ Budgets cover time, retries, tool calls, and cost. Exhausting a budget stops fur
 
 ## 8. Proposed validation
 
-There is no conformance program or certification in this release. The following are candidate acceptance scenarios for a future versioned specification.
+There is no conformance program or certification. The [draft specification](SPECIFICATION-v0.1.md), [validation plan](VALIDATION-PLAN-v0.1.md), and [conformance matrix](CONFORMANCE-MATRIX.md) now define proposed requirements and planned procedures. None of those runtime procedures has been executed in this repository. The following scenarios summarize the motivating acceptance cases.
 
 | Scenario | Expected evidence |
 |---|---|
@@ -234,7 +234,7 @@ There is no conformance program or certification in this release. The following 
 | Duplicate-protection retention has elapsed | Replay is blocked unless a safe alternative is established |
 | Compensation fails | Original and compensating effects remain separately inspectable |
 
-A future conformance claim should identify the specification version, selected profile, implementation revision, adapter guarantees, test evidence, and limitations. Passing tests would establish only the tested scope. Adoption labels can be decided after that scope exists.
+A future conformance claim should identify the specification version, applicable requirements and justified exclusions, implementation revision, adapter guarantees, test evidence, and limitations. Passing tests would establish only the tested scope. Adoption labels can be decided after that scope exists.
 
 ## 9. First pilot and acceptance criteria
 
@@ -259,18 +259,21 @@ TypeScript contracts and SQLite persistence are reasonable pilot candidates. The
 
 ## 10. Development sequence
 
+The [glossary](GLOSSARY.md), draft requirements, record semantics, lifecycle rules, and planned validation procedures are now documented. Executable schemas, runtime behavior, and conformance evidence remain implementation work. The [status and roadmap](STATUS-AND-ROADMAP.md) tracks those distinctions.
+
 | Milestone | Deliverable | Exit condition |
 |---|---|---|
 | Vocabulary | Glossary, record relationships, action and evidence definitions | Approval, authorization, operation, attempt, and outcome have distinct meanings |
-| Draft contracts | Schemas and lifecycle rules for the pilot | Valid and invalid fixtures exercise cross-record bindings |
+| Executable contracts | Schemas and validators implementing the draft record and lifecycle rules | Valid and invalid fixtures exercise cross-record bindings |
 | Publication pilot | One reference host, provider, and design-component adapter | The acceptance criteria in section 9 are reproducible |
 | Failure coverage | Crash, race, privacy, and recovery scenarios | Declared guarantees have supporting results and explicit gaps |
 | Portability | A second adapter and integration guidance | Shared contracts survive different provider semantics without hiding limitations |
 
-Begin with a small repository layout, creating these directories only when their contents exist:
+Keep a small repository layout. The documentation and checker exist; create implementation directories only when their contents exist:
 
 ```text
-docs/                       Concept, manifesto, then glossary and specification
+docs/                       Engineering documentation library (present)
+scripts/                    Documentation checker (present)
 schemas/                    Proposed record schemas and examples
 reference/                  One host, provider, persistence layer, and UI adapter
 conformance/                Scenario fixtures and a runner
@@ -290,7 +293,7 @@ The pilot should resolve:
 - How are workflow authority and budgets renewed explicitly?
 - What evidence can be retained while respecting content deletion and access rules?
 
-These decisions should produce examples and recorded rationale before becoming normative requirements.
+The draft establishes constraints for these decisions, not a universal provider implementation. Pilot-specific choices should produce examples, recorded rationale, and evidence before the draft requirements are stabilized.
 
 ## 12. Intended outcome
 
