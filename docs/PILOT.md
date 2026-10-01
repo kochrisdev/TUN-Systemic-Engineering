@@ -63,6 +63,8 @@ The demonstration prints a pending receipt before readback, a completed receipt 
 
 ## Tested behavior
 
+The [validation record](PILOT-VALIDATION-2026-10-01.md) identifies the tested source commit, environment, 36 passing focused tests, demonstration result, and captured output.
+
 The local suite exercises schema families, invalid fixtures, semantic binding, stale approval, rejection, duplicate decisions, permission denial/revocation, expiry, operation identity, competing workers, readback mismatch, cross-scope access, receipt consistency, and selected persistence/crash failures.
 
 The child-process test terminates through an uncaught injected fault after provider commit, then reopens the durable records from the parent. This is an application/process interruption test, not power-loss, disk-corruption, or multi-host resilience testing.

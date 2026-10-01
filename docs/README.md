@@ -45,6 +45,7 @@ The documents define an initial engineering draft. An experimental local publica
 |---|---|
 | [Getting started](GETTING-STARTED.md) | First reading and implementation decisions; actual documentation-check command |
 | [Local publication pilot](PILOT.md) | Run the implementation, understand its tests, and inspect its limits |
+| [Pilot validation — 1 October 2026](PILOT-VALIDATION-2026-10-01.md) | Revision-bound executed results, captured output, and coverage limits |
 | [Integration checklist](INTEGRATION-CHECKLIST.md) | Adoption worksheet with ownership and evidence fields |
 | [Threat model](THREAT-MODEL.md) | Failure and attack scenarios across trust boundaries |
 | [Validation plan v0.1](VALIDATION-PLAN-v0.1.md) | Planned procedures with setup, observations, and evidence |

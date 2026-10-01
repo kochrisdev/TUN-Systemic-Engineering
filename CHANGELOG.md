@@ -9,6 +9,7 @@ This log records documentation milestones. The v0.1 label denotes an evolving dr
 - Added a Python host and separate SQLite publication provider with durable reservations, fixture approval/policy, readback, and versioned receipts.
 - Added focused tests for stale approval, revocation, expiry, concurrency, corruption, lost responses, and selected process/persistence failures.
 - Added a runnable synthetic demonstration and updated all implementation-status guidance.
+- Recorded a revision-bound local validation report and captured command output, without claiming complete conformance.
 
 This is a local experiment with trusted fixture identity. It does not release a production SDK, React adapter, remote provider, recovery writes, or complete conformance assessment.
 

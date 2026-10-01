@@ -25,6 +25,8 @@ The project has draft documentation, a documentation checker, and an [experiment
 
 ## Design baseline
 
+See the [pilot validation record](PILOT-VALIDATION-2026-10-01.md) for the exact tested engineering source revision, commands, results, and limits.
+
 The [design integration guide](DESIGN-INTEGRATION-v0.1.md) records the exact companion source revision inspected. The design project has an existing local host pilot; the engineering project can build on its lessons without claiming it already satisfies this draft.
 
 ## Milestone 1 — Review the draft contract

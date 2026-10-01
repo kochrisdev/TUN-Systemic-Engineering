@@ -47,6 +47,8 @@ Applicability is defined in the specification. A recommendation can allow a just
 
 ## Future assessment record
 
+The [local pilot validation record](PILOT-VALIDATION-2026-10-01.md) provides executed, revision-bound evidence for selected cases. Its coverage table explains why complete requirements above remain unassessed.
+
 Record these fields for an adopting product:
 
 | Field | What to provide |

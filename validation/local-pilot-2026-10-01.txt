@@ -1,0 +1,113 @@
+TUN experimental local pilot validation
+Source commit: 8861e9c27edf5d05343a6256ccdca5b7036ee9d1
+Recorded: 2026-10-01 08:05:13 UTC
+Environment: Windows 11 build 26200; CPython 3.13.4; SQLite 3.49.1
+Pilot environment: requirements-pilot.txt versions installed in an isolated venv.
+These are focused checks, not full conformance results.
+
+[pilot-tests] exit=0
+test_child_process_exits_after_provider_commit (test_pilot.PilotCase.test_child_process_exits_after_provider_commit) ... ok
+test_completed_publication_allows_explicit_new_occurrence (test_pilot.PilotCase.test_completed_publication_allows_explicit_new_occurrence) ... ok
+test_corrupt_stored_proposal_blocks_dispatch (test_pilot.PilotCase.test_corrupt_stored_proposal_blocks_dispatch) ... ok
+test_crash_before_provider_blocks_blind_replay (test_pilot.PilotCase.test_crash_before_provider_blocks_blind_replay) ... ok
+test_cross_scope_paths_are_denied (test_pilot.PilotCase.test_cross_scope_paths_are_denied) ... ok
+test_decision_redelivery_is_idempotent (test_pilot.PilotCase.test_decision_redelivery_is_idempotent) ... ok
+test_denial_is_persisted_without_grant (test_pilot.PilotCase.test_denial_is_persisted_without_grant) ... ok
+test_duplicate_keys_constants_and_oversize_json (test_pilot.PilotCase.test_duplicate_keys_constants_and_oversize_json) ... ok
+test_expired_grant_blocks_dispatch_but_not_historical_read (test_pilot.PilotCase.test_expired_grant_blocks_dispatch_but_not_historical_read) ... ok
+test_expired_proposal_cannot_receive_new_decision (test_pilot.PilotCase.test_expired_proposal_cannot_receive_new_decision) ... ok
+test_explicit_fixture_files (test_pilot.PilotCase.test_explicit_fixture_files) ... ok
+test_failed_reservation_transaction_never_invokes_provider (test_pilot.PilotCase.test_failed_reservation_transaction_never_invokes_provider) ... ok
+test_generated_records_cover_every_schema_family (test_pilot.PilotCase.test_generated_records_cover_every_schema_family) ... ok
+test_grant_operation_substitution_blocks_dispatch (test_pilot.PilotCase.test_grant_operation_substitution_blocks_dispatch) ... ok
+test_happy_path_requires_separate_readback (test_pilot.PilotCase.test_happy_path_requires_separate_readback) ... ok
+test_lost_response_reopens_and_reconciles_one_effect (test_pilot.PilotCase.test_lost_response_reopens_and_reconciles_one_effect) ... ok
+test_material_change_requires_rebinding (test_pilot.PilotCase.test_material_change_requires_rebinding) ... ok
+test_new_unavailability_preserves_prior_observation (test_pilot.PilotCase.test_new_unavailability_preserves_prior_observation) ... ok
+test_outcome_persistence_failure_leaves_reconcilable_reservation (test_pilot.PilotCase.test_outcome_persistence_failure_leaves_reconcilable_reservation) ... ok
+test_provider_repeated_key_checks_parameters (test_pilot.PilotCase.test_provider_repeated_key_checks_parameters) ... ok
+test_receipt_cannot_invent_verified_completion (test_pilot.PilotCase.test_receipt_cannot_invent_verified_completion) ... ok
+test_rejected_proposal_cannot_dispatch (test_pilot.PilotCase.test_rejected_proposal_cannot_dispatch) ... ok
+test_revocation_after_queue_blocks_dispatch (test_pilot.PilotCase.test_revocation_after_queue_blocks_dispatch) ... ok
+test_revoked_write_permission_still_allows_owned_readback (test_pilot.PilotCase.test_revoked_write_permission_still_allows_owned_readback) ... ok
+test_separate_stores_required (test_pilot.PilotCase.test_separate_stores_required) ... ok
+test_stale_approval_does_not_transfer_to_revision (test_pilot.PilotCase.test_stale_approval_does_not_transfer_to_revision) ... ok
+test_stored_revision_mismatch_is_rejected (test_pilot.PilotCase.test_stored_revision_mismatch_is_rejected) ... ok
+test_stored_unknown_schema_blocks_dispatch (test_pilot.PilotCase.test_stored_unknown_schema_blocks_dispatch) ... ok
+test_structural_and_semantic_validation_are_separate (test_pilot.PilotCase.test_structural_and_semantic_validation_are_separate) ... ok
+test_two_workers_dispatch_only_once (test_pilot.PilotCase.test_two_workers_dispatch_only_once) ... ok
+test_two_workers_reserve_same_operation (test_pilot.PilotCase.test_two_workers_reserve_same_operation) ... ok
+test_unavailable_lookup_preserves_unknown (test_pilot.PilotCase.test_unavailable_lookup_preserves_unknown) ... ok
+test_unknown_equivalent_replacement_is_blocked (test_pilot.PilotCase.test_unknown_equivalent_replacement_is_blocked) ... ok
+test_unknown_fields_versions_types_and_bad_dates (test_pilot.PilotCase.test_unknown_fields_versions_types_and_bad_dates) ... ok
+test_wrong_operation_verification_is_rejected (test_pilot.PilotCase.test_wrong_operation_verification_is_rejected) ... ok
+test_wrong_readback_cannot_verify (test_pilot.PilotCase.test_wrong_readback_cannot_verify) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 2.947s
+
+OK
+
+[demo] exit=0
+{
+  "scenario": "fixture approval -> publication -> lost response -> reopen -> readback",
+  "beforeReadback": {
+    "binding": "sha256:c69431b50e560dca92ab630d9d76e0bea3ac98e3be7b8243a39bca47c869c705",
+    "createdAt": "2026-10-01T08:05:07.228Z",
+    "effectKnowledge": "unknown",
+    "id": "970302b6-d5e6-48c3-a9ad-6dd0cae6d3c1",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "970302b6-d5e6-48c3-a9ad-6dd0cae6d3c1",
+    "proposalRef": {
+      "id": "cf3d91fe-4854-4085-81ff-c1c38285ffe7",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.1",
+    "scope": "sandbox",
+    "status": "pending-verification",
+    "target": "project-board",
+    "verificationRef": null,
+    "verificationState": "pending",
+    "version": "3"
+  },
+  "afterReadback": {
+    "binding": "sha256:c69431b50e560dca92ab630d9d76e0bea3ac98e3be7b8243a39bca47c869c705",
+    "createdAt": "2026-10-01T08:05:07.259Z",
+    "effectKnowledge": "observed",
+    "id": "970302b6-d5e6-48c3-a9ad-6dd0cae6d3c1",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "970302b6-d5e6-48c3-a9ad-6dd0cae6d3c1",
+    "proposalRef": {
+      "id": "cf3d91fe-4854-4085-81ff-c1c38285ffe7",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.1",
+    "scope": "sandbox",
+    "status": "completed",
+    "target": "project-board",
+    "verificationRef": {
+      "id": "970302b6-d5e6-48c3-a9ad-6dd0cae6d3c1",
+      "version": "1"
+    },
+    "verificationState": "verified",
+    "version": "4"
+  },
+  "providerPublicationCount": 1,
+  "limits": "Synthetic identities, local stores, no model, no remote publishing, no full conformance claim."
+}
+
+[documentation] exit=0
+Documentation checks passed: 28 Markdown files, 430 local links, 1 illustrative JSON block(s), 32 requirements, 12 components, 32 planned procedures.
+No runtime conformance procedures were executed; external URLs and diagram rendering were not tested.
+
+[checker-tests] exit=0
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.241s
+
+OK
+
+[dependencies] exit=0
+No broken requirements found.
