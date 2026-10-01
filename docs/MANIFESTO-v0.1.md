@@ -16,7 +16,7 @@ Software has automated consequential work for decades. AI adds variable interpre
 
 TUN Systemic Engineering is a proposed set of contracts and practices for that purpose. Its ambition is to make AI actions understandable through their records, controllable through their runtime, and accountable through their evidence.
 
-These are commitments that guide the project. The [concept note](CONCEPT-NOTE-v0.1.md) describes the rationale and limits. The [draft specification](SPECIFICATION-v0.1.md) translates the commitments into proposed requirements. An [experimental local pilot](PILOT.md) now exercises a narrow publication workflow. A production runtime and full executable conformance suite remain future work.
+These are commitments that guide the project. The [concept note](CONCEPT-NOTE-v0.1.md) describes the rationale and limits. The [draft specification](SPECIFICATION-v0.1.md) translates the commitments into proposed requirements. An [experimental local pilot](PILOT.md) exercises a narrow publication and recovery workflow with a review interface. A production runtime and full executable conformance suite remain future work.
 
 ## 01 — Begin With Human Purpose
 

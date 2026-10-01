@@ -55,6 +55,6 @@ Canonicalization needs an action-specific field set and versioned references. Au
 | Evidence and memory | Verification provenance, context use, access, and retention |
 | Supervision and recovery | Runtime controls and linked recovery operations |
 | Validation records | Planned scenarios, then revision-bound execution evidence |
-| Showcase | Future local publication pilot and its observable failure journeys |
+| Showcase | [Local pilot](PILOT.md) and its observable lost-response and recovery journeys |
 
 The correspondence preserves the design site's reading experience while giving engineering its own technical substance. A future runtime or documentation website should derive its claims from the same status and evidence records.

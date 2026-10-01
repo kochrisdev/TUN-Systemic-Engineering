@@ -6,9 +6,9 @@ Updated: 1 October 2026.
 
 ## What this repository provides
 
-The repository contains a draft specification, a component catalog, architectural and workflow guidance, a proposed record model, a design-integration map, an adoption worksheet, planned validation procedures, and a requirement traceability matrix. It also provides a standard-library documentation checker and an [experimental local publication pilot](PILOT.md).
+The repository contains a draft specification, a component catalog, architectural and workflow guidance, a proposed record model, a design-integration map, an adoption worksheet, planned validation procedures, and a requirement traceability matrix. It also provides a standard-library documentation checker and an [experimental local publication and recovery pilot](PILOT.md).
 
-The specification remains a draft. A specialized JSON Schema profile and Python/SQLite host/provider implement one local workflow. Focused pilot tests and checker regression tests are executable; general record shapes remain proposed.
+The specification remains a draft. A specialized JSON Schema profile and Python/SQLite host/provider implement one local workflow. A local React interface uses two pinned design components. Focused pilot tests and checker regression tests are executable; general record shapes remain proposed.
 
 ## Initial engineering boundary
 
@@ -20,9 +20,9 @@ The architecture is technology-neutral. The reference implementation direction i
 
 ## What remains planned
 
-No production runtime, stable schema package, model integration, remote provider adapter, React presentation adapter, or complete runtime conformance suite is supplied. The local pilot's fixture identity, limited host, and SQLite provider are not substitutes for those features.
+No production runtime, stable schema package, model integration, remote provider adapter, general-purpose presentation SDK, or complete runtime conformance suite is supplied. The local pilot's fixture identity, limited host, and SQLite provider are not substitutes for those features.
 
-The companion design repository's UI components and local host example are separate implementations. Their existence or test results cannot be transferred automatically to this engineering specification.
+The companion design repository's broader UI library and local host example are separate implementations. This repository vendors only ApprovalGate, ActionReceipt, and their supporting files at a pinned revision. Their existence or test results cannot be transferred automatically to this engineering specification.
 
 ## Limits of the model
 

@@ -6,7 +6,7 @@ Updated: 1 October 2026.
 
 ## Current status
 
-The project has draft documentation, a documentation checker, and an [experimental publication pilot](PILOT.md). Specialized schemas and focused local tests exist; general-purpose implementation and full assessment remain future work.
+The project has draft documentation, a documentation checker, and an [experimental publication and recovery pilot](PILOT.md). Specialized schemas and focused local tests exist; general-purpose implementation and full assessment remain future work.
 
 | Area | Current state | Evidence or next artifact |
 |---|---|---|
@@ -14,12 +14,12 @@ The project has draft documentation, a documentation checker, and an [experiment
 | Behavioral requirements | Draft-specified | [Specification](SPECIFICATION-v0.1.md) |
 | Logical components and architecture | Draft-specified | [Components](COMPONENTS-v0.1.md), [Architecture](ARCHITECTURE.md) |
 | Records and state | Proposed | [Contracts](CONTRACTS-v0.1.md), [Lifecycles](LIFECYCLES-v0.1.md) |
-| Design component integration | Mapping documented; adapter not implemented | [Design integration](DESIGN-INTEGRATION-v0.1.md) |
+| Design component integration | Two pinned React components integrated locally; broader mapping remains proposed | [Design integration](DESIGN-INTEGRATION-v0.1.md) |
 | Threats and assessment | Full procedures unassessed; limited pilot tests exist | [Threat model](THREAT-MODEL.md), [Conformance matrix](CONFORMANCE-MATRIX.md) |
 | Documentation checker | Implemented | [Check description](DOCUMENTATION-CHECKS.md), [source](../scripts/check_docs.py) |
-| Runtime schemas and types | Experimental publication profile implemented | [Schema and fixtures](../schemas/README.md); general schemas and migration remain open |
+| Runtime schemas and types | Experimental v0.2 publication/recovery profile implemented | [Schema and fixtures](../schemas/README.md); general schemas and migration remain open |
 | Authority and execution kernel | Narrow local host implemented | [Pilot](PILOT.md); fixture identity only, no production kernel |
-| Provider and verification adapters | Local SQLite publication/readback implemented | [Pilot](PILOT.md); no remote provider or React adapter |
+| Provider and verification adapters | Local SQLite publication, correction, withdrawal, and readback implemented | [Pilot](PILOT.md); no remote provider; two-component React view exists |
 | Runtime conformance runner | Complete runner not implemented | [Focused tests](../tests/test_pilot.py), not full procedure coverage |
 | Distribution and hosted engineering site | Not supplied | Separate future decisions |
 
@@ -37,7 +37,7 @@ Exit: the specification, contract model, lifecycle guidance, and scenario map ag
 
 ## Milestone 2 — Publish schema fixtures
 
-Progress: the experimental publication profile and valid/invalid fixtures are implemented. General schemas, migration, and portable binding decisions remain open.
+Progress: the experimental publication/recovery profile and valid/invalid tests are implemented. The v0.1 fixture schema is retained for historical decoding, not automatic store migration. General schemas, migration, and portable binding decisions remain open.
 
 Implement runtime schemas for the pilot's canonical records and request boundaries. Include invalid cross-record references, unsupported versions, material mutation, and migration cases.
 
@@ -45,13 +45,15 @@ Exit: fixtures can be validated repeatably, with semantic checks documented sepa
 
 ## Milestone 3 — Implement the publication pilot
 
-Progress: the local host, durable journal, provider, readback, and structured receipt are implemented and exercised by focused tests. The design-component adapter and human interface are not yet implemented; this milestone is not complete.
+Progress: the local host, durable journal, provider, readback, and structured receipt are implemented and exercised by focused tests. A local interface now integrates the pinned ApprovalGate and ActionReceipt. This supplies the bounded pilot artifacts, not a production release or full accessibility assessment.
 
 Build one host, durable journal, local provider, verification path, and presentation adapter. Use fixture identity and content.
 
 Exit: a version-bound approval can produce one verified local publication; stale approval is blocked; a lost response survives restart and is reconciled without another publication. Unavailable readback remains unknown. Record source revisions and test evidence.
 
 ## Milestone 4 — Add supervision and recovery
+
+Progress: separately approved correction and withdrawal now check action-specific authority and the exact provider resource revision. Both preserve the original history. Cancellation and budget controls remain unimplemented; this milestone is not complete.
 
 Implement cancellation before dispatch, budget controls, reconciliation, and separately authorized withdrawal or correction. Expand to partial effects only when the provider model supports them.
 

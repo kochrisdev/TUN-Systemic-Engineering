@@ -4,7 +4,7 @@ Engineering AI actions with explicit authority, evidence, and recovery.
 
 TUN Systemic Engineering is a proposed companion to [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design). It explores how an AI product can connect a person's intent to an action, enforce the authority to perform it, and report what actually happened.
 
-**Current status: draft specification with an experimental local pilot.** The library includes engineering requirements, architecture, and guides. A Python/SQLite publication pilot now supplies specialized JSON schemas and focused tests. There is no stable SDK, production runtime, full conformance result, or hosted engineering site.
+**Current status: draft specification with an experimental local pilot.** The library includes engineering requirements, architecture, and guides. A Python/SQLite pilot now includes publication, separately approved correction/withdrawal, and a local React review interface using two pinned TUN design components. There is no stable SDK, production runtime, full conformance result, or hosted engineering site.
 
 ## Start here
 
@@ -12,7 +12,7 @@ TUN Systemic Engineering is a proposed companion to [TUN Systemic Design](https:
 |---|---|
 | [Documentation library](docs/README.md) | Reading paths and the complete engineering reference |
 | [Getting started](docs/GETTING-STARTED.md) | Apply the draft to one bounded workflow |
-| [Run the local pilot](docs/PILOT.md) | Executable schemas, publication, lost-response recovery, and focused tests |
+| [Run the local pilot](docs/PILOT.md) | Local review interface, publication, correction/withdrawal, and focused tests |
 | [Specification v0.1](docs/SPECIFICATION-v0.1.md) | 32 proposed engineering requirements and their applicability |
 | [Components v0.1](docs/COMPONENTS-v0.1.md) | 12 logical components, ownership, inputs, outputs, and failure behavior |
 | [Architecture](docs/ARCHITECTURE.md) | Trust boundaries, persistence, dispatch, evidence, and recovery |
@@ -44,13 +44,13 @@ Recovery depends on the action and provider. Some effects can be restored; other
 
 The design project defines how people understand and control AI behavior, including obligations for the host application. This project develops the proposed engineering contracts and tests for those obligations.
 
-The intended integration is a host that supplies trustworthy records to TUN components such as `ApprovalGate` and `ActionReceipt`. The [design integration guide](docs/DESIGN-INTEGRATION-v0.1.md) maps all 14 design patterns to engineering responsibilities against a pinned design baseline. Compatibility remains to be demonstrated by a working pilot.
+The local host supplies presentation records to the actual `ApprovalGate` and `ActionReceipt` components from a pinned design source revision. The [design integration guide](docs/DESIGN-INTEGRATION-v0.1.md) maps all 14 design patterns to engineering responsibilities; only those two components are integrated here. This is a bounded experiment, not general library compatibility.
 
 ## Current pilot and next increment
 
 The [local pilot](docs/PILOT.md) implements fixture approval, current authorization checks, durable operation records, local provider duplicate protection, and verification through readback. Its demonstration loses a provider response and recovers the original publication after reopening the stores.
 
-Next: separately approved correction/withdrawal and a tested design-component adapter. The current pilot has no real identity service, external provider, or interactive review UI.
+The [review and recovery guide](docs/REVIEW-AND-RECOVERY-PILOT.md) adds a browser journey with distinct review, approval, execution, and verification steps. Correction and withdrawal require fresh approval, action-specific permission, and an unchanged resource revision. Next: pre-dispatch cancellation, budget controls, and a controlled remote provider. Real authentication remains unimplemented.
 
 The [concept note](docs/CONCEPT-NOTE-v0.1.md#9-first-pilot-and-acceptance-criteria) defines the acceptance criteria. Model, retrieval, and product-quality evaluations remain separate responsibilities.
 
@@ -62,4 +62,4 @@ Read the [contribution guide](CONTRIBUTING.md) and run the [documentation checks
 
 ## License
 
-[MIT](LICENSE).
+Original engineering code and documentation: [MIT](LICENSE). The pinned TUN design subset retains its upstream [CC0 license and attribution](ui/vendor/tun-design/README.md).

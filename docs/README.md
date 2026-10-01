@@ -12,7 +12,7 @@
 
 **Reviewing reliability and security:** Threat Model → Validation Plan → Conformance Matrix → Integration Checklist.
 
-The documents define an initial engineering draft. An experimental local publication pilot now provides specialized schemas, a host/provider implementation, and focused tests. It is not a released SDK or complete conformance implementation.
+The documents define an initial engineering draft. An experimental local pilot provides specialized schemas, a host/provider implementation, separately approved recovery, and a two-component React review interface. It is not a released SDK or complete conformance implementation.
 
 ## Foundation
 
@@ -44,7 +44,8 @@ The documents define an initial engineering draft. An experimental local publica
 | Document | Purpose |
 |---|---|
 | [Getting started](GETTING-STARTED.md) | First reading and implementation decisions; actual documentation-check command |
-| [Local publication pilot](PILOT.md) | Run the implementation, understand its tests, and inspect its limits |
+| [Local pilot](PILOT.md) | Run the implementation, understand its tests, and inspect its limits |
+| [Review and recovery pilot](REVIEW-AND-RECOVERY-PILOT.md) | Build the local interface and exercise publication, correction, and withdrawal |
 | [Pilot validation — 1 October 2026](PILOT-VALIDATION-2026-10-01.md) | Revision-bound executed results, captured output, and coverage limits |
 | [Integration checklist](INTEGRATION-CHECKLIST.md) | Adoption worksheet with ownership and evidence fields |
 | [Threat model](THREAT-MODEL.md) | Failure and attack scenarios across trust boundaries |

@@ -1,4 +1,7 @@
 __pycache__/
+node_modules/
+ui/dist/
+ui/coverage/
 *.py[cod]
 .venv/
 *.sqlite3

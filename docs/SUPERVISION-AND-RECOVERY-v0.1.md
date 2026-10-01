@@ -74,3 +74,9 @@ Bound reconciliation polling, retries, control response time, and recovery cost.
 For each control, retain the requested effect, run/control references, requester, acknowledgement, actual observation, residual effects, and next step. For each recovery, retain the original operation, why the recovery was chosen, its authority, effects, and verification.
 
 Exercise budget and intervention scenarios in [V-23 through V-27](VALIDATION-PLAN-v0.1.md#v-23), including stale control requests and recovery failure. The host's own “stop requested” log is insufficient evidence that the worker stopped.
+
+## Local recovery implementation
+
+The [v0.2 pilot walkthrough](REVIEW-AND-RECOVERY-PILOT.md) implements correction and withdrawal as fresh proposals, approvals, action-specific authorizations, operations, and receipts. The provider checks the exact active resource revision atomically with the change. A stale precondition produces a correlated rejection record and no resource change. Readback establishes that outcome; a timeout does not.
+
+This subset does not implement the general supervision controller, cancellation, budgets, retry, partial effects, or restoration. Withdrawal hides the active resource but retains its content in authorized historical records; it is neither erasure nor reversal of external consequences.

@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Design Integration v0.1
 
-Status: proposed adapter guide; no engineering-to-React adapter is implemented here.
+Status: broader mapping remains proposed; the local pilot implements a two-component adapter for ApprovalGate and ActionReceipt.
 
 [Documentation index](README.md) · [Components](COMPONENTS-v0.1.md) · [Contracts](CONTRACTS-v0.1.md) · [Lifecycles](LIFECYCLES-v0.1.md)
 
@@ -10,7 +10,7 @@ This guide inspects TUN Systemic Design at [commit 81b52e8](https://github.com/k
 
 The design library has fourteen presentation components. The twelve engineering components are host responsibilities, so the relationship is many-to-many.
 
-Matching names do not establish type compatibility. Pin and test the design revision used by an eventual adapter.
+Matching names do not establish type compatibility. The [local review pilot](REVIEW-AND-RECOVERY-PILOT.md) uses a [vendored subset](../ui/vendor/tun-design/README.md) at this exact revision, with its CC0 license preserved. The Python [projection adapter](../reference/tse_pilot/presentation.py) supplies the view; the [React host](../ui/src/App.tsx) renders the two components. Other components below are not integrated.
 
 ## Pattern mapping
 
@@ -62,7 +62,7 @@ At the inspected design revision, `ReceiptStatus` contains `completed`, `partial
 
 If a flat receipt cannot faithfully express verified partial effects alongside unresolved effects, compose a host detail view. Do not erase information to fit an enum. Receipt timestamps come from the supported observation/assessment, not from the time the browser rendered it.
 
-These are mapping proposals. Acceptance needs adapter tests and human review of unknown, partial, and contradictory states.
+The local adapter implements completed, pending, unavailable, contradicted, blocked, and verified-rejection projections. Contradictions become pending-verification with explicit contradiction text; blocked dispatch becomes failed with a no-provider-call explanation. A verified correction or withdrawal has a separate completed receipt and never relabels the original reversed. SourceView, partial effects, and reversal are not implemented. Focused tests are not complete adapter acceptance or human-factors validation.
 
 ## Activity and controls
 

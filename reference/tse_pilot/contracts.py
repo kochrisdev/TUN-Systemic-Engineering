@@ -8,12 +8,15 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-SCHEMA_VERSION = "tse-pilot/0.1"
+SCHEMA_VERSION = "tse-pilot/0.2"
 MAX_BYTES = 65536
-SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas/pilot-v0.1.schema.json"
-SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
-Draft202012Validator.check_schema(SCHEMA)
-VALIDATOR = Draft202012Validator(SCHEMA)
+SCHEMA_ROOT = Path(__file__).resolve().parents[2] / "schemas"
+SCHEMAS = {f"tse-pilot/{version}": json.loads((SCHEMA_ROOT / f"pilot-v{version}.schema.json").read_text(encoding="utf-8"))
+           for version in ("0.1", "0.2")}
+for _schema in SCHEMAS.values():
+    Draft202012Validator.check_schema(_schema)
+SCHEMA = SCHEMAS[SCHEMA_VERSION]
+VALIDATORS = {version: Draft202012Validator(schema) for version, schema in SCHEMAS.items()}
 
 
 class ContractError(ValueError):
@@ -69,7 +72,8 @@ def validate(record: dict, kind: str | None = None) -> None:
     try:
         if len(canonical(record).encode("utf-8")) > MAX_BYTES:
             raise ContractError("record exceeds size limit")
-        if next(VALIDATOR.iter_errors(record), None) is not None:
+        validator = VALIDATORS.get(record.get("schemaVersion")) if isinstance(record, dict) else None
+        if validator is None or next(validator.iter_errors(record), None) is not None:
             raise ContractError("record does not match pilot schema")
         if kind is not None and record["kind"] != kind:
             raise ContractError("unexpected record family")
@@ -91,6 +95,12 @@ def validate_proposal(proposal: dict) -> None:
         raise ContractError("proposal material binding mismatch")
     if moment(proposal["expiresAt"]) <= moment(proposal["createdAt"]):
         raise ContractError("proposal validity interval is empty")
+    if proposal["schemaVersion"] == SCHEMA_VERSION:
+        publication = proposal["actionType"] == "publish"
+        if publication != (proposal["recoveryFor"] is None and proposal["expectedResourceVersion"] is None):
+            raise ContractError("invalid action recovery binding")
+        if not publication and (proposal["recoveryFor"] is None or proposal["expectedResourceVersion"] is None):
+            raise ContractError("recovery requires a resource revision")
 
 
 def validate_binding(record: dict, proposal: dict) -> None:

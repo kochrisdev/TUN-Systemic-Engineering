@@ -1,0 +1,61 @@
+/* Component presentation only. Import once at the application entry point. */
+@import './tokens.css';
+.tun-component { box-sizing: border-box; min-inline-size: 0; padding: var(--tun-space-6); border: var(--tun-border-thin) solid var(--tun-border-subtle); border-radius: var(--tun-radius-lg); background: var(--tun-surface-panel); color: var(--tun-text-primary); font-family: var(--tun-font-family-sans); font-size: var(--tun-font-size-md); line-height: var(--tun-font-line-height-normal); overflow-wrap: anywhere; }
+.tun-component.tun-approval { border-style: dashed; border-color: var(--tun-border-control); }
+.tun-component.tun-receipt { border-inline-start: var(--tun-border-emphasis) solid var(--tun-border-control); }
+.tun-component *, .tun-component *::before, .tun-component *::after { box-sizing: border-box; }
+.tun-component p { margin-block: 0 var(--tun-space-4); }
+.tun-component :last-child { margin-block-end: 0; }
+.tun-component .tun-heading { display: block; font-size: var(--tun-font-size-xl); font-weight: var(--tun-font-weight-bold); line-height: var(--tun-font-line-height-compact); margin-block: 0 var(--tun-space-4); }
+.tun-component .tun-eyebrow { font-family: var(--tun-font-family-mono); font-size: var(--tun-font-size-xs); color: var(--tun-text-secondary); margin-block-end: var(--tun-space-2); }
+.tun-component .tun-muted { color: var(--tun-text-secondary); }
+.tun-component .tun-caption { color: var(--tun-text-muted); font-size: var(--tun-font-size-sm); }
+.tun-component .tun-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tun-space-3); }
+.tun-component .tun-row > * { min-inline-size: 0; }
+.tun-component .tun-row-top { align-items: flex-start; }
+.tun-component .tun-input { display: block; inline-size: 100%; min-block-size: 8rem; resize: vertical; font: inherit; line-height: var(--tun-font-line-height-normal); padding: var(--tun-space-3); margin-block-end: var(--tun-space-4); border: var(--tun-border-thin) solid var(--tun-border-control); border-radius: var(--tun-radius-md); background: var(--tun-surface-panel); color: var(--tun-text-primary); }
+.tun-component .tun-input:disabled { background: var(--tun-surface-subtle); }
+/* Enable/disable changes must switch paired foreground/background colors together.
+   Animating only the background briefly leaves light text on a light disabled
+   surface (and dark text on a dark one), even when the endpoint tokens pass. */
+.tun-component .tun-button { display: inline-flex; align-items: center; justify-content: center; min-block-size: var(--tun-control-min-size); max-inline-size: 100%; padding: var(--tun-space-2) var(--tun-space-4); border: var(--tun-border-thin) solid var(--tun-border-control); border-radius: var(--tun-radius-md); background: var(--tun-surface-panel); color: var(--tun-text-primary); font: inherit; font-weight: var(--tun-font-weight-semibold); white-space: normal; cursor: pointer; transition: none; }
+.tun-component .tun-button-primary { border-color: var(--tun-action-primary-bg); background: var(--tun-action-primary-bg); color: var(--tun-action-primary-fg); }
+.tun-component .tun-button-primary:hover:not(:disabled) { background: var(--tun-action-primary-hover); }
+.tun-component .tun-button-danger { border-color: var(--tun-action-danger-bg); background: var(--tun-action-danger-bg); color: var(--tun-action-danger-fg); }
+.tun-component .tun-button-danger:hover:not(:disabled) { background: var(--tun-action-danger-hover); }
+.tun-component .tun-button:disabled { cursor: not-allowed; background: var(--tun-surface-subtle); color: var(--tun-text-muted); border-color: var(--tun-border-subtle); }
+.tun-component :where(button, textarea, a, summary):focus-visible { outline: var(--tun-focus-width) solid var(--tun-focus-ring); outline-offset: var(--tun-focus-offset); }
+.tun-component .tun-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: var(--tun-space-3); margin-block: var(--tun-space-4); }
+.tun-component .tun-badge { display: inline-flex; align-items: center; border: var(--tun-border-thin) solid currentColor; border-radius: var(--tun-radius-sm); padding: var(--tun-space-1) var(--tun-space-2); font-size: var(--tun-font-size-sm); background: var(--tun-surface-panel); }
+.tun-component .tun-tone-success { color: var(--tun-status-success-fg); }
+.tun-component .tun-tone-warning { color: var(--tun-status-warning-fg); }
+.tun-component .tun-tone-danger { color: var(--tun-status-danger-fg); }
+.tun-component .tun-tone-neutral { color: var(--tun-status-neutral-fg); }
+.tun-component .tun-facts { margin-block: var(--tun-space-4); }
+.tun-component .tun-facts > div { display: grid; grid-template-columns: minmax(0, 8rem) minmax(0, 1fr); gap: var(--tun-space-3); padding-block: var(--tun-space-3); border-block-end: var(--tun-border-thin) solid var(--tun-border-subtle); }
+.tun-component dt { color: var(--tun-text-secondary); }
+.tun-component dd { margin: 0; min-inline-size: 0; }
+.tun-component ul { margin-block: 0; padding-inline-start: var(--tun-space-5); }
+.tun-component .tun-notice { padding: var(--tun-space-3); background: var(--tun-surface-subtle); border-inline-start: var(--tun-border-emphasis) solid var(--tun-border-control); }
+.tun-component .tun-details summary { cursor: pointer; padding-block: var(--tun-space-3); min-block-size: var(--tun-control-min-size); }
+.tun-component .tun-link { display: inline-flex; align-items: center; min-block-size: var(--tun-control-min-size); color: var(--tun-text-link); text-decoration: underline; }
+@media (max-width: 30rem) {
+  .tun-component { padding: var(--tun-space-4); }
+  .tun-component .tun-facts > div { grid-template-columns: minmax(0, 1fr); gap: var(--tun-space-1); }
+  .tun-component .tun-actions > button { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .tun-component * { transition-duration: 0ms !important; animation: none !important; scroll-behavior: auto !important; } }
+@media (forced-colors: active) {
+  .tun-component .tun-button, .tun-component .tun-badge, .tun-component .tun-input { border-color: ButtonText; }
+  .tun-component .tun-button:disabled { border-color: GrayText; color: GrayText; }
+  .tun-component :where(button, textarea, a, summary):focus-visible { outline-color: Highlight; }
+}
+
+/* Context, plan, and proposal recipes. Never hide consequential detail. */
+.tun-component.tun-proposal { border-style: dashed; border-color: var(--tun-border-control); }
+.tun-component .tun-subheading { font-size: var(--tun-font-size-md); font-weight: var(--tun-font-weight-semibold); line-height: var(--tun-font-line-height-normal); margin-block: 0 var(--tun-space-2); }
+.tun-component .tun-source-list { list-style: none; padding-inline-start: 0; margin-block: var(--tun-space-4); }
+.tun-component .tun-source-item, .tun-component .tun-plan-steps > li { padding-block: var(--tun-space-4); border-block-end: var(--tun-border-thin) solid var(--tun-border-subtle); }
+.tun-component .tun-plan-steps { padding-inline-start: var(--tun-space-6); margin-block: var(--tun-space-4); }
+.tun-component .tun-preserve-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.tun-component .tun-preview { padding: var(--tun-space-4); margin-block: var(--tun-space-4); background: var(--tun-surface-subtle); border-inline-start: var(--tun-border-emphasis) solid var(--tun-border-control); }

@@ -2,6 +2,16 @@
 
 This log records documentation milestones. The v0.1 label denotes an evolving draft, not a package release. Source commits identify exact revisions.
 
+## 2026-10-01 — Local review and separately approved recovery
+
+- Added the experimental tse-pilot/0.2 profile while preserving the historical v0.1 schema and fixtures.
+- Added correction and withdrawal with fresh approval, separate permissions, revision preconditions, and immutable outcome history.
+- Integrated the pinned TUN ApprovalGate and ActionReceipt in a loopback-only React review interface.
+- Added bounded local HTTP commands, origin/token checks, recovery tests, HTTP boundary tests, and component projection tests.
+- Updated the pilot guides, integration map, scope, and roadmap to distinguish implemented local behavior from planned capabilities.
+
+No production authentication, remote provider, general SDK, automatic migration, or full conformance claim is introduced.
+
 ## 2026-10-01 — Experimental publication pilot
 
 - Added a JSON Schema 2020-12 pilot profile for eight core records and provider readback evidence, with valid and invalid fixtures.
