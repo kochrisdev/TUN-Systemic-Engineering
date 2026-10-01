@@ -1,6 +1,6 @@
 # Contributing to TUN Systemic Engineering
 
-TUN Systemic Engineering is at the draft specification stage. Contributions can clarify behavior, identify failure cases, improve the documents, or develop a bounded implementation through a separately scoped change.
+TUN Systemic Engineering is at the draft specification stage. Contributions can clarify behavior, identify failure cases, improve the documents, or improve the bounded [local pilot](docs/PILOT.md).
 
 [Documentation index](docs/README.md) · [Scope](docs/SCOPE.md) · [Status](docs/STATUS-AND-ROADMAP.md)
 
@@ -29,6 +29,10 @@ python scripts/check_docs.py
 When changing the checker, also run `python -B scripts/test_check_docs.py` to exercise its regression fixtures.
 
 Also review technical meaning, examples, evidence scope, and provider assumptions. The checker cannot establish semantic correctness or runtime conformance. See [Documentation checks](docs/DOCUMENTATION-CHECKS.md).
+
+## Validate pilot changes
+
+Install the pinned pilot dependencies in an isolated environment, then run `python -B -m unittest discover -s tests -v` and `python -B -m reference.tse_pilot.demo` using that environment's Python. See the [pilot guide](docs/PILOT.md) for setup and limits. A focused test does not establish an entire specification requirement.
 
 ## Share evidence responsibly
 

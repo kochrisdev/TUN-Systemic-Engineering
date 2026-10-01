@@ -1,0 +1,30 @@
+[
+  {
+    "file": "valid-proposal.json",
+    "valid": true
+  },
+  {
+    "file": "invalid-version.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-material-binding.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-unknown-schema.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-extra-field.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-date.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-duplicate-key.json",
+    "valid": false
+  }
+]

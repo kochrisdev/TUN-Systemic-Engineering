@@ -10,7 +10,7 @@ Companion: [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Desi
 
 [Project overview](../README.md) · [Documentation library](README.md) · [Manifesto](MANIFESTO-v0.1.md)
 
-This note explains the rationale for an engineering model. Record names and examples are provisional; they are not a published API. The [draft specification](SPECIFICATION-v0.1.md) is the source of proposed requirements, while the [contracts](CONTRACTS-v0.1.md) develop the record semantics. The repository contains documentation and a documentation checker, not a reference runtime.
+This note explains the rationale for an engineering model. Record names and examples are provisional; they are not a published API. The [draft specification](SPECIFICATION-v0.1.md) is the source of proposed requirements, while the [contracts](CONTRACTS-v0.1.md) develop the record semantics. The repository now also contains a [bounded local pilot](PILOT.md) and specialized experimental schemas, not a production runtime.
 
 ## 1. Purpose and initial scope
 
@@ -217,7 +217,7 @@ Budgets cover time, retries, tool calls, and cost. Exhausting a budget stops fur
 
 ## 8. Proposed validation
 
-There is no conformance program or certification. The [draft specification](SPECIFICATION-v0.1.md), [validation plan](VALIDATION-PLAN-v0.1.md), and [conformance matrix](CONFORMANCE-MATRIX.md) now define proposed requirements and planned procedures. None of those runtime procedures has been executed in this repository. The following scenarios summarize the motivating acceptance cases.
+There is no conformance program or certification. The [draft specification](SPECIFICATION-v0.1.md), [validation plan](VALIDATION-PLAN-v0.1.md), and [conformance matrix](CONFORMANCE-MATRIX.md) now define proposed requirements and planned procedures. The local pilot exercises selected cases within those procedures; no complete requirement assessment is claimed. The following scenarios summarize the motivating acceptance cases.
 
 | Scenario | Expected evidence |
 |---|---|
@@ -255,11 +255,11 @@ The milestone is complete when a repeatable run demonstrates exactly one persist
 
 A short recorded walkthrough and reproducible failure fixtures should accompany the result. This establishes behavior for the local provider; an external adapter needs separate validation of its own guarantees.
 
-TypeScript contracts and SQLite persistence are reasonable pilot candidates. They remain provisional implementation choices.
+The first experimental slice uses Python, JSON Schema, and separate SQLite stores. Its [pilot guide](PILOT.md) distinguishes implemented behavior from missing UI, recovery, and production features. TypeScript bindings remain a possible later addition.
 
 ## 10. Development sequence
 
-The [glossary](GLOSSARY.md), draft requirements, record semantics, lifecycle rules, and planned validation procedures are now documented. Executable schemas, runtime behavior, and conformance evidence remain implementation work. The [status and roadmap](STATUS-AND-ROADMAP.md) tracks those distinctions.
+The [glossary](GLOSSARY.md), draft requirements, record semantics, lifecycle rules, and planned validation procedures are now documented. Specialized executable schemas and the publication/readback slice now exist; general contracts, recovery, UI integration, and full assessment remain implementation work. The [status and roadmap](STATUS-AND-ROADMAP.md) tracks those distinctions.
 
 | Milestone | Deliverable | Exit condition |
 |---|---|---|
@@ -274,9 +274,10 @@ Keep a small repository layout. The documentation and checker exist; create impl
 ```text
 docs/                       Engineering documentation library (present)
 scripts/                    Documentation checker (present)
-schemas/                    Proposed record schemas and examples
-reference/                  One host, provider, persistence layer, and UI adapter
-conformance/                Scenario fixtures and a runner
+schemas/                    Experimental pilot schema and fixtures (present)
+reference/                  Python/SQLite publication and readback pilot (present)
+tests/                      Focused pilot tests (present)
+conformance/                Future complete assessment runner
 ```
 
 Split reusable packages only when a second integration establishes a useful boundary. A model SDK, workflow engine, identity provider, and policy engine can be integrated through adapters.

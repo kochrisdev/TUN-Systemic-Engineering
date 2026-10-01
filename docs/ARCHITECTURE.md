@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Reference Architecture
 
-Status: proposed architecture; the engineering host and adapters are not implemented here.
+Status: proposed architecture, with a narrower local host/provider slice implemented in the [pilot](PILOT.md).
 
 [Documentation index](README.md) · [Components](COMPONENTS-v0.1.md) · [Contracts](CONTRACTS-v0.1.md) · [Threat model](THREAT-MODEL.md)
 

@@ -1,16 +1,16 @@
 # TUN Systemic Engineering — Conformance Matrix
 
-Status: draft traceability map; every runtime requirement is currently not assessed.
+Status: draft traceability map; no complete requirement assessment has been performed.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Validation plan](VALIDATION-PLAN-v0.1.md) · [Scope](SCOPE.md)
 
 ## Assessment meaning
 
-The specification is the source of requirement text. This table assigns a primary logical component and a planned validation procedure to each requirement. Those relationships are navigation aids, not evidence of a passing implementation.
+The specification is the source of requirement text. This table assigns a primary logical component and a planned validation procedure to each requirement. Those relationships are navigation aids, not evidence of a passing implementation. The [local pilot](PILOT.md) has focused executable tests, but the entries below remain not assessed at the full-requirement level.
 
 Applicability is defined in the specification. A recommendation can allow a justified departure; mandatory duties within a clause still apply. In particular, TSE-006 recommends C3 approval while requiring a documented explanation for any departure.
 
-| Requirement | Primary component | Planned procedure | Current runtime evidence |
+| Requirement | Primary component | Planned procedure | Full requirement assessment |
 |---|---|---|---|
 | [TSE-001](SPECIFICATION-v0.1.md#tse-001) | [EC-01](COMPONENTS-v0.1.md#ec-01) | [V-01](VALIDATION-PLAN-v0.1.md#v-01) | Not assessed |
 | [TSE-002](SPECIFICATION-v0.1.md#tse-002) | [EC-02](COMPONENTS-v0.1.md#ec-02) | [V-02](VALIDATION-PLAN-v0.1.md#v-02) | Not assessed |

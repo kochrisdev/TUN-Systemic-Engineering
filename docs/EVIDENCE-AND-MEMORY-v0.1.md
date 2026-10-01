@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Evidence and Memory v0.1
 
-Status: draft engineering guidance; no evidence or memory service is implemented here.
+Status: draft engineering guidance. The [pilot](PILOT.md) implements narrow local readback; general evidence and memory services remain unimplemented.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Contracts](CONTRACTS-v0.1.md) · [Design integration](DESIGN-INTEGRATION-v0.1.md)
 

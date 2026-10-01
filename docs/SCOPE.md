@@ -6,9 +6,9 @@ Updated: 1 October 2026.
 
 ## What this repository provides
 
-The repository contains a draft specification, a component catalog, architectural and workflow guidance, a proposed record model, a design-integration map, an adoption worksheet, planned validation procedures, and a requirement traceability matrix. It also provides a standard-library documentation checker.
+The repository contains a draft specification, a component catalog, architectural and workflow guidance, a proposed record model, a design-integration map, an adoption worksheet, planned validation procedures, and a requirement traceability matrix. It also provides a standard-library documentation checker and an [experimental local publication pilot](PILOT.md).
 
-The specification is a project draft. Record shapes are proposed; the only executable tooling supplied at this stage is the documentation checker and its own regression tests.
+The specification remains a draft. A specialized JSON Schema profile and Python/SQLite host/provider implement one local workflow. Focused pilot tests and checker regression tests are executable; general record shapes remain proposed.
 
 ## Initial engineering boundary
 
@@ -20,7 +20,7 @@ The architecture is technology-neutral. The reference implementation direction i
 
 ## What remains planned
 
-No engineering runtime, released schema package, model integration, execution kernel, provider adapter, presentation adapter, or executable runtime conformance suite is supplied here yet.
+No production runtime, stable schema package, model integration, remote provider adapter, React presentation adapter, or complete runtime conformance suite is supplied. The local pilot's fixture identity, limited host, and SQLite provider are not substitutes for those features.
 
 The companion design repository's UI components and local host example are separate implementations. Their existence or test results cannot be transferred automatically to this engineering specification.
 
@@ -44,7 +44,7 @@ A document version, source commit, package release, deployment, and assessment a
 
 Draft-specified means behavior is written down. Implemented means code exists. Validated means a named check passed in a stated environment. Published means an artifact is available through a stated channel.
 
-There is no independent TUN certification program. The [assessment rule](SPECIFICATION-v0.1.md#tse-032) defines the evidence required for a future scoped engineering claim. Current runtime requirements are all marked not assessed.
+There is no independent TUN certification program. The [assessment rule](SPECIFICATION-v0.1.md#tse-032) defines the evidence required for a future scoped engineering claim. Complete requirements remain marked not assessed; selected pilot tests provide narrower evidence.
 
 ## Website boundary
 

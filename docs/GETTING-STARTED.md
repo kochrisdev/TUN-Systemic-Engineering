@@ -4,7 +4,7 @@
 
 ## What you can use today
 
-Read, adapt, and review the draft documents. Run the repository's documentation checker. There is no engineering package to install, runtime command to start, or released JSON Schema to import.
+Read and adapt the draft documents, run the documentation checker, or try the [local publication pilot](PILOT.md). The pilot includes experimental JSON schemas, a Python/SQLite host and provider, and focused tests. Follow its setup instructions; it is not a stable installable engineering SDK.
 
 For context on a running example, the separate design repository includes a [local host pilot](https://github.com/kochrisdev/TUN-Systemic-Design/blob/81b52e8d64c90891ef1340802502e398dc6c0340/examples/host-integration/README.md). Follow that repository's instructions there. Its implementation and test results do not establish compliance with this engineering draft.
 
@@ -30,7 +30,7 @@ Start with canonical proposals, recorded human decisions, host authorization, an
 
 Inject a lost acknowledgement after provider commit. Restart the host and reconcile the original operation. Demonstrate that the outcome becomes known without another publication.
 
-Only then add separately authorized withdrawal, richer supervision, or additional providers. The [roadmap](STATUS-AND-ROADMAP.md) gives exit criteria.
+The pilot now demonstrates that publication/readback slice. Separately authorized withdrawal, richer supervision, the React adapter, and additional providers remain future increments. The [roadmap](STATUS-AND-ROADMAP.md) gives exit criteria.
 
 ## Check the documentation
 

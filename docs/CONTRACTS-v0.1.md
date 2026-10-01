@@ -1,12 +1,12 @@
 # TUN Systemic Engineering — Contracts v0.1
 
-Status: proposed record model; no released schemas, SDK, or transport API.
+Status: proposed general record model; a narrower experimental pilot schema exists, with no released SDK or transport API.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Glossary](GLOSSARY.md) · [Lifecycles](LIFECYCLES-v0.1.md)
 
 ## Reading this document
 
-This document translates the specification into candidate record shapes. Field names are design proposals, not supported imports or a promise of wire compatibility. The specification defines required behavior. A future schema release will fix required fields, unions, field limits, and migration rules.
+This document translates the specification into candidate record shapes. Field names are design proposals, not supported imports or a promise of wire compatibility. The specification defines required behavior. The [pilot schema profile](../schemas/README.md) fixes a smaller set of fields and states for publication. It does not stabilize this general model or implement migrations.
 
 Engineering and design records can share names such as `ActionProposal` or `ContextSnapshot` without being interchangeable. The [presentation adapter](DESIGN-INTEGRATION-v0.1.md) owns that conversion.
 
@@ -155,4 +155,4 @@ Before publishing schemas, settle the required envelope, exact state unions, fin
 
 Persist schema and adapter revisions with records needed for restart recovery. Reject unsupported versions at active decision boundaries; migrations need review of approval bindings and preserved interpretation.
 
-The [status page](STATUS-AND-ROADMAP.md) tracks these as future implementation work.
+The [pilot profile](../schemas/README.md) selects one experimental envelope and encoding with invalid fixtures. General-purpose schemas, migration, and cross-language compatibility remain future work on the [status page](STATUS-AND-ROADMAP.md).

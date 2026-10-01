@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Components v0.1
 
-Status: draft component catalog; no runtime components are implemented here.
+Status: draft logical component catalog. The [local pilot](PILOT.md) combines selected responsibilities; these are not twelve implemented packages.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Architecture](ARCHITECTURE.md) · [Design integration](DESIGN-INTEGRATION-v0.1.md)
 

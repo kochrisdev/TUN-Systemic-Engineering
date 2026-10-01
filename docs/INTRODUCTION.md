@@ -37,7 +37,7 @@ TUN Systemic Design describes how people understand and control AI behavior. It 
 
 TUN Systemic Engineering develops the host contracts behind those experiences. An approval gate needs a service that checks the exact proposal. A receipt needs supported outcome records. A stop control needs a real runtime control path.
 
-The design repository has existing UI code and a bounded local host example. This engineering repository currently provides draft documents and a documentation checker. It does not yet supply a runtime package or tested adapter.
+The design repository has existing UI code and a bounded local host example. This engineering repository now includes its own [experimental publication pilot](PILOT.md), specialized schemas, and focused tests alongside the draft documents. Neither a production runtime package nor a React adapter is supplied.
 
 ## Where to begin
 

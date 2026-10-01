@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Specification v0.1
 
-Status: draft behavioral specification; unimplemented in this repository.
+Status: draft behavioral specification; selected behavior is implemented in an experimental pilot, without a full conformance assessment.
 
 Revision: 1 October 2026.
 
@@ -16,7 +16,7 @@ The requirements are a draft for review and implementation. A published document
 
 The terms MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY use the meanings described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174), only when capitalized. Mandatory requirements determine a scoped assessment; recommendations permit justified departures. This convention does not make TUN an IETF standard.
 
-Stable requirement identifiers belong to the clauses below. Their applicability limits the obligation. The [assessment matrix](CONFORMANCE-MATRIX.md) maps every clause to a proposed procedure; none has runtime evidence in this repository yet.
+Stable requirement identifiers belong to the clauses below. Their applicability limits the obligation. The [assessment matrix](CONFORMANCE-MATRIX.md) maps every clause to a proposed procedure; limited pilot evidence does not constitute complete assessment of a clause.
 
 ## Applicability
 
@@ -253,4 +253,4 @@ A conformance assessment MUST identify the specification revision and commit, im
 
 The [validation plan](VALIDATION-PLAN-v0.1.md) defines candidate procedures and required evidence. Procedures can include automated tests, inspection of operational settings, provider documentation, and human interface review. A scenario label is not proof that a test exists.
 
-The project currently supplies draft requirements and documentation checks. Runtime schemas, executors, adapters, and an executable conformance runner remain planned. For current capability status and the first delivery milestone, see [Status and roadmap](STATUS-AND-ROADMAP.md).
+The project supplies draft requirements, documentation checks, and an [experimental local pilot](PILOT.md) with specialized schemas and focused tests. Production execution, a React adapter, general schemas, and a complete conformance runner remain planned. For current capability status and the first delivery milestone, see [Status and roadmap](STATUS-AND-ROADMAP.md).

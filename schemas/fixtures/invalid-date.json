@@ -1,0 +1,17 @@
+{
+  "kind": "ActionProposal",
+  "schemaVersion": "tse-pilot/0.1",
+  "id": "proposal-fixture-1",
+  "version": "1",
+  "scope": "sandbox",
+  "createdAt": "2026-10-01T00:00:00.000Z",
+  "actor": "alice-fixture",
+  "target": "board",
+  "content": "Synthetic project update.",
+  "consequence": "C3",
+  "expectedEffect": "one sandbox publication",
+  "precondition": "new publication",
+  "recoveryLimit": "reconciliation only; withdrawal is not implemented",
+  "expiresAt": "2026-02-30T00:00:00Z",
+  "binding": "sha256:055e23e26eb080fcea6194aeb38421ce78f18f8703bc38fe293b59431e8f8b8c"
+}

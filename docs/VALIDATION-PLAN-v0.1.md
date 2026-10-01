@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Validation Plan v0.1
 
-Status: planned procedures; no runtime scenario below has been executed in this repository.
+Status: full assessment procedures remain planned. The [local pilot](PILOT.md) executes selected cases within some procedures; it does not establish complete coverage.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Conformance matrix](CONFORMANCE-MATRIX.md) · [Threat model](THREAT-MODEL.md)
 
@@ -12,7 +12,7 @@ Use fixtures and a controlled provider for fault injection. Record the exact sou
 
 An automated assertion can establish a narrow runtime fact. Policy review, provider guarantees, accessibility, retention, and operating practice may require separate inspection. A procedure can therefore need both executable and human evidence.
 
-Results are recorded as not assessed, pass, fail, or justified not applicable. Recommendation departures require a documented assessment. No outcome is pre-filled here.
+Results are recorded as not assessed, pass, fail, or justified not applicable. Recommendation departures require a documented assessment. This plan does not pre-fill assessment outcomes; use separately recorded implementation evidence.
 
 ## Procedures
 
@@ -340,7 +340,7 @@ Evidence: Reviewed assessment with revision, scope, reviewer, date, results, and
 
 The first local publication milestone should prioritize exact proposal binding, authorization, stable operation identity, crash windows, ambiguous lookup, evidence binding, and receipt truth. Review applicable privacy and interface requirements alongside those paths.
 
-Partial coverage is reported as partial coverage. The remaining scenarios stay unassessed until implemented and exercised. Tests in the design repository can inform this work but do not automatically establish engineering-draft coverage.
+Partial coverage is reported as partial coverage. The remaining scenarios stay unassessed until implemented and exercised. The engineering pilot now supplies focused tests; tests in the design repository remain separate evidence and do not automatically establish engineering-draft coverage.
 
 ## Documentation validation is separate
 

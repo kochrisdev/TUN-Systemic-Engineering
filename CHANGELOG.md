@@ -2,6 +2,16 @@
 
 This log records documentation milestones. The v0.1 label denotes an evolving draft, not a package release. Source commits identify exact revisions.
 
+## 2026-10-01 — Experimental publication pilot
+
+- Added a JSON Schema 2020-12 pilot profile for eight core records and provider readback evidence, with valid and invalid fixtures.
+- Added strict JSON decoding, structural validation, material fingerprints, and selected cross-record checks.
+- Added a Python host and separate SQLite publication provider with durable reservations, fixture approval/policy, readback, and versioned receipts.
+- Added focused tests for stale approval, revocation, expiry, concurrency, corruption, lost responses, and selected process/persistence failures.
+- Added a runnable synthetic demonstration and updated all implementation-status guidance.
+
+This is a local experiment with trusted fixture identity. It does not release a production SDK, React adapter, remote provider, recovery writes, or complete conformance assessment.
+
 ## 2026-10-01 — Engineering documentation expansion
 
 - Added a draft specification with stable requirement identifiers.

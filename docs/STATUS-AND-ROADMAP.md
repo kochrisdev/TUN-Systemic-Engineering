@@ -6,7 +6,7 @@ Updated: 1 October 2026.
 
 ## Current status
 
-The project has an initial draft documentation set and a documentation checker. Runtime implementation and validation are future work.
+The project has draft documentation, a documentation checker, and an [experimental publication pilot](PILOT.md). Specialized schemas and focused local tests exist; general-purpose implementation and full assessment remain future work.
 
 | Area | Current state | Evidence or next artifact |
 |---|---|---|
@@ -15,12 +15,12 @@ The project has an initial draft documentation set and a documentation checker. 
 | Logical components and architecture | Draft-specified | [Components](COMPONENTS-v0.1.md), [Architecture](ARCHITECTURE.md) |
 | Records and state | Proposed | [Contracts](CONTRACTS-v0.1.md), [Lifecycles](LIFECYCLES-v0.1.md) |
 | Design component integration | Mapping documented; adapter not implemented | [Design integration](DESIGN-INTEGRATION-v0.1.md) |
-| Threats and assessment | Planned procedures; no runtime results | [Threat model](THREAT-MODEL.md), [Conformance matrix](CONFORMANCE-MATRIX.md) |
+| Threats and assessment | Full procedures unassessed; limited pilot tests exist | [Threat model](THREAT-MODEL.md), [Conformance matrix](CONFORMANCE-MATRIX.md) |
 | Documentation checker | Implemented | [Check description](DOCUMENTATION-CHECKS.md), [source](../scripts/check_docs.py) |
-| Runtime schemas and types | Not implemented | Valid/invalid fixtures and versioned schemas |
-| Authority and execution kernel | Not implemented | Durable local host and operation records |
-| Provider and verification adapters | Not implemented | Local publication/readback provider |
-| Runtime conformance runner | Not implemented | Executable cases for the planned procedures |
+| Runtime schemas and types | Experimental publication profile implemented | [Schema and fixtures](../schemas/README.md); general schemas and migration remain open |
+| Authority and execution kernel | Narrow local host implemented | [Pilot](PILOT.md); fixture identity only, no production kernel |
+| Provider and verification adapters | Local SQLite publication/readback implemented | [Pilot](PILOT.md); no remote provider or React adapter |
+| Runtime conformance runner | Complete runner not implemented | [Focused tests](../tests/test_pilot.py), not full procedure coverage |
 | Distribution and hosted engineering site | Not supplied | Separate future decisions |
 
 ## Design baseline
@@ -35,11 +35,15 @@ Exit: the specification, contract model, lifecycle guidance, and scenario map ag
 
 ## Milestone 2 — Publish schema fixtures
 
+Progress: the experimental publication profile and valid/invalid fixtures are implemented. General schemas, migration, and portable binding decisions remain open.
+
 Implement runtime schemas for the pilot's canonical records and request boundaries. Include invalid cross-record references, unsupported versions, material mutation, and migration cases.
 
 Exit: fixtures can be validated repeatably, with semantic checks documented separately from structural validation. Schema validation is not runtime conformance.
 
 ## Milestone 3 — Implement the publication pilot
+
+Progress: the local host, durable journal, provider, readback, and structured receipt are implemented and exercised by focused tests. The design-component adapter and human interface are not yet implemented; this milestone is not complete.
 
 Build one host, durable journal, local provider, verification path, and presentation adapter. Use fixture identity and content.
 

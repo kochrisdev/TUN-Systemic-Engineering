@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Threat Model
 
-Status: initial design review model; controls and scenarios are proposed, not tested mitigations.
+Status: initial design review model. The [local pilot](PILOT.md) has limited executable checks; this is not a completed security assessment or a claim that every mitigation has been tested.
 
 [Documentation index](README.md) · [Architecture](ARCHITECTURE.md) · [Specification](SPECIFICATION-v0.1.md) · [Validation plan](VALIDATION-PLAN-v0.1.md)
 
