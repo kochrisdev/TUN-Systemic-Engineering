@@ -4,599 +4,154 @@
 
 ### Engineering Intelligence for the Real World
 
-Software used to wait.
+Status: draft principles
 
-It waited for a click.
+Revision: 1 October 2026
 
-It waited for a command.
+[Project overview](../README.md) · [Concept note](CONCEPT-NOTE-v0.1.md)
 
-It waited for a person to decide each next step.
+AI products can interpret a person's request, choose tools, prepare changes, and carry out work across services. Each connection gives engineering a responsibility: preserve the person's intent, enforce the limits of authority, and establish what happened.
 
-Now software can interpret intent, assemble context, propose actions, use tools, coordinate agents, and change the world beyond its interface.
+Software has automated consequential work for decades. AI adds variable interpretation and planning to that work. We build on the disciplines of security, reliability, distributed systems, and human-centered design to make this relationship dependable.
 
-This changes the work of engineering.
+TUN Systemic Engineering is a proposed set of contracts and practices for that purpose. Its ambition is to make AI actions understandable through their records, controllable through their runtime, and accountable through their evidence.
 
-We are no longer building only applications that respond.
+These are commitments that guide the project. The [concept note](CONCEPT-NOTE-v0.1.md) describes the proposed implementation and its limits. A specification and conformance suite remain future work.
 
-We are building systems that may act.
+## 01 — Begin With Human Purpose
 
-An intelligent system is not trustworthy because its model is powerful, its response is fluent, or its interface appears confident. It becomes trustworthy when its authority is bounded, its effects are visible, its claims are supported, its failures remain honest, and its recovery paths work.
+We begin by understanding the desired outcome, the people affected, the constraints, and the conditions for stopping.
 
-This requires a new engineering discipline.
+Natural language should make intent easier to express. The system carries that intent into precise proposals and bounded operations. Where uncertainty materially changes the action, it seeks clarification.
 
-We call it:
+A person's goal establishes direction. Their legitimate permissions and applicable policy establish which actions can follow.
 
-# TUN Systemic Engineering
+## 02 — Follow the Whole Effect
 
-## 01 — Begin With Intent, Not Execution
+We examine what an action changes across the complete system: people, models, agents, tools, data, services, and downstream recipients.
 
-Every consequential action should begin with a human purpose.
+Publishing a record may notify another person. Reading a source may expose sensitive information. Removing a message may leave copies elsewhere.
 
-Not a tool call.
+We define success and recovery at the level of the effect people care about. Local completion is one piece of that account.
 
-Not a generated command.
+## 03 — Make Contracts Explicit
 
-Not an agent decision.
+We use clear records for intent, proposals, decisions, operations, attempts, and evidence.
 
-Intent.
+Models may prepare those records. The host validates their meaning, relationships, and permitted transitions. Machine-readable structure makes obligations inspectable and helps engineers test them.
 
-The system must understand what outcome is wanted, for whom, within which boundaries, and under which conditions.
+We keep the contract small enough to implement and precise enough to survive a change of model, tool, or provider.
 
-Intent guides the system.
+## 04 — Bind Consent and Enforce Authority
 
-It does not authorize every possible way of achieving the outcome.
+When a person approves an action, their decision applies to an exact proposal: its target, content, material parameters, effects, and disclosed recovery limits.
 
-```text
-Human Intent → Bounded Proposal → Authorized Action → Verified Outcome
-```
+Material changes require renewed review. The host checks whether the action is currently permitted, including after delays or changes in permissions.
 
-## 02 — Engineer the Whole Effect
+Approval records a human decision. Authorization evaluates current permission. Both matter where approval is required.
 
-An AI action does not end at the model boundary.
+Models, retrieved content, and agent memory cannot grant authority. Human authority itself remains bounded by legitimate access and the rights of others.
 
-It moves through:
+## 05 — Bound Autonomy and Support Intervention
 
-- people;
-- models;
-- agents;
-- context;
-- memory;
-- policy;
-- applications;
-- tools;
-- networks;
-- providers;
-- data stores;
-- organizations;
-- and the world beyond the product.
+We define delegated work through its goal, permitted actions, targets, duration, budgets, and exception behavior.
 
-A locally successful call may produce a failed outcome.
+Delegation to another agent preserves or narrows those limits. Resource limits and stopping conditions remain part of the assignment.
 
-A local timeout may hide a completed effect.
+People need controls that reach the running system. We distinguish a request to pause or stop from evidence that it took effect, and explain which in-flight actions can still complete.
 
-A reversible database change may still send an irreversible notification.
+As autonomy and consequence increase, the system needs stronger supervision and clearer accountability.
 
-Systemic engineering follows the complete effect, including its downstream consequences.
+## 06 — Match Every Claim to Its Evidence
 
-Engineer outcomes, not merely invocations.
+We state what verification establishes and when.
 
-## 03 — Contracts Before Prompts
+A provider can confirm that it accepted a message without confirming delivery. A readback can establish that the approved publication exists without establishing that every sentence is true.
 
-Prompts are powerful instruments for interpreting, generating, and reasoning.
+Evidence identifies the relevant operation, target, revision, source, and observation time. Where possible, verification uses a method independent of the executor's success assertion.
 
-They are not authorization protocols.
+A receipt communicates the supported result and its limits.
 
-They are not durable records.
+## 07 — Keep Unknown and Partial Outcomes Visible
 
-They are not transaction boundaries.
+We preserve uncertainty when the evidence cannot resolve it.
 
-They are not proof.
+A network response may be lost after an action succeeds. A workflow may complete some effects before stopping. An ended worker may leave an unresolved external operation.
 
-Consequential operations require explicit, typed, validated, and versioned contracts. Models may help construct those contracts, but models do not replace them.
+The system retains what is known, identifies what remains uncertain, and offers the next supported step. Later evidence updates the assessment without erasing earlier events.
 
-Natural language can express intent.
+An honest unknown is useful information for deciding what happens next.
 
-Engineering must bind it to exact system meaning.
+## 08 — Make Retries Account for Effects
 
-## 04 — Capability Is Not Authority
+We give an intended operation a stable identity and distinguish it from the attempts used to carry it out.
 
-A model may be able to generate a command.
+Duplicate protection needs a documented scope, retention period, and enforcement boundary. A new attempt should not accidentally become a new consequence.
 
-An agent may be able to call a tool.
+When an outcome is ambiguous, we reconcile it. Any further attempt requires current authority and safeguards that still apply. When a provider cannot support safe repetition, the system stops automatic retries and exposes the unresolved result.
 
-A tool may be able to modify a system.
+## 09 — Plan Recovery With the Action
 
-None of these facts establish permission.
+We describe recovery options before a consequential action proceeds.
 
-Authority belongs to the host system. It is grounded in authenticated identity, legitimate permissions, declared scope, current policy, consequence, time, and revocation state.
+Reconciliation establishes what happened. Retry attempts an operation again. Restoration returns relevant state to an earlier condition. Correction and compensation apply new effects.
 
-Authority must not be inferred from:
+Each option has limits. Restoration may conflict with later edits; withdrawal may leave copies with recipients. Recovery itself can fail and may require fresh approval.
 
-- model instructions;
-- retrieved content;
-- agent memory;
-- tool availability;
-- interface state;
-- previous approval;
-- or apparent urgency.
+The engineering obligation is to provide the recovery that is actually possible and disclose what cannot be recovered.
 
-Power must always meet permission at the moment of action.
+## 10 — Protect Data Throughout Its Journey
 
-## 05 — Bind Decisions to Reality
+We apply access boundaries to context, memory, tool calls, evidence, logs, and receipts.
 
-Approval must refer to something exact.
+Useful observability records enough to explain actions while limiting unnecessary copies of sensitive content. People receive the evidence they are authorized to inspect.
 
-The person should approve the proposal that the system will execute—not an earlier draft, a similar summary, or a silently changed version.
+Remembering a preference, retaining workflow state, keeping an audit record, and training a model are separate uses of information. We make their purposes and controls explicit.
 
-Material changes require a new decision.
+When deletion or loss of source material prevents later verification, we preserve that limitation in the account.
 
-Changed content.
+## 11 — Preserve Meaning Across Integrations
 
-Changed target.
+We expect models, frameworks, tools, and providers to change.
 
-Changed amount.
+Integrations should preserve proposal identity, approved meaning, authorization scope, operation identity, and the relationship between claims and evidence.
 
-Changed authority.
+Each adapter declares what its provider can guarantee and where those guarantees end. Compatibility requires checking behavior as well as matching types.
 
-Changed context.
+A simpler architecture is valuable when it preserves these obligations. Separate responsibilities do not automatically require separate services.
 
-Changed consequence.
+## 12 — Evaluate the Product and Its Failures
 
-Changed recovery conditions.
+We test delayed work, stale approval, duplicate delivery, lost responses, partial effects, cancellation races, contradictory evidence, and restart recovery.
 
-A decision without a stable proposal is only an impression of control.
+We also evaluate whether the AI product is useful and its outputs are appropriate. Correct execution alone cannot establish answer quality or product value.
 
-## 06 — Acknowledgement Is Not Outcome
+Incidents and observed failures should inform regression scenarios and reviewed improvements. Adaptation follows the same authority and data controls as other changes.
 
-A request can be accepted without being completed.
+Claims of conformance should name a version, scope, evidence, and limitations. Tests support specific claims; they do not certify universal safety.
 
-A callback can resolve without the intended effect occurring.
+## One Contract Between Design and Engineering
 
-A provider can report success without proving the final result.
+[TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design) describes how people understand and control AI behavior, including the responsibilities of the application behind it.
 
-An agent can say “done” without knowing what happened.
+TUN Systemic Engineering develops the proposed records and enforcement paths that support that experience.
 
-TUN separates:
+Together, they should let a person inspect an action and understand what was proposed, who permitted it, what was attempted, what changed, what evidence supports that account, and what can happen next.
 
-```text
-Requested
-  ↓
-Authorized
-  ↓
-Attempted
-  ↓
-Acknowledged
-  ↓
-Observed
-  ↓
-Verified
-```
+## Our Commitment
 
-These stages may occur at different times and in different systems. They must not be collapsed for convenience.
+We will make authority explicit and enforce it where actions occur.
 
-Success is a claim that requires evidence.
+We will report outcomes in proportion to their evidence.
 
-## 07 — Evidence Before Confidence
+We will preserve uncertainty, partial effects, and the history needed to understand them.
 
-The language of certainty must follow the strength of evidence.
+We will build intervention and recovery into the operation.
 
-Plans explain intended work.
+We will keep people and organizations accountable for the systems they deploy.
 
-Logs describe recorded events.
+We will develop these commitments through small implementations, observable results, and clearly stated limits.
 
-Provider responses report what a provider returned.
+**Human intent. Bounded authority. Verified outcomes.**
 
-Readback observes current state.
-
-Verification connects evidence to a claimed outcome.
-
-None should pretend to be another.
-
-When evidence is partial, stale, conflicting, inaccessible, or absent, the system should say so.
-
-Trust should emerge from inspectable relationships between claims and evidence—not from tone, animation, or confident wording.
-
-## 08 — Unknown Is an Honest State
-
-Distributed systems do not always return clean answers.
-
-Networks fail after sending.
-
-Workers stop after writing.
-
-Providers complete actions after clients time out.
-
-Acknowledgements disappear.
-
-In these moments, the outcome may be unknown.
-
-Unknown does not mean failed.
-
-Unknown does not mean safe to repeat.
-
-Unknown means the system must reconcile what actually happened before taking another action that could duplicate or compound the effect.
-
-Honest uncertainty is safer than invented certainty.
-
-## 09 — Preserve Partial Effects
-
-Actions are not always atomic.
-
-A workflow may update one record and fail on the next.
-
-A message may reach one recipient but not another.
-
-A cancellation may stop future work but not reverse completed work.
-
-A compensation may reduce harm without restoring the original state.
-
-Partial effects must remain visible in system records, user-facing receipts, recovery decisions, and audits.
-
-We do not rewrite a complicated reality into a convenient binary.
-
-What happened must survive the failure state.
-
-## 10 — Make Repetition Safe
-
-Retries are part of real systems.
-
-Duplicate effects do not have to be.
-
-Every consequential execution should have a stable identity and an appropriate idempotency strategy. Repeated delivery must not silently become repeated consequence.
-
-But idempotency is not a magic word.
-
-It must be enforced at the boundary that owns the effect, retained for an appropriate period, scoped to the correct operation, and paired with reconciliation when the result is uncertain.
-
-A retry policy without an effect model is merely repetition with optimism.
-
-## 11 — Design Recovery Before Failure
-
-Recovery is not an error-screen feature.
-
-It is part of the action design.
-
-Before execution, the system should know whether an operation can be:
-
-- interrupted;
-- cancelled;
-- reconciled;
-- retried;
-- restored;
-- corrected;
-- compensated;
-- escalated;
-- or only acknowledged and disclosed.
-
-These words are not interchangeable.
-
-Undo means restoring the relevant prior state.
-
-Compensation means applying another effect in response.
-
-Retry means attempting again.
-
-Reconciliation means discovering what happened.
-
-Good recovery begins before anything goes wrong.
-
-## 12 — Keep Agents Within Boundaries
-
-Agents are participants in the system.
-
-They may interpret, plan, delegate, use tools, observe, and adapt.
-
-They are not the source of their own authority.
-
-Every agent should operate with understandable:
-
-- identity;
-- purpose;
-- capability;
-- authority;
-- context;
-- duration;
-- resource limits;
-- intervention paths;
-- and accountability.
-
-Delegation must not silently increase authority. A sub-agent receives no more authority than the delegating actor can legitimately assign.
-
-The more autonomous the operation, the stronger its boundaries, observation, exception handling, and recovery must become.
-
-## 13 — Build Intervention Into the Runtime
-
-A visible stop button is not enough.
-
-Intervention is a system capability.
-
-Pause requested is not paused.
-
-Cancel requested is not cancelled.
-
-Permission revoked is not proof that in-flight effects stopped.
-
-Takeover is not restoration of earlier state.
-
-Long-running and autonomous work needs real control paths, acknowledged state transitions, bounded response time, and evidence of the resulting condition.
-
-Human authority must reach the runtime, not end at the interface.
-
-## 14 — Observe Without Exposing
-
-AI systems need meaningful observability.
-
-Teams should be able to understand:
-
-- what was proposed;
-- what was authorized;
-- what was attempted;
-- which tools were used;
-- which effects were observed;
-- what was verified;
-- what remains unknown;
-- and what recovery occurred.
-
-But observability is not permission to disclose everything.
-
-Context, prompts, evidence, logs, traces, receipts, and memory can contain sensitive information. They must remain subject to access control, redaction, tenant isolation, retention limits, and legitimate purpose.
-
-We make systems inspectable without making private data public.
-
-## 15 — Compose Systems Without Losing Meaning
-
-Models will change.
-
-Tools will change.
-
-Providers will change.
-
-Frameworks will change.
-
-The human control contract must not silently change with them.
-
-TUN engineering contracts should travel across components while preserving identity, authority, proposal version, effect semantics, evidence, and recovery obligations.
-
-Composability is not merely the ability to connect services.
-
-It is the ability to connect them without losing meaning.
-
-## 16 — Test the Uncomfortable Paths
-
-The happy path proves very little about an action system.
-
-We test:
-
-- stale decisions;
-- changed proposals;
-- expired authority;
-- duplicate delivery;
-- partial completion;
-- lost acknowledgement;
-- delayed provider effects;
-- conflicting evidence;
-- revoked permission;
-- agent handoff;
-- cancellation races;
-- unavailable verification;
-- failed compensation;
-- and recovery after restart.
-
-Conformance comes from demonstrated behavior under pressure, not from adopting vocabulary or drawing an architecture diagram.
-
-If a safety property matters, it should be testable.
-
-## The TUN Engineering Model
-
-For consequential AI actions:
-
-```text
-INTENT
-  ↓
-CONTEXT
-  ↓
-PLAN
-  ↓
-PROPOSAL
-  ↓
-DECISION
-  ↓
-AUTHORIZATION
-  ↓
-EXECUTION
-  ↓
-OBSERVATION
-  ↓
-VERIFICATION
-  ↓
-RECEIPT
-  ↓
-RECOVERY OR LEARNING
-```
-
-This is a relationship between records and responsibilities, not one universal runtime state machine.
-
-The system may simplify what people see.
-
-It must not erase distinctions needed for authority, accountability, or truth.
-
-## Three Planes of Responsibility
-
-### CONTROL
-
-Who may authorize what, under which policy, scope, identity, time, and conditions?
-
-### EXECUTION
-
-What bounded work was attempted, through which tool, with which safeguards and known effects?
-
-### EVIDENCE
-
-What can the system support about the outcome, what remains unknown, and what can safely happen next?
-
-These responsibilities may run together.
-
-They must remain conceptually distinct.
-
-## The TUN Engineering Principles
-
-We engineer AI action systems to be:
-
-### INTENT-BOUND
-
-Connect execution to a legitimate, scoped human purpose.
-
-### AUTHORIZED
-
-Enforce permission outside the model and at the time of action.
-
-### VERSIONED
-
-Bind decisions to exact proposals and material parameters.
-
-### IDEMPOTENT
-
-Prevent repeated delivery from becoming repeated consequence.
-
-### OBSERVABLE
-
-Preserve meaningful activity and effect records.
-
-### VERIFIABLE
-
-Support outcome claims with appropriate evidence.
-
-### HONEST
-
-Represent partial, failed, contradicted, pending, and unknown states truthfully.
-
-### RECOVERABLE
-
-Design intervention, reconciliation, correction, and compensation before failure.
-
-### COMPOSABLE
-
-Preserve system meaning across models, agents, tools, and providers.
-
-### ACCOUNTABLE
-
-Keep consequential actions attributable to responsible actors and owners.
-
-## From Model Output to System Outcome
-
-The history of AI product engineering is moving through a progression:
-
-```text
-Model Response
-      ↓
-Structured Output
-      ↓
-Tool Calling
-      ↓
-Agent Workflow
-      ↓
-Autonomous Operation
-      ↓
-Systemic Action Engineering
-```
-
-At each stage, the software gains more capacity to affect the world.
-
-Engineering discipline must grow with that capacity.
-
-Better generation is not enough.
-
-Better orchestration is not enough.
-
-The defining question becomes:
-
-> Can the system connect human intent to real-world effects without losing authority, evidence, or accountability along the way?
-
-## A Protocol for Trustworthy Action
-
-TUN Systemic Engineering should not exist only as guidance that engineers read.
-
-It should become machine-readable and testable.
-
-An application should be able to validate a TUN proposal.
-
-A policy service should be able to evaluate a TUN authorization request.
-
-A worker should be able to accept a bounded TUN execution grant.
-
-A verifier should be able to attach evidence to a TUN action record.
-
-A user interface should be able to render that record through TUN Systemic Design.
-
-A conformance suite should be able to test the complete relationship.
-
-The framework therefore becomes both:
-
-**a discipline for engineering intelligent action**
-
-and
-
-**a protocol connecting human authority to machine effects.**
-
-## What We Refuse to Collapse
-
-We will not collapse:
-
-- intent into permission;
-- capability into authority;
-- planning into approval;
-- approval into authorization;
-- authorization into execution;
-- invocation into effect;
-- acknowledgement into completion;
-- observation into verification;
-- confidence into evidence;
-- timeout into failure;
-- retry into recovery;
-- compensation into undo;
-- activity logs into accountability;
-- autonomy into the absence of human control.
-
-These distinctions are not bureaucracy.
-
-They are where dependable AI products begin.
-
-## The TUN Engineering Promise
-
-We will not engineer AI merely to act.
-
-We will engineer it to act within legitimate authority.
-
-We will not report success merely because a tool returned successfully.
-
-We will connect outcome claims to evidence.
-
-We will not erase uncertainty to make systems appear reliable.
-
-We will represent what is known, what is partial, and what remains unknown.
-
-We will not treat failure as an exceptional screen at the edge of the product.
-
-We will design interruption, reconciliation, and recovery into the action lifecycle.
-
-We will not use autonomy to remove accountability.
-
-We will create clearer relationships between people, intelligence, software, and real-world effects.
-
-# TUN Systemic Engineering
-
-## HUMAN INTENT
-
-## BOUNDED AUTHORITY
-
-## VERIFIED OUTCOMES
-
-Engineer intelligence for the real world.
-
-### Founding Proposition
-
-The defining engineering challenge of the AI era is no longer only how software processes commands.
-
-It is how intelligent systems translate human intent into real-world effects while preserving authority, truth, and accountability.
-
-TUN Systemic Engineering exists to engineer that relationship.
+TUN Systemic Engineering exists to connect human intent to system effects while preserving control, evidence, and accountability.

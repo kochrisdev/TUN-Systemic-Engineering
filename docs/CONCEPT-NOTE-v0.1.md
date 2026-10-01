@@ -2,473 +2,298 @@
 
 ## Concept Note v0.1
 
-**Status:** Initial concept for discussion  
-**Date:** 1 October 2026  
-**Companion project:** [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design)
+Status: draft concept for discussion
 
-## 1. Summary
+Revision: 1 October 2026
 
-TUN Systemic Engineering is a proposed open framework for building AI products whose actions are authorized, observable, verifiable, and recoverable.
+Companion: [TUN Systemic Design](https://github.com/kochrisdev/TUN-Systemic-Design)
 
-TUN Systemic Design defines how people understand and control AI behavior through clear intent, visible context, explicit authority, and verifiable outcomes. TUN Systemic Engineering extends those ideas into the application and infrastructure layers. It defines the contracts, runtime boundaries, state transitions, evidence requirements, failure behavior, and conformance tests needed to connect a human decision to a real system effect.
+[Project overview](../README.md) · [Manifesto](MANIFESTO-v0.1.md)
 
-Its focus is not how to make an agent appear intelligent. Its focus is how to make an AI-enabled product dependable when intelligence interacts with tools, data, permissions, services, and other people.
+This note proposes an engineering model. Record names and examples are provisional; they are not a published API or normative specification. This repository currently contains documentation only.
 
-The project begins from a simple distinction:
+## 1. Purpose and initial scope
 
-> A plan is not a proposal. Approval is not authorization. A successful tool call is not a verified outcome.
+TUN Systemic Engineering aims to provide shared contracts and verification practices for AI products that act on behalf of people. Its central question is:
 
-TUN Systemic Engineering makes these distinctions explicit and testable.
+> What connects the person's intent, the system's authority, the attempted action, and the evidence of its outcome?
 
-## 2. The problem
+The initial focus is the boundary between a proposed action and its effects: approval, authorization, execution, observation, verification, intervention, and recovery. Intended users include product engineers, platform engineers, and teams integrating agents with tools and external services.
 
-AI product engineering often concentrates on models, prompts, tool calling, orchestration, and response quality. These are necessary, but they do not by themselves provide a trustworthy action system.
+This is one part of AI product engineering. Model selection, retrieval quality, response evaluation, data quality, latency, cost, and product usefulness still need their own engineering and evaluation. A correctly authorized publication can contain a poor answer; evidence that it was published does not establish that its content is true.
 
-When an AI product changes external state, several different events are often collapsed into one apparent success:
+The project builds on established application security and distributed-systems practices. Its proposed contribution is to connect those practices to a consistent human control contract and inspectable action history.
 
-- a model recommends an action;
-- a person clicks an approval control;
-- an application accepts the request;
-- a tool or provider acknowledges a call;
-- an effect occurs in an external system;
-- the product claims that the intended outcome was completed.
+## 2. Problem and motivating example
 
-These events are not equivalent. Treating them as equivalent creates predictable failure modes:
+A person approves publication of a project update. The host sends the approved content to a provider. The provider creates the publication, but the response is lost before the host records it.
 
-- stale approval is applied to changed content;
-- a user interface is mistaken for an authorization boundary;
-- retries produce duplicate effects;
-- timeouts are interpreted as failures even though an action completed;
-- partial effects disappear behind a generic error;
-- agent delegation silently expands authority;
-- successful API responses are presented as verified outcomes;
-- cancellation requests are presented as confirmed cancellation;
-- compensation is incorrectly described as undo;
-- logs describe model activity but cannot establish what happened in the world.
+The host knows that it attempted publication. It does not yet know the result. Reporting failure would suggest no effect occurred; retrying with a new operation identity could create a duplicate.
 
-Existing agent frameworks can help models call tools and coordinate work. TUN Systemic Engineering addresses the contract around that work: what was intended, what was authorized, what was attempted, what was observed, what was verified, and what can safely happen next.
+The intended behavior is to retain the approved proposal and operation identity, record the uncertainty, and reconcile the provider's authoritative records. If a matching publication is found, the system can verify that specific effect. If evidence remains unavailable, the receipt should continue to show an unresolved outcome.
 
-## 3. Purpose
+Similar failures arise from changed proposals, concurrent requests, delayed execution, revoked permissions, partial completion, and cancellation races. The engineering model needs to preserve the distinctions that determine the next safe action.
 
-TUN Systemic Engineering aims to provide a shared engineering language and a small set of composable contracts for consequential AI actions.
+## 3. Relationship to TUN Systemic Design
 
-It should help teams:
+The [TUN Systemic Design specification](https://github.com/kochrisdev/TUN-Systemic-Design/blob/main/docs/SPECIFICATION-v0.1.md) already describes product behavior and host responsibilities for approval, authority, verification, and recovery. Its [reference architecture](https://github.com/kochrisdev/TUN-Systemic-Design/blob/main/docs/ARCHITECTURE.md) separates presentation from application enforcement.
 
-1. bind approval to an exact, inspectable proposal;
-2. enforce identity, permissions, scope, expiry, and policy outside the model;
-3. execute actions with durable idempotency and effect tracking;
-4. distinguish acknowledgement, observation, and verification;
-5. represent partial, failed, and unknown outcomes honestly;
-6. reconcile uncertain external effects before retrying;
-7. design interruption and recovery before failure occurs;
-8. connect runtime evidence to the TUN Systemic Design interface patterns;
-9. test system-level safety properties across models, tools, and frameworks.
+TUN Systemic Engineering proposes reusable host contracts and validation scenarios for those responsibilities.
 
-## 4. Relationship to TUN Systemic Design
-
-The two projects address different sides of one product contract.
-
-| TUN Systemic Design | TUN Systemic Engineering |
+| Design responsibility | Proposed engineering support |
 |---|---|
-| How people express intent | How intent becomes a typed system record |
-| How proposals are presented | How proposals are versioned and fingerprinted |
-| How approval is requested | How decisions are bound and authorized |
-| How activity is communicated | How execution attempts and observations are recorded |
-| How outcomes are shown | How outcomes are independently verified |
-| How intervention is offered | How pause, stop, cancel, and revoke are implemented |
-| How recovery is explained | How reconcile, retry, restore, and compensate operate |
-| How evidence is displayed | How evidence provenance and access are enforced |
+| Express intent and inspect context | Scoped intent and versioned context references |
+| Review a proposal and approve it | Canonical proposal plus a separately recorded human decision |
+| Understand who may act | Host authorization and bounded delegation |
+| Observe activity | Operation, attempt, and effect records |
+| Inspect an action receipt | Evidence-backed projection of known outcomes |
+| Intervene in running work | Runtime control requests and confirmed control outcomes |
+| Choose a recovery action | Reconciliation, retry, restoration, or compensation with explicit limits |
 
-TUN Systemic Design remains the presentation and interaction contract. TUN Systemic Engineering supplies the host-side records and lifecycle that make those interfaces truthful.
+The engineering project should preserve the design project's distinction between autonomy and consequence. Neither an autonomy level nor a consequence label grants permission.
 
-Neither layer can substitute for the other. A reliable backend with an opaque interface does not provide meaningful human control. A clear interface without host enforcement does not provide reliable authority or outcomes.
+For actions governed by the design specification, C3 actions generally require explicit approval unless covered by intentional, bounded delegation. C4 actions require recorded approval of the particular proposal. The engineering proposal does not relax those requirements or require an approval dialog for every low-consequence operation.
 
-## 5. Proposed system model
+Compatibility with the design components remains a pilot objective. These documents do not establish package or type compatibility.
 
-The core lifecycle is:
+## 4. Proposed lifecycle
 
-```text
-Intent
-  ↓
-Context Snapshot
-  ↓
-Plan
-  ↓
-Versioned Proposal
-  ↓
-Authorization Decision
-  ↓
-Execution Attempt
-  ↓
-Observation
-  ↓
-Verification
-  ↓
-Action Record
-  ↓
-Recovery or Learning
+Preparation establishes intent, context, and an approach. When an action is ready, the host creates a canonical proposal and evaluates how it may proceed.
+
+```mermaid
+flowchart TD
+    P["Canonical proposal"] --> H["Human approval when required"]
+    P --> D["Existing delegation when permitted"]
+    H --> A["Host authorization"]
+    D --> A
+    A -->|denied or stale| B["Blocked; explain or revise"]
+    A -->|allowed| G["Bounded execution grant"]
+    G --> X["Operation and execution attempts"]
+    X --> O["Observations and known effects"]
+    O --> V["Verification or reconciliation"]
+    V --> R["Action record and receipt"]
+    R -->|further action needed| N["Recovery proposal"]
+    N --> A
 ```
 
-These are related records, not one universal state enum. A proposal can be approved while its execution has not begun. An attempt can be complete while verification remains pending. A cancellation can be acknowledged while the underlying action continues. Keeping these lifecycles separate is a central architectural requirement.
+The authorization of a recovery proposal includes any required human approval. A recovery label is never a permission bypass.
 
-### 5.1 Intent
+This diagram describes dependencies, not a mandatory sequence or one universal status. Observations may arrive before acknowledgements. Verification can continue after a worker stops. Receipts can show pending or unknown outcomes before verification finishes.
 
-An intent describes the desired outcome, scope, constraints, timing, and material assumptions. It is not executable authority.
+Keep these dimensions separate:
 
-### 5.2 Context snapshot
+| Dimension | Examples of what it describes |
+|---|---|
+| Human decision | Approved, rejected, withdrawn |
+| Authorization | Allowed or denied under a particular policy evaluation |
+| Attempt lifecycle | Queued, running, ended |
+| Effect knowledge | None established, partial, established, unknown |
+| Verification | Pending, verified, contradicted, unavailable |
+| Intervention | Requested, acknowledged, effective, failed |
 
-A context snapshot identifies the material information used to prepare a plan or proposal. It should be immutable, access-controlled, and attributable. Material context changes may invalidate an existing proposal.
+These examples are vocabulary for discussion, not fixed enums. An ended attempt can still have an unknown effect. A denied new attempt says nothing about the effects of an earlier attempt.
 
-### 5.3 Plan
+Learning is a separate feedback process. Retaining workflow state, storing a preference, adding an evaluation case, and training a model have different purposes and permissions; they are not automatic consequences of completing an action.
 
-A plan describes an approach, dependencies, checkpoints, and anticipated decisions. Reviewing a plan does not approve every action that could arise from it.
+## 5. Proposed records and ownership
 
-### 5.4 Proposal
+The host is the application and its trusted services that enforce identity, policy, state, and execution. A model may suggest record contents; the host validates and accepts canonical records.
 
-A proposal is a canonical, versioned description of a particular action. It includes the actor, target, material parameters, expected effects, consequence classification, expiry, and recovery limits.
+### Core action records
 
-### 5.5 Authorization decision
+| Record | Purpose |
+|---|---|
+| `ActionProposal` | Immutable action revision: actor, target, material parameters, expected effects, preconditions, consequence, expiry, and recovery limits |
+| `ApprovalDecision` | Authenticated human approval or rejection bound to the exact proposal revision and material fingerprint |
+| `AuthorizationDecision` | Host allow/deny decision using current policy, identity, scope, and applicable approval or delegation |
+| `ExecutionGrant` | Bounded host permission to dispatch a specific operation; it may be an internal record rather than a portable token |
+| `OperationRecord` | Stable identity for one intended logical action across deliveries, attempts, and effects |
+| `ExecutionAttempt` | One bounded invocation attempt, linked to its operation, grant, provider request identity, and observations |
+| `VerificationRecord` | Assessment of a specific outcome claim, with evidence references, method, scope, time, and limitations |
+| `ActionRecord` | Versioned aggregate of known effects, supporting records, unresolved questions, and available next actions |
 
-An authorization decision binds an authenticated principal and current policy evaluation to one exact proposal version. A user-interface callback is a request to make this decision, not the enforcement boundary itself.
+Approval expresses the person's decision. Authorization establishes whether the host currently permits execution. A valid approval can coexist with a denied authorization after permission, policy, or preconditions change.
 
-### 5.6 Execution attempt
+A receipt is an access-filtered view of the action record. Receipt generation cannot invent evidence, remove uncertainty, or confer authority. Updated evidence produces a new record revision while preserving the earlier assessment.
 
-An execution attempt records a bounded attempt to perform an authorized action. It has its own identity, idempotency key, timing, runtime status, and observed effects.
+### Supporting records
 
-### 5.7 Observation
+- `IntentContract`: desired outcome, owner, scope, constraints, and stopping conditions.
+- `ContextSnapshot`: versioned references to material context, provenance, and availability.
+- `PlanRecord`: proposed approach and dependencies; review does not grant execution rights.
+- `DelegationRecord`: permitted actions, targets, duration, budgets, and exception behavior.
+- `ActivityObservation` and `EffectRecord`: what a source reports and which effects are known, including partial effects.
+- `InterventionRequest`: requested control and evidence of its outcome.
+- `RecoveryOperation`: a recovery action linked to the original operation and its own authorization.
 
-An observation reports what a system, provider, or worker claims or exposes. It may be useful without being authoritative. Progress and acknowledgement are observations, not proof of completion.
+Supporting records can begin as embedded structures in the pilot. Each record family does not need a separate service or package.
 
-### 5.8 Verification
+Record envelopes should identify schema version, record identity, producer, security scope, relevant timestamps, and causal references. A proposal's business revision is distinct from its schema version. IDs, timestamps, and fingerprints establish useful relationships only when their source and storage are trusted.
 
-Verification compares the intended effect with authoritative or appropriately trusted evidence. Verification may confirm, contradict, leave pending, or be unavailable.
+## 6. Engineering constraints
 
-### 5.9 Action record
+### 6.1 Enforce authority at the effect boundary
 
-An action record is the durable basis for a user-facing receipt. It includes the known effects, verification status, remaining uncertainty, recovery limits, and available next actions.
+Authorization considers the authenticated principal, tenant or equivalent isolation scope, target, action, policy version, proposal revision, expiry, revocation, and required approval or delegation. A consequential dispatch is blocked when required checks cannot be completed.
 
-### 5.10 Recovery and learning
+The executor uses host-resolved parameters. A model's proposal, retrieved instruction, or client-supplied permission flag cannot grant authority. Effectful credentials and tools need enforcement paths that an agent cannot bypass.
 
-Recovery may mean reconciliation, retry, restoration, compensation, correction, or escalation. These operations must remain distinct. Learning may adapt future behavior but must not silently expand authority.
+The host revalidates authority and relevant preconditions before dispatch, including after a queue delay. Long workflows need further checks at appropriate action boundaries. Each grant names the permitted actor, action, target, operation, and validity limits.
 
-## 6. Engineering principles
+Revocation has a defined enforcement point. Once a provider has accepted an action, stopping future dispatches may not stop its in-flight effects. The system documents that boundary and records what intervention actually achieved.
 
-### 6.1 Contracts before prompts
+### 6.2 Bind approval to material content
 
-Models may help construct plans and proposals, but consequential operations use typed, validated, and versioned records. Natural language does not replace identity, authorization, or input validation.
+The host defines an action-specific material field set and canonical representation. Material fields include anything that changes the approved meaning or consequences. Referenced content needs a version or digest; a mutable URL alone does not bind the reviewed content.
 
-### 6.2 Authority belongs to the host
+A material change creates a new proposal revision and invalidates the earlier approval for that changed action. Unrelated telemetry updates should not trigger new approval. Resource preconditions, such as the target revision, need checking at execution as well as review.
 
-The host application owns authentication, tenant boundaries, permissions, policy, canonical revisions, approval validity, and revocation. Model output, memory, retrieved instructions, interface state, and tool descriptions cannot grant permission.
+Canonical serialization can support reproducible fingerprints; [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) describes one JSON canonicalization scheme. A hash alone does not authenticate the approver, enforce permissions, or establish that source content is true.
 
-### 6.3 Material changes require new decisions
+### 6.3 Distinguish operations from attempts
 
-Approval is bound to the displayed proposal identity, version, and material fingerprint. Changed recipients, content, amounts, targets, permissions, context, or recovery conditions require a new proposal and decision.
+An operation identifies the intended effect; an attempt identifies one invocation. Permitted retries of the same operation retain its idempotency identity and material parameters. A genuinely new intended action gets a new operation identity. A new identity must not be used to escape an unresolved earlier outcome.
 
-### 6.4 Effects are journaled
+The adapter declares key scope, retention, parameter mismatch handling, concurrency behavior, and any downstream effects excluded from its duplicate protection. These are concrete service properties: [AWS's retry guidance](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/) discusses caller request identities and changed intent; [Stripe's API documentation](https://docs.stripe.com/api/idempotent_requests) documents retention and parameter-matching limits.
 
-Consequential attempts create durable records of what was authorized, attempted, observed, verified, and recovered. The journal preserves partial and unknown outcomes instead of rewriting history into a simplified success or failure.
+A local ledger cannot by itself make a remote write atomic with that ledger. The first pilot should test the crash window between provider commit and host acknowledgement. TUN should not claim universal exactly-once execution.
 
-### 6.5 Verification is independent of execution
+### 6.4 Reconcile unknown outcomes
 
-Tool invocation and provider acknowledgement are not sufficient evidence for many actions. Where feasible, verification should use authoritative readback, provider records, or other independent evidence.
+After an ambiguous response, preserve the operation identity and known effects. Reconcile using authorized provider records or a documented equivalent mechanism.
 
-### 6.6 Unknown is a valid outcome
+An empty read from an eventually consistent system may not prove that no write occurred. Define a reconciliation window, evidence freshness, and an escalation path. If the result remains unresolved, retain the unknown state.
 
-A lost response does not show that no effect occurred. The system must support an explicit unknown state and reconcile authoritative records before attempting an operation that could duplicate an effect.
+Any reissue requires current authority and a documented duplicate-effect safeguard that still applies to the original operation. Automatic retries should stop when that guarantee is absent, expired, or uncertain. Human approval of a retry does not establish that the original action had no effect.
 
-### 6.7 Recovery is designed before execution
+### 6.5 Verify an explicit claim
 
-Actions should declare recovery characteristics before approval. The system should know whether it can cancel, restore, retry, compensate, correct, or only reconcile and disclose.
+A verification record states exactly what it assesses: provider acceptance, existence of the expected publication revision, delivery, or another declared effect. It binds evidence to the relevant operation, target, content, source, and observation time.
 
-### 6.8 Delegation cannot increase authority
+Use readback or provider evidence independent of the executor's success assertion where feasible. Independence of method does not require a separate service and does not eliminate shared provider failures.
 
-An agent, sub-agent, workflow, or tool receives no more authority than the delegating actor possesses and explicitly assigns. Authority remains bounded by purpose, target, duration, consequence, and policy.
+An acceptance receipt can verify acceptance without proving delivery. Matching current state may not prove which operation created it; provider request or effect identifiers can support that attribution. Verification of publication also says nothing by itself about the truth of the published text.
 
-### 6.9 Evidence follows access boundaries
+### 6.6 Preserve history with controlled retention
 
-Observability must not become unintended disclosure. Evidence, logs, context, and receipts remain subject to authentication, authorization, redaction, retention, and tenant isolation.
+Record dispatch intent before sending an effectful request. If that required durable write fails, do not dispatch. If recording the result fails after a provider effect, treat recovery as reconciliation of an unresolved operation.
 
-### 6.10 Framework independence
+Retain causal links, partial effects, and later corrections. Append-only event semantics do not require retaining all raw content forever or guarantee tamper resistance. Storage controls, integrity mechanisms, retention, and deletion behavior need explicit implementation choices.
 
-TUN should define portable contracts and invariants rather than require a particular model, agent framework, workflow engine, database, cloud, or policy system.
+Context snapshots may use immutable manifests that reference protected content. Deleting that content can make later replay or verification unavailable; the record should show that limitation. Do not copy sensitive prompts, credentials, or source material into every log to make a trace complete.
+
+### 6.7 Make intervention and recovery real
+
+Define which work can pause, stop, cancel, or transfer to a person, where each request takes effect, and how the outcome is confirmed. Acknowledgement is a request status, not evidence that work has stopped.
+
+Recovery actions have distinct meanings:
+
+| Action | Meaning |
+|---|---|
+| Reconcile | Establish what happened using available evidence |
+| Retry | Attempt the same logical operation again under current authority and duplicate safeguards |
+| Restore | Return the relevant state to a defined earlier condition, subject to current preconditions |
+| Correct | Apply a new change that fixes an identified problem |
+| Compensate | Apply another effect to offset an earlier one |
+| Escalate | Transfer an unresolved decision to an authorized person or process |
+
+Recovery reads require access permission. Recovery writes require their own applicable authorization and approval. Restoring a record may need to preserve subsequent edits; removing a publication cannot retract copies already received.
 
 ## 7. Reference architecture
 
-TUN Systemic Engineering can be organized into three cooperating planes.
+Three logical responsibilities organize the proposed implementation:
+
+| Plane | Owns | Supplies |
+|---|---|---|
+| Control | Identity integration, proposals, approval records, policy decisions, delegation, grants, revocation | Bounded permission or an explicit denial |
+| Execution | Dispatch, tool adapters, attempt records, duplicate protection, resource limits, intervention handling | Observations and known effects |
+| Evidence | Verification, reconciliation, action-record projection, authorized receipt views | Supported claims, unresolved results, and recovery recommendations |
+
+These planes may share a process and database. The first implementation does not require microservices.
+
+The evidence plane cannot independently authorize a corrective write. Recovery returns through control and execution. Intervention reaches the executor; its observed outcome returns through the evidence path.
+
+Budgets cover time, retries, tool calls, and cost. Exhausting a budget stops further dispatch according to policy and preserves completed or unresolved effects.
+
+## 8. Proposed validation
+
+There is no conformance program or certification in this release. The following are candidate acceptance scenarios for a future versioned specification.
+
+| Scenario | Expected evidence |
+|---|---|
+| Content changes after approval | Earlier approval cannot authorize the changed revision |
+| Permission expires while work is queued | Dispatch is denied, with the reason retained |
+| Two workers receive one operation | Provider duplicate protection prevents an additional publication within its declared guarantee |
+| Same key is reused with changed parameters | The request is rejected rather than silently adopting either payload |
+| Provider commits but response is lost | Outcome remains unresolved until reconciliation; no unguarded second write |
+| Host restarts after dispatch | Original operation and uncertainty survive restart |
+| Only some effects occur | Partial effects remain in the action record |
+| Stop races with provider acceptance | Control status and completed or in-flight effects are reported separately |
+| Evidence refers to a different revision | It cannot verify the current claim |
+| Another tenant requests a receipt | Unauthorized evidence and content are not returned |
+| Duplicate-protection retention has elapsed | Replay is blocked unless a safe alternative is established |
+| Compensation fails | Original and compensating effects remain separately inspectable |
+
+A future conformance claim should identify the specification version, selected profile, implementation revision, adapter guarantees, test evidence, and limitations. Passing tests would establish only the tested scope. Adoption labels can be decided after that scope exists.
+
+## 9. First pilot and acceptance criteria
+
+Start with a local publication provider that persists real records and exposes a readback endpoint. Use fixture identities and content, with no public publishing integration. A person can author the proposal; an LLM is optional because the pilot is testing the action contract.
+
+The pilot should support:
+
+1. Preparing and reviewing a canonical publication proposal.
+2. Recording approval separately from host authorization.
+3. Binding a grant and stable operation identity to the approved content.
+4. Publishing through a provider that durably enforces duplicate protection.
+5. Deliberately losing the acknowledgement after provider commit.
+6. Restarting the host and reconciling by the original operation identity.
+7. Verifying the target and content revision, then projecting a truthful receipt.
+8. Requesting a separately authorized correction or withdrawal with disclosed limits.
+
+The milestone is complete when a repeatable run demonstrates exactly one persisted publication for the tested operation, preserved state across restart, a blocked stale approval, and a receipt supported by readback evidence. If readback is unavailable, the receipt remains unresolved.
+
+A short recorded walkthrough and reproducible failure fixtures should accompany the result. This establishes behavior for the local provider; an external adapter needs separate validation of its own guarantees.
+
+TypeScript contracts and SQLite persistence are reasonable pilot candidates. They remain provisional implementation choices.
+
+## 10. Development sequence
+
+| Milestone | Deliverable | Exit condition |
+|---|---|---|
+| Vocabulary | Glossary, record relationships, action and evidence definitions | Approval, authorization, operation, attempt, and outcome have distinct meanings |
+| Draft contracts | Schemas and lifecycle rules for the pilot | Valid and invalid fixtures exercise cross-record bindings |
+| Publication pilot | One reference host, provider, and design-component adapter | The acceptance criteria in section 9 are reproducible |
+| Failure coverage | Crash, race, privacy, and recovery scenarios | Declared guarantees have supporting results and explicit gaps |
+| Portability | A second adapter and integration guidance | Shared contracts survive different provider semantics without hiding limitations |
+
+Begin with a small repository layout, creating these directories only when their contents exist:
 
 ```text
-                 TUN Systemic Design
-          Review, approval, and supervision UI
-                            │
-                            ▼
-┌──────────────────────────────────────────────────┐
-│                 Control Plane                    │
-│ Identity · Policy · Proposals · Decisions        │
-│ Delegation · Expiry · Revocation                 │
-└───────────────────────┬──────────────────────────┘
-                        │ authorized command
-                        ▼
-┌──────────────────────────────────────────────────┐
-│                Execution Plane                   │
-│ Orchestration · Tool adapters · Idempotency      │
-│ Effect journal · Cancellation · Resource limits  │
-└───────────────────────┬──────────────────────────┘
-                        │ observations
-                        ▼
-┌──────────────────────────────────────────────────┐
-│                 Evidence Plane                   │
-│ Readback · Verification · Reconciliation         │
-│ Receipts · Audit · Recovery                      │
-└──────────────────────────────────────────────────┘
+docs/                       Concept, manifesto, then glossary and specification
+schemas/                    Proposed record schemas and examples
+reference/                  One host, provider, persistence layer, and UI adapter
+conformance/                Scenario fixtures and a runner
 ```
 
-### Control plane
+Split reusable packages only when a second integration establishes a useful boundary. A model SDK, workflow engine, identity provider, and policy engine can be integrated through adapters.
 
-The control plane determines whether a requested operation may proceed. It owns canonical proposals, authenticated decisions, policy evaluation, delegation boundaries, expiry, revocation, and execution grants.
+## 11. Open decisions
 
-### Execution plane
+The pilot should resolve:
 
-The execution plane performs bounded work. It validates grants, applies idempotency, invokes tools, emits structured observations, responds to interventions, and journals known effects.
+- Which fields and context changes are material for each action?
+- How are content digests, resource versions, and preconditions bound together?
+- Which guarantees can each provider actually enforce across retries and crashes?
+- How are late observations, contradictions, and receipt revisions represented?
+- When does an unresolved operation require human escalation?
+- How are workflow authority and budgets renewed explicitly?
+- What evidence can be retained while respecting content deletion and access rules?
 
-### Evidence plane
+These decisions should produce examples and recorded rationale before becoming normative requirements.
 
-The evidence plane determines what is actually known about the outcome. It performs readback, reconciliation, verification, receipt projection, audit retention, and recovery coordination.
+## 12. Intended outcome
 
-Deployments may combine these planes physically. Their logical responsibilities and records should remain distinguishable.
+A team adopting the eventual contracts should be able to inspect an action and determine its purpose, exact proposal, approver where required, authorization basis, execution attempts, known effects, supporting evidence, and recovery options.
 
-## 8. Initial contract set
-
-The first project release should specify a small interoperable set of records:
-
-- `IntentContract`
-- `ContextSnapshot`
-- `PlanRecord`
-- `ActionProposal`
-- `AuthorizationDecision`
-- `ExecutionGrant`
-- `ExecutionAttempt`
-- `ActivityObservation`
-- `EffectRecord`
-- `VerificationRecord`
-- `InterventionRequest`
-- `RecoveryOperation`
-- `ActionRecord`
-
-Each record should have:
-
-- a stable identifier;
-- a schema version;
-- creation and observation times where applicable;
-- actor and tenant references;
-- explicit relationships to preceding records;
-- material revision or fingerprint information;
-- access and retention considerations;
-- defined validation and state-transition rules.
-
-JSON Schema can provide a language-neutral interchange form, with generated or hand-maintained types for initial reference implementations.
-
-## 9. Conformance properties
-
-TUN conformance should be demonstrated through evidence and executable tests rather than architecture diagrams alone.
-
-Initial conformance scenarios should verify that:
-
-- an expired proposal cannot execute;
-- a modified proposal cannot inherit approval;
-- approval references the exact proposal version and material fingerprint;
-- the host rechecks authority before execution;
-- delegated actors cannot exceed assigned authority;
-- repeated delivery with the same idempotency key does not create duplicate effects;
-- callback resolution does not create a verified receipt;
-- a timeout may result in an unknown outcome;
-- unknown outcomes require reconciliation before unsafe retry;
-- partial effects remain visible;
-- cancellation requested and cancellation confirmed remain separate;
-- verification evidence matches the correct proposal, attempt, target, and revision;
-- compensation is not described as restoration or undo;
-- high-consequence operations require action-specific recorded approval;
-- sensitive context is redacted before unauthorized transmission;
-- an agent cannot treat retrieved content as an authority grant.
-
-The project may define three adoption descriptions aligned with the design project:
-
-### TUN-Inspired Engineering
-
-Uses selected principles without claiming full implementation.
-
-### TUN-Aligned Engineering
-
-Implements a declared subset of TUN contracts and publishes the applicable conformance evidence and limitations.
-
-### TUN-Conformant Engineering
-
-Passes the applicable normative contract and lifecycle tests for a declared version and deployment scope.
-
-## 10. First reference implementation
-
-The recommended first pilot is a bounded publication workflow. It aligns with the existing TUN Systemic Design publication example and exercises the full lifecycle without requiring a universal agent platform.
-
-The pilot should demonstrate:
-
-1. an agent or person prepares a versioned publication proposal;
-2. the interface displays the exact content, target, effects, and recovery limits;
-3. an authenticated person approves that exact version;
-4. the host validates identity, authority, scope, policy, expiry, and fingerprint;
-5. an execution worker publishes using a durable idempotency key;
-6. a separate verifier reads the published record back;
-7. an action record supplies the TUN `ActionReceipt` with the known result;
-8. a lost acknowledgement produces an unknown result and reconciliation rather than immediate republication;
-9. correction, withdrawal, and compensation are represented as new operations rather than fictional undo.
-
-The reference host may use TypeScript for contracts and application integration with a small SQLite-backed service for durable proposal, decision, attempt, effect, and verification records. These technology choices are illustrative, not normative.
-
-## 11. Proposed repository shape
-
-```text
-docs/
-  CONCEPT-NOTE.md
-  SPECIFICATION-v0.1.md
-  ARCHITECTURE.md
-  THREAT-MODEL.md
-  CONFORMANCE.md
-  GLOSSARY.md
-
-schemas/
-  intent.schema.json
-  context-snapshot.schema.json
-  action-proposal.schema.json
-  authorization-decision.schema.json
-  execution-attempt.schema.json
-  verification-record.schema.json
-  action-record.schema.json
-
-packages/
-  contracts/
-  policy/
-  proposals/
-  execution/
-  journal/
-  verification/
-  recovery/
-  telemetry/
-  testing/
-  react-adapter/
-
-conformance/
-  scenarios/
-  fixtures/
-  runner/
-
-examples/
-  publication-pilot/
-```
-
-The earliest implementation should stay small. The contracts and failure semantics should stabilize before adding broad orchestration, provider, or framework integrations.
-
-## 12. Scope and non-goals
-
-TUN Systemic Engineering is intended to define action-system contracts, lifecycle behavior, and adoption evidence.
-
-It is not initially intended to be:
-
-- a general-purpose agent framework;
-- a model SDK or model router;
-- a prompt library;
-- a workflow engine;
-- an identity provider;
-- a complete policy engine;
-- a database or event broker;
-- proof that an AI system is safe in every domain;
-- a replacement for application-specific security, privacy, legal, accessibility, or safety review;
-- a claim that all actions can be reversed;
-- a mechanism for exposing private chain-of-thought.
-
-Reference implementations may integrate with these systems while keeping TUN contracts portable.
-
-## 13. Key questions for development
-
-The concept should be tested against several open questions:
-
-1. Which proposal fields are always material, and which are action-specific?
-2. How should proposal fingerprints bind large or private content without duplicating it?
-3. What is the minimum useful execution grant?
-4. Which observations qualify as verification for different action classes?
-5. How should verification freshness and evidence authority be represented?
-6. How should long-running workflows renew authority without silently extending delegation?
-7. What guarantees can be portable across local, queued, and distributed execution?
-8. How should interruption behave during non-atomic external operations?
-9. How can conformance evidence remain useful without becoming a misleading safety certification?
-10. Which records belong in product audit history, operational telemetry, or user-visible receipts?
-
-These questions should be answered through narrow pilots and adversarial scenarios rather than abstract specification alone.
-
-## 14. Development approach
-
-### Phase 1 — Vocabulary and invariants
-
-Align terminology with TUN Systemic Design, define record boundaries, document non-claims, and identify the first normative invariants.
-
-### Phase 2 — Schemas and lifecycle tests
-
-Publish the initial JSON Schemas and executable tests for proposal binding, authority, idempotency, unknown outcomes, verification, and recovery.
-
-### Phase 3 — Reference kernel
-
-Implement a small host-side kernel for validation, fingerprinting, decision binding, attempt lifecycle, effect journaling, verification, and receipt projection.
-
-### Phase 4 — Publication pilot
-
-Connect the kernel to the existing TUN React components and demonstrate real authorization, durable effects, independent readback, reconciliation, and recovery.
-
-### Phase 5 — Failure laboratory
-
-Provide inspectable scenarios for stale approval, duplicate delivery, lost acknowledgement, partial completion, permission revocation, cancellation races, provider outage, and conflicting evidence.
-
-### Phase 6 — Integration guidance
-
-Document integration with workflow systems, policy systems, tool protocols, telemetry, multi-tenant applications, and multiple agent frameworks without making any one of them mandatory.
-
-## 15. Measures of success
-
-The project is successful if adopters can answer, with inspectable records:
-
-- What did the person intend?
-- What exact action was proposed?
-- Who authorized it, under which policy and scope?
-- What did the system attempt?
-- Which effects are known to have occurred?
-- What evidence supports that conclusion?
-- What remains partial, pending, contradicted, or unknown?
-- What can safely happen next?
-- Who remains accountable?
-
-Technical success should also include:
-
-- interoperable schemas that are useful without the reference runtime;
-- conformance tests that catch meaningful integration failures;
-- truthful integration with all fourteen TUN Systemic Design patterns;
-- at least one complete reference workflow with durable state and verification;
-- clear limits that prevent users from mistaking alignment for universal safety assurance.
-
-## 16. Working proposition
-
-> TUN Systemic Engineering provides contracts, runtime patterns, and conformance tests for building AI products whose actions are authorized, observable, verifiable, and recoverable.
-
-Together, the two projects form a continuous product contract:
-
-```text
-TUN Systemic Design
-How AI behavior is understood and controlled
-
-                    +
-
-TUN Systemic Engineering
-How AI behavior is constrained, executed, and proven
-
-                    =
-
-Understandable, controllable, and accountable AI products
-```
-
-The immediate next step is not to build a broad agent platform. It is to validate the concept through one versioned proposal, one real authorization boundary, one durable external effect, one independent verification path, and one honest recovery workflow.
+The first useful result is a working, narrowly tested publication workflow. Its claims should remain proportional to its evidence. Broader AI quality and product evaluation can then connect to that foundation without confusing successful execution with a successful product.
