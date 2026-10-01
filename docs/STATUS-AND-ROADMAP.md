@@ -25,7 +25,7 @@ The project has draft documentation, a documentation checker, and an [experiment
 
 ## Design baseline
 
-See the [pilot validation record](PILOT-VALIDATION-2026-10-01.md) for the exact tested engineering source revision, commands, results, and limits.
+See the [review/recovery validation record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) for the tested v0.2 source revision, automated checks, browser journey, and limits. The [earlier publication report](PILOT-VALIDATION-2026-10-01.md) retains its original revision and scope.
 
 The [design integration guide](DESIGN-INTEGRATION-v0.1.md) records the exact companion source revision inspected. The design project has an existing local host pilot; the engineering project can build on its lessons without claiming it already satisfies this draft.
 

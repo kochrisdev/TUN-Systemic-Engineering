@@ -1,0 +1,290 @@
+TUN Systemic Engineering — focused local validation
+Executed 2026-10-01
+Tested source: 725dfbbd76a8e8785ec63fa5d87ab2feea60eba3
+Absolute local workspace/interpreter paths are normalized below. Commands use the dedicated pilot environment.
+
+=== Python focused suite ===
+Command: & '<pilot-python>' -B -m unittest discover -s tests -v
+Exit: 0
+test_child_process_exits_after_provider_commit (test_pilot.PilotCase.test_child_process_exits_after_provider_commit) ... ok
+test_completed_publication_allows_explicit_new_occurrence (test_pilot.PilotCase.test_completed_publication_allows_explicit_new_occurrence) ... ok
+test_corrupt_stored_proposal_blocks_dispatch (test_pilot.PilotCase.test_corrupt_stored_proposal_blocks_dispatch) ... ok
+test_crash_before_provider_blocks_blind_replay (test_pilot.PilotCase.test_crash_before_provider_blocks_blind_replay) ... ok
+test_cross_scope_paths_are_denied (test_pilot.PilotCase.test_cross_scope_paths_are_denied) ... ok
+test_decision_redelivery_is_idempotent (test_pilot.PilotCase.test_decision_redelivery_is_idempotent) ... ok
+test_denial_is_persisted_without_grant (test_pilot.PilotCase.test_denial_is_persisted_without_grant) ... ok
+test_duplicate_keys_constants_and_oversize_json (test_pilot.PilotCase.test_duplicate_keys_constants_and_oversize_json) ... ok
+test_expired_grant_blocks_dispatch_but_not_historical_read (test_pilot.PilotCase.test_expired_grant_blocks_dispatch_but_not_historical_read) ... ok
+test_expired_proposal_cannot_receive_new_decision (test_pilot.PilotCase.test_expired_proposal_cannot_receive_new_decision) ... ok
+test_explicit_fixture_files (test_pilot.PilotCase.test_explicit_fixture_files) ... ok
+test_failed_reservation_transaction_never_invokes_provider (test_pilot.PilotCase.test_failed_reservation_transaction_never_invokes_provider) ... ok
+test_generated_records_cover_every_schema_family (test_pilot.PilotCase.test_generated_records_cover_every_schema_family) ... ok
+test_grant_operation_substitution_blocks_dispatch (test_pilot.PilotCase.test_grant_operation_substitution_blocks_dispatch) ... ok
+test_happy_path_requires_separate_readback (test_pilot.PilotCase.test_happy_path_requires_separate_readback) ... ok
+test_lost_response_reopens_and_reconciles_one_effect (test_pilot.PilotCase.test_lost_response_reopens_and_reconciles_one_effect) ... ok
+test_material_change_requires_rebinding (test_pilot.PilotCase.test_material_change_requires_rebinding) ... ok
+test_new_unavailability_preserves_prior_observation (test_pilot.PilotCase.test_new_unavailability_preserves_prior_observation) ... ok
+test_outcome_persistence_failure_leaves_reconcilable_reservation (test_pilot.PilotCase.test_outcome_persistence_failure_leaves_reconcilable_reservation) ... ok
+test_provider_repeated_key_checks_parameters (test_pilot.PilotCase.test_provider_repeated_key_checks_parameters) ... ok
+test_receipt_cannot_invent_verified_completion (test_pilot.PilotCase.test_receipt_cannot_invent_verified_completion) ... ok
+test_rejected_proposal_cannot_dispatch (test_pilot.PilotCase.test_rejected_proposal_cannot_dispatch) ... ok
+test_revocation_after_queue_blocks_dispatch (test_pilot.PilotCase.test_revocation_after_queue_blocks_dispatch) ... ok
+test_revoked_write_permission_still_allows_owned_readback (test_pilot.PilotCase.test_revoked_write_permission_still_allows_owned_readback) ... ok
+test_separate_stores_required (test_pilot.PilotCase.test_separate_stores_required) ... ok
+test_stale_approval_does_not_transfer_to_revision (test_pilot.PilotCase.test_stale_approval_does_not_transfer_to_revision) ... ok
+test_stored_revision_mismatch_is_rejected (test_pilot.PilotCase.test_stored_revision_mismatch_is_rejected) ... ok
+test_stored_unknown_schema_blocks_dispatch (test_pilot.PilotCase.test_stored_unknown_schema_blocks_dispatch) ... ok
+test_structural_and_semantic_validation_are_separate (test_pilot.PilotCase.test_structural_and_semantic_validation_are_separate) ... ok
+test_two_workers_dispatch_only_once (test_pilot.PilotCase.test_two_workers_dispatch_only_once) ... ok
+test_two_workers_reserve_same_operation (test_pilot.PilotCase.test_two_workers_reserve_same_operation) ... ok
+test_unavailable_lookup_preserves_unknown (test_pilot.PilotCase.test_unavailable_lookup_preserves_unknown) ... ok
+test_unknown_equivalent_replacement_is_blocked (test_pilot.PilotCase.test_unknown_equivalent_replacement_is_blocked) ... ok
+test_unknown_fields_versions_types_and_bad_dates (test_pilot.PilotCase.test_unknown_fields_versions_types_and_bad_dates) ... ok
+test_wrong_operation_verification_is_rejected (test_pilot.PilotCase.test_wrong_operation_verification_is_rejected) ... ok
+test_wrong_readback_cannot_verify (test_pilot.PilotCase.test_wrong_readback_cannot_verify) ... ok
+test_another_actor_cannot_recover_original (test_recovery.RecoveryCase.test_another_actor_cannot_recover_original) ... ok
+test_correction_and_withdrawal_preserve_original_history (test_recovery.RecoveryCase.test_correction_and_withdrawal_preserve_original_history) ... ok
+test_intervening_resource_change_is_verified_no_effect_failure (test_recovery.RecoveryCase.test_intervening_resource_change_is_verified_no_effect_failure) ... ok
+test_legacy_nonempty_store_requires_explicit_migration (test_recovery.RecoveryCase.test_legacy_nonempty_store_requires_explicit_migration) ... ok
+test_lost_recovery_response_and_repeated_dispatch_have_one_effect (test_recovery.RecoveryCase.test_lost_recovery_response_and_repeated_dispatch_have_one_effect) ... ok
+test_original_approval_cannot_approve_recovery (test_recovery.RecoveryCase.test_original_approval_cannot_approve_recovery) ... ok
+test_pending_recovery_prevents_equivalent_replacement (test_recovery.RecoveryCase.test_pending_recovery_prevents_equivalent_replacement) ... ok
+test_publish_permission_does_not_grant_recovery (test_recovery.RecoveryCase.test_publish_permission_does_not_grant_recovery) ... ok
+test_queued_recovery_revocation_blocks_provider (test_recovery.RecoveryCase.test_queued_recovery_revocation_blocks_provider) ... ok
+test_recovery_fields_require_complete_semantic_binding (test_recovery.RecoveryCase.test_recovery_fields_require_complete_semantic_binding) ... ok
+test_recovery_grant_cannot_substitute_publication_authority (test_recovery.RecoveryCase.test_recovery_grant_cannot_substitute_publication_authority) ... ok
+test_unknown_original_requires_reconciliation (test_recovery.RecoveryCase.test_unknown_original_requires_reconciliation) ... ok
+test_verified_record_cannot_omit_its_outcome (test_recovery.RecoveryCase.test_verified_record_cannot_omit_its_outcome) ... ok
+test_withdrawn_resource_cannot_be_silently_restored (test_recovery.RecoveryCase.test_withdrawn_resource_cannot_be_silently_restored) ... ok
+test_client_cannot_supply_actor_target_or_replacement_parameters (test_review_server.ReviewServerCase.test_client_cannot_supply_actor_target_or_replacement_parameters) ... 127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+ok
+test_contradiction_mapping_preserves_explicit_meaning (test_review_server.ReviewServerCase.test_contradiction_mapping_preserves_explicit_meaning) ... 127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/execute HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/reconcile HTTP/1.1" 200 -
+ok
+test_duplicate_json_and_oversize_bodies_are_rejected (test_review_server.ReviewServerCase.test_duplicate_json_and_oversize_bodies_are_rejected) ... 127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [01/Oct/2026 20:33:04] "POST /api/proposals HTTP/1.1" 409 -
+ok
+test_execute_requires_existing_exact_decision (test_review_server.ReviewServerCase.test_execute_requires_existing_exact_decision) ... 127.0.0.1 - - [01/Oct/2026 20:33:05] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:05] "POST /api/execute HTTP/1.1" 403 -
+ok
+test_origin_token_host_and_fetch_site_boundaries (test_review_server.ReviewServerCase.test_origin_token_host_and_fetch_site_boundaries) ... 127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/proposals HTTP/1.1" 403 -
+ok
+test_rejection_does_not_execute (test_review_server.ReviewServerCase.test_rejection_does_not_execute) ... 127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:06] "POST /api/decision HTTP/1.1" 200 -
+ok
+test_review_execute_readback_and_withdrawal_flow (test_review_server.ReviewServerCase.test_review_execute_readback_and_withdrawal_flow) ... 127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/execute HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/recovery HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/execute HTTP/1.1" 200 -
+127.0.0.1 - - [01/Oct/2026 20:33:07] "POST /api/reconcile HTTP/1.1" 200 -
+ok
+test_static_path_cannot_escape_build (test_review_server.ReviewServerCase.test_static_path_cannot_escape_build) ... 127.0.0.1 - - [01/Oct/2026 20:33:07] "GET /assets/../../host.sqlite3 HTTP/1.1" 404 -
+ok
+
+----------------------------------------------------------------------
+Ran 58 tests in 9.981s
+
+OK
+
+=== Documentation checks ===
+Command: & '<pilot-python>' -B scripts/check_docs.py
+& '<pilot-python>' -B scripts/test_check_docs.py
+Exit: 0
+Documentation checks passed: 31 Markdown files, 484 local links, 1 illustrative JSON block(s), 32 requirements, 12 components, 32 planned procedures.
+No runtime conformance procedures were executed; external URLs and diagram rendering were not tested.
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.283s
+
+OK
+
+=== UI build and component tests ===
+Command: npm.cmd run build
+npm.cmd test
+Exit: 0
+
+> tun-engineering-local-review@0.2.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+vendor/tun-design/ActionReceipt.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+vendor/tun-design/ActionReceipt.tsx (1:0): Module level directives cause errors when bundled, "use client" in "vendor/tun-design/ActionReceipt.tsx" was ignored.
+vendor/tun-design/ApprovalGate.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+vendor/tun-design/ApprovalGate.tsx (1:0): Module level directives cause errors when bundled, "use client" in "vendor/tun-design/ApprovalGate.tsx" was ignored.
+✓ 33 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.38 kB │ gzip:  0.28 kB
+dist/assets/index-Dn7DxSkD.css   18.40 kB │ gzip:  3.84 kB
+dist/assets/index-CChJ0GQS.js   237.90 kB │ gzip: 74.10 kB
+✓ built in 1.08s
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> tun-engineering-local-review@0.2.0 test
+> vitest run
+
+
+ RUN  v4.1.11 <repository>/ui
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  20:33:17
+   Duration  601ms (transform 155ms, setup 0ms, import 259ms, tests 22ms, environment 0ms)
+
+
+=== Final browser-backed host view and independent CLI demo ===
+Exit: 0
+{
+  "resources": [
+    {
+      "rootId": "c0ad94e6-01a5-4fe6-a7db-8e71a7b57d66",
+      "target": "project-board",
+      "revision": 3,
+      "status": "withdrawn",
+      "content": ""
+    }
+  ],
+  "viewVersion": "tse-design-view/0.1",
+  "operations": [
+    {
+      "id": "c0ad94e6-01a5-4fe6-a7db-8e71a7b57d66",
+      "actionType": "publish",
+      "originalId": null,
+      "hostStatus": "completed"
+    },
+    {
+      "id": "19707f29-e53b-42e8-a220-64a517044bb1",
+      "actionType": "correct",
+      "originalId": "c0ad94e6-01a5-4fe6-a7db-8e71a7b57d66",
+      "hostStatus": "completed"
+    },
+    {
+      "id": "7bc201da-b7a7-42e7-93c2-b7f29e7e31a9",
+      "actionType": "withdraw",
+      "originalId": "c0ad94e6-01a5-4fe6-a7db-8e71a7b57d66",
+      "hostStatus": "completed"
+    }
+  ]
+}
+{
+  "scenario": "fixture approval -> publication -> lost response -> reopen -> readback",
+  "beforeReadback": {
+    "binding": "sha256:b3715ac53dc9dfdbac5607723f1f0c7dbfd6eb4d23ba197a4b4132275d4af645",
+    "createdAt": "2026-10-01T13:36:47.633Z",
+    "effectKnowledge": "unknown",
+    "id": "bd3b4c45-01e0-4dfd-bec2-43f039c99c4f",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "bd3b4c45-01e0-4dfd-bec2-43f039c99c4f",
+    "proposalRef": {
+      "id": "5ba0ff3f-2dc6-42ad-a683-75507d1fc137",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.2",
+    "scope": "sandbox",
+    "status": "pending-verification",
+    "target": "project-board",
+    "verificationRef": null,
+    "verificationState": "pending",
+    "version": "3"
+  },
+  "afterReadback": {
+    "binding": "sha256:b3715ac53dc9dfdbac5607723f1f0c7dbfd6eb4d23ba197a4b4132275d4af645",
+    "createdAt": "2026-10-01T13:36:47.679Z",
+    "effectKnowledge": "observed",
+    "id": "bd3b4c45-01e0-4dfd-bec2-43f039c99c4f",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "bd3b4c45-01e0-4dfd-bec2-43f039c99c4f",
+    "proposalRef": {
+      "id": "5ba0ff3f-2dc6-42ad-a683-75507d1fc137",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.2",
+    "scope": "sandbox",
+    "status": "completed",
+    "target": "project-board",
+    "verificationRef": {
+      "id": "bd3b4c45-01e0-4dfd-bec2-43f039c99c4f",
+      "version": "1"
+    },
+    "verificationState": "verified",
+    "version": "4"
+  },
+  "providerPublicationCount": 1,
+  "limits": "Synthetic identities, local stores, no model, no remote publishing, no full conformance claim."
+}
+
+=== npm audit --json ===
+Exit: 0
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 4,
+      "dev": 96,
+      "optional": 53,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 99
+    }
+  }
+}
+
+=== Browser observations (recorded summary; not a complete command transcript) ===
+Native agent-browser 0.38.1; HeadlessChrome/154.0.0.0; loopback 127.0.0.1:8765.
+Fresh snapshots were used before controls after state changes.
+Preparation -> keyboard approval -> separate execute with lost-response enabled:
+  Approval alone had no receipt; execution showed pending verification and active resource revision 1.
+Reconcile -> fresh correction review -> approval -> execute -> reconcile:
+  Review named original publication c0ad94e6-01a5-4fe6-a7db-8e71a7b57d66 and resource revision 1.
+  Provider board advanced to revision 2; original receipt remained completed.
+Fresh withdrawal review -> approval -> execute -> reconcile -> reload:
+  Review named the same publication and resource revision 2.
+  Three distinct operations remained completed; current resource withdrawn at revision 3.
+  Final browser and host assertions passed.
+Diagnostics captured after reload:
+  hasContent: true
+  errorOverlay: false
+  horizontalOverflow at viewport 390x844: false
+  errors: empty
+  console: empty
+Screenshots inspected: desktop full-page and mobile full-page.
+Browser session closed after checks.
+Earlier sandboxed browser startup timed out; the isolated browser check succeeded outside the sandbox.
+Initial npm 10 dependency resolution failed before lockfile creation; local npm 11.6.4 generated the lockfile.
+Subsequent npm 10.9.8 ci succeeded; build and tests above used the checked-in lockfile.
+
+=== Vendored source parity ===
+Seven source/style/license files compared to design revision 81b52e8d64c90891ef1340802502e398dc6c0340.
+All matched after CRLF/LF and trailing end-of-file whitespace normalization.
+Source map is recorded in ui/vendor/tun-design/README.md.
+
+No full conformance, authentication, remote-provider, accessibility, or security-certification claim.

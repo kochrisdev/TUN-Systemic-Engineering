@@ -100,6 +100,8 @@ The server enforces loopback binding, exact Host/Origin, a per-instance request 
 
 ## Verification and remaining work
 
+The [validation record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) identifies the tested source revision, automated results, browser observations, and remaining gaps.
+
 Run the Python suite from the repository root and the component tests/build from ui. The suites cover approval binding, duplicate protection, revision conflicts, permission separation, HTTP boundaries, and selected rendering semantics. The full [conformance matrix](CONFORMANCE-MATRIX.md) remains unassessed.
 
 The interface uses explicit event handlers for mutations and a cancellable startup read; rendering does not trigger actions. Browser checks follow the journey from displayed review through HTTP, persisted outcome, readback, and receipt.

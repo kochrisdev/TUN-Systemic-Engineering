@@ -71,6 +71,8 @@ By default, the demo creates and cleans up temporary databases. To retain fixtur
 
 The [original publication validation](PILOT-VALIDATION-2026-10-01.md) preserves the earlier source revision and its 36-test result. It does not establish the later recovery or UI behavior.
 
+The [review/recovery validation](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) records the v0.2 source revision, 58 Python tests, six component tests, and the browser walkthrough.
+
 Current tests remain narrower than the [planned procedures](VALIDATION-PLAN-v0.1.md); complete [conformance requirements](CONFORMANCE-MATRIX.md) remain unassessed. The child-process interruption test is not power-loss, disk-corruption, or multi-host resilience testing.
 
 No general supervision controls, cancellation, budgets, delegation, partial effects, automatic retry, production identity, operational monitoring, retention/deletion service, or schema migration is implemented. UI smoke tests are not a full accessibility audit.
