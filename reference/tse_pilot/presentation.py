@@ -41,7 +41,7 @@ def receipt_view(receipt, proposal):
 
 
 def snapshot(host, principal):
-    proposals, operations, roots = [], [], []
+    proposals, operations, roots, controls = [], [], [], []
     with connection(host.path) as db:
         rows = db.execute("SELECT id,version FROM heads WHERE scope=? ORDER BY rowid", (principal.scope,)).fetchall()
         for row in rows:
@@ -68,10 +68,20 @@ def snapshot(host, principal):
             except Denied:
                 continue
             receipt = host._receipt(db, op, p)
-            operations.append({"id": op["id"], "actionType": p["actionType"], "originalId": p["recoveryFor"],
-                               "hostStatus": receipt["status"], "receipt": receipt_view(receipt, p)})
+            attempt = host._load(db, "ExecutionAttempt", op["attemptId"])
+            operations.append({"id": op["id"], "version": op["version"], "state": op["state"],
+                               "actionType": p["actionType"], "action": proposal_view(p)["action"],
+                               "originalId": p["recoveryFor"], "hostStatus": receipt["status"],
+                               "dispatchObservation": attempt["observation"],
+                               "receipt": None if op["state"] in ("reserved", "cancelled", "blocked") else receipt_view(receipt, p)})
             if p["actionType"] == "publish":
                 roots.append(op["id"])
+        for row in db.execute("SELECT id FROM records WHERE kind='CancellationRecord' ORDER BY sequence"):
+            control = host._load(db, "CancellationRecord", row["id"])
+            if control["scope"] == principal.scope and control["principal"] == principal.name:
+                controls.append({"id": control["id"], "operationId": control["operationRef"]["id"],
+                                 "requestedVersion": control["operationRef"]["version"],
+                                 "outcome": control["outcome"], "observedState": control["observedState"]})
     resources = []
     for root in roots:
         current = host.provider.resource(principal.scope, root)
@@ -79,5 +89,5 @@ def snapshot(host, principal):
             resources.append({"rootId": root, "target": current["target"], "revision": current["revision"],
                               "status": "withdrawn" if current["withdrawn"] else "active",
                               "content": "" if current["withdrawn"] else current["content"]})
-    return {"viewVersion": "tse-design-view/0.1", "proposals": proposals,
-            "operations": operations, "resources": resources}
+    return {"viewVersion": "tse-design-view/0.2", "proposals": proposals, "controls": controls,
+            "budget": host.budget(principal), "operations": operations, "resources": resources}

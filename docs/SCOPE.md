@@ -49,3 +49,7 @@ There is no independent TUN certification program. The [assessment rule](SPECIFI
 ## Website boundary
 
 The documentation structure is informed by the design site. This repository update does not create or deploy an engineering website. The Markdown index is the current navigation entry point.
+
+## Bounded supervision slice
+
+The v0.3 [local supervision pilot](LOCAL-SUPERVISION-PILOT.md) implements cancellation only while an operation remains queued, plus a durable lifetime dispatch-attempt cap per fixture principal and scope. Neither feature establishes remote cancellation, spend control, a general scheduler, or full supervision conformance. Historical v0.1/v0.2 databases are not migrated.

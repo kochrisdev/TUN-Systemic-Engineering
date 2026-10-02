@@ -25,6 +25,7 @@ class Controller:
         self.host = Host(directory / "host.sqlite3", Provider(directory / "provider.sqlite3"))
         self.token = secrets.token_urlsafe(32)
         if fresh:
+            self.host.set_dispatch_budget(self.principal, 3)
             for action in ("publish", "correct", "withdraw"):
                 self.host.set_permission(self.principal, "project-board", True, action=action)
 
@@ -36,7 +37,9 @@ class Controller:
             "/api/proposals": {"content"},
             "/api/recovery": {"originalId", "action", "content"},
             "/api/decision": {"proposalId", "proposalVersion", "decision"},
-            "/api/execute": {"proposalId", "proposalVersion", "loseResponse"},
+            "/api/reserve": {"proposalId", "proposalVersion"},
+            "/api/dispatch": {"operationId", "loseResponse"},
+            "/api/cancel": {"operationId", "operationVersion"},
             "/api/reconcile": {"operationId"},
         }
         if path not in required or type(data) is not dict or set(data) != required[path]:
@@ -59,14 +62,17 @@ class Controller:
             self.host.propose_recovery(p, data["originalId"], data["action"], data["content"])
         elif path == "/api/reconcile":
             self.host.reconcile(p, data["operationId"])
+        elif path == "/api/dispatch":
+            self.host.dispatch(p, data["operationId"], fault="lost-response" if data["loseResponse"] else None)
+        elif path == "/api/cancel":
+            self.host.cancel(p, data["operationId"], data["operationVersion"])
         else:
             ref = {"id": data["proposalId"], "version": data["proposalVersion"]}
             submission = f"web-{ref['id']}-{ref['version']}"
             if path == "/api/decision":
                 self.host.decide(p, ref, data["decision"], submission)
             else:
-                op = self.host.reserve(p, ref, submission)
-                self.host.dispatch(p, op, fault="lost-response" if data["loseResponse"] else None)
+                self.host.reserve(p, ref, submission)
         return self.state()
 
 
@@ -159,7 +165,7 @@ def serve(directory, port):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--directory", type=Path, help="Retain or reopen v0.2 fixture stores; never use real data")
+    parser.add_argument("--directory", type=Path, help="Retain or reopen v0.3 fixture stores; never use real data")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     if args.directory:

@@ -8,11 +8,11 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-SCHEMA_VERSION = "tse-pilot/0.2"
+SCHEMA_VERSION = "tse-pilot/0.3"
 MAX_BYTES = 65536
 SCHEMA_ROOT = Path(__file__).resolve().parents[2] / "schemas"
 SCHEMAS = {f"tse-pilot/{version}": json.loads((SCHEMA_ROOT / f"pilot-v{version}.schema.json").read_text(encoding="utf-8"))
-           for version in ("0.1", "0.2")}
+           for version in ("0.1", "0.2", "0.3")}
 for _schema in SCHEMAS.values():
     Draft202012Validator.check_schema(_schema)
 SCHEMA = SCHEMAS[SCHEMA_VERSION]

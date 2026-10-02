@@ -1,6 +1,6 @@
 # Local Review and Recovery Pilot
 
-Status: experimental v0.2, synthetic data only. Not a hosted website, production service, or general SDK.
+Status: experimental v0.3, synthetic data only. Not a hosted website, production service, or general SDK.
 
 [Documentation index](README.md) · [Pilot internals](PILOT.md) · [Design integration](DESIGN-INTEGRATION-v0.1.md) · [Schema profile](../schemas/README.md)
 
@@ -37,20 +37,22 @@ Start the host on Windows:
 
 On macOS/Linux use .venv/bin/python. Open [the local review interface](http://127.0.0.1:8765). Use that exact address: localhost and other Host values are intentionally rejected. Close the host with Ctrl+C.
 
-Default stores are temporary. Optional --directory followed by a path retains or reopens v0.2 synthetic stores. Unlike the command-line demo, the server can reopen a compatible directory; it does not reset existing permissions or migrate v0.1 records. Use a new directory for a fresh experiment and preserve old evidence.
+Default stores are temporary. Optional --directory followed by a path retains or reopens v0.3 synthetic stores. Unlike the command-line demo, the server can reopen a compatible directory; it does not reset existing permissions or spent budget, or migrate v0.1/v0.2 records. Use a new directory for a fresh experiment and preserve old evidence.
 
 The build can report ignored upstream use-client directives and associated sourcemap diagnostics. These components are rendered entirely in this client-only build; no server-component behavior is claimed.
 
 ## Walkthrough
 
 1. Prepare a publication. Inspect the content, target, actor, consequence, expiry, and recovery limit. No operation exists yet.
-2. Approve it. The gate shows that execution is not confirmed. A separate execute button appears.
-3. Leave the lost-response checkbox enabled and execute. The provider commits the publication, but the receipt remains pending verification.
+2. Approve it. The gate shows that execution is not confirmed. A separate queue button appears. Queueing creates a durable operation but makes no provider write.
+3. Queue the approved action. You can cancel it here with no budget charge. To continue the publication journey, leave the lost-response checkbox enabled and choose Dispatch queued action. The provider commits the publication, but the receipt remains pending verification.
 4. Reconcile that operation. Readback verifies the original journal entry without another publication.
 5. In the provider board, edit the proposed correction and prepare it for review. Check the exact publication ID, active-resource revision, and replacement content.
-6. Approve and execute the correction separately, then reconcile it. The board advances to revision 2; the original publication receipt remains completed as a historical statement.
-7. Prepare withdrawal. Review the exact publication ID, revision 2, and content being withdrawn. Approve, execute, and reconcile this new operation.
+6. Approve, queue, and dispatch the correction separately, then reconcile it. The board advances to revision 2; the original publication receipt remains completed as a historical statement.
+7. Prepare withdrawal. Review the exact publication ID, revision 2, and content being withdrawn. Approve, queue, dispatch, and reconcile this new operation.
 8. The board shows withdrawn at revision 3. Historical publication, correction, and withdrawal receipts remain. Nothing says the original event was undone or erased.
+
+New fixture stores allow three dispatch attempts across publication and recovery. This walkthrough consumes all three. Cancellation before dispatch consumes none; readback remains available at zero budget. See [local supervision](LOCAL-SUPERVISION-PILOT.md) for races and cap semantics.
 
 With lost-response simulation disabled, dispatch still requires readback before reporting completed. The checkbox changes the fixture transport response, not the authorization or verification rules.
 
@@ -83,7 +85,7 @@ Browser: pinned ApprovalGate / ActionReceipt + explicit host controls
   -> readback: bound journal outcome -> verification -> receipt projection
 ~~~
 
-The [projection adapter](../reference/tse_pilot/presentation.py) sends viewVersion tse-design-view/0.1, proposals, operations, and access-filtered resources. This version is separate from tse-pilot/0.2 storage records. The [source attribution](../ui/vendor/tun-design/README.md) pins the upstream design commit and license.
+The [projection adapter](../reference/tse_pilot/presentation.py) sends viewVersion tse-design-view/0.2, proposals, operations, cancellation controls, budget counters, and access-filtered resources. This version is separate from tse-pilot/0.3 storage records. The [source attribution](../ui/vendor/tun-design/README.md) pins the upstream design commit and license.
 
 | Local endpoint | Accepted fields |
 |---|---|
@@ -91,10 +93,12 @@ The [projection adapter](../reference/tse_pilot/presentation.py) sends viewVersi
 | POST /api/proposals | content |
 | POST /api/recovery | originalId, action (correct/withdraw), content (null for withdrawal) |
 | POST /api/decision | proposalId, proposalVersion, decision (approve/reject) |
-| POST /api/execute | proposalId, proposalVersion, loseResponse (boolean fixture fault) |
+| POST /api/reserve | proposalId, proposalVersion; queues without dispatch |
+| POST /api/dispatch | operationId, loseResponse (boolean fixture fault) |
+| POST /api/cancel | operationId, operationVersion; exact queued revision only |
 | POST /api/reconcile | operationId |
 
-Unexpected fields are rejected. The browser cannot choose actor, scope, target, permission, canonical provider parameters, or execution identity. Fixture identity is alice-fixture in sandbox; the target is project-board. New fixture stores separately seed all three action permissions. There is no policy-management HTTP endpoint.
+The former /api/execute shortcut is removed. Unexpected fields are rejected. The browser cannot choose actor, scope, target, permission, canonical provider parameters, or execution identity. Fixture identity is alice-fixture in sandbox; the target is project-board. New fixture stores separately seed all three action permissions. There is no policy- or budget-management HTTP endpoint. The host, not client fields, selects and charges the configured cap.
 
 The server enforces loopback binding, exact Host/Origin, a per-instance request token for mutations, bounded JSON bodies, duplicate-key rejection, and constrained static paths. These checks reduce selected local-browser attack paths; they do not authenticate a person or protect against a local process that can read state. Do not expose this server through a tunnel or public bind. Python's [HTTP server documentation](https://docs.python.org/3/library/http.server.html) also cautions against production use.
 
@@ -106,4 +110,4 @@ Run the Python suite from the repository root and the component tests/build from
 
 The interface uses explicit event handlers for mutations and a cancellable startup read; rendering does not trigger actions. Browser checks follow the journey from displayed review through HTTP, persisted outcome, readback, and receipt.
 
-Remaining work includes production identity and sessions, multi-user operation, remote-provider semantics, cancellation, budgets, partial effects, general supervision components, schema migration, operational controls, and full accessibility/security assessment. The other twelve design components are mapped in the guide but not integrated in this pilot.
+Remaining work includes production identity and sessions, multi-user operation, remote-provider semantics, in-flight cancellation, time/token/money budgets, partial effects, general supervision components, schema migration, operational controls, and full accessibility/security assessment. The other twelve design components are mapped in the guide but not integrated in this pilot.

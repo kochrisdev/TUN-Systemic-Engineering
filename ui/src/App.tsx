@@ -7,24 +7,55 @@ import '../vendor/tun-design/styles.css';
 import './style.css';
 
 export interface View {
-  viewVersion: 'tse-design-view/0.1';
+  viewVersion: 'tse-design-view/0.2';
   csrfToken: string;
   proposals: { proposal: ActionProposal; status: ApprovalStatus; operationId: string | null }[];
-  operations: { id: string; actionType: string; originalId: string | null; hostStatus: string; receipt: ReceiptData }[];
+  budget: { configured: boolean; limit: number | null; used: number; remaining: number };
+  controls: { id: string; operationId: string; requestedVersion: string; outcome: 'effective' | 'too-late' | 'stale'; observedState: string }[];
+  operations: { id: string; version: string; state: string; action: string; actionType: string;
+    originalId: string | null; hostStatus: string; dispatchObservation: string; receipt: ReceiptData | null }[];
   resources: { rootId: string; target: string; revision: number; status: 'active' | 'withdrawn'; content: string }[];
 }
 
 async function responseView(response: Response): Promise<View> {
   const body = await response.json();
   if (!response.ok) throw new Error(typeof body.error === 'string' ? body.error : 'Request failed; refresh history.');
-  if (body.viewVersion !== 'tse-design-view/0.1' || typeof body.csrfToken !== 'string' ||
-      !Array.isArray(body.proposals) || !Array.isArray(body.operations) || !Array.isArray(body.resources)) {
+  if (body.viewVersion !== 'tse-design-view/0.2' || typeof body.csrfToken !== 'string' ||
+      !Array.isArray(body.proposals) || !Array.isArray(body.operations) || !Array.isArray(body.resources) ||
+      !Array.isArray(body.controls) || !body.budget || typeof body.budget.remaining !== 'number') {
     throw new Error('Unsupported server view. No action was inferred from this response.');
   }
   return body as View; // Same-origin fixture host projection; not an authorization boundary.
 }
 
 type Perform = (path: string, payload: object) => Promise<void>;
+
+export function OperationPanel({ item, busy, remaining, loseResponse, perform }: {
+  item: View['operations'][number]; busy: boolean; remaining: number; loseResponse: boolean; perform: Perform;
+}) {
+  const queued = item.state === 'reserved';
+  return <article>
+    {item.receipt ? <ActionReceipt receipt={item.receipt} /> : <div className="resource">
+      <h3>{item.action}</h3>
+      <p>{queued ? 'Queued — not dispatched' : item.state === 'cancelled' ? 'Cancelled before dispatch' : 'Dispatch blocked'}</p>
+      <p>No effectful provider call was made for this operation.</p>
+      {item.dispatchObservation === 'budget-exhausted' && <p>The host dispatch budget was missing or exhausted.</p>}
+    </div>}
+    <p className="lineage">Operation {item.id} · revision {item.version}</p>
+    {item.originalId && <p className="lineage">Recovery for operation {item.originalId}. Original history is preserved.</p>}
+    {queued ? <div className="buttons">
+      <button disabled={busy || remaining <= 0} onClick={() => {
+        void perform('/api/dispatch', { operationId: item.id, loseResponse }).catch(() => {});
+      }}>Dispatch queued action</button>
+      <button disabled={busy} onClick={() => {
+        void perform('/api/cancel', { operationId: item.id, operationVersion: item.version }).catch(() => {});
+      }}>Cancel queued action</button>
+    </div> : item.receipt && <button disabled={busy} onClick={() => {
+      void perform('/api/reconcile', { operationId: item.id }).catch(() => {});
+    }}>Reconcile operation</button>}
+    {queued && remaining <= 0 && <p>Dispatch budget exhausted. Cancellation and readback remain available.</p>}
+  </article>;
+}
 
 function ResourceCard({ resource, allowed, busy, perform }: {
   resource: View['resources'][number]; allowed: boolean; busy: boolean; perform: Perform;
@@ -94,7 +125,7 @@ export function App() {
   }
 
   return <>
-    <header><div className="brand">TUN <span>Systemic Engineering</span></div><span className="tag">Local fixture · v0.2</span></header>
+    <header><div className="brand">TUN <span>Systemic Engineering</span></div><span className="tag">Local fixture · v0.3</span></header>
     <main>
       <section className="intro"><p className="eyebrow">THE ACTION CONTRACT</p><h1>Review. Execute. Verify.</h1>
         <p>Approval records a decision. The host enforces permission. Evidence establishes what happened.</p>
@@ -108,6 +139,12 @@ export function App() {
       </div>
       {error && <p className="error" role="alert">{error} Refresh history before attempting further work.</p>}
       {!view ? <p role="status">Loading the local host…</p> : <>
+        <section aria-labelledby="budget-title" className="draft-panel">
+          <h2 id="budget-title">Dispatch budget</h2>
+          <p role="status">{view.budget.used} of {view.budget.limit ?? 'unconfigured'} dispatch slots consumed · {view.budget.remaining} remaining</p>
+          <p>Shared across this fixture actor's publications and recovery actions. No automatic reset or refund; this is not a money or token budget.</p>
+          <p>Cancellation only prevents queued work from crossing the dispatch boundary. It cannot stop an accepted provider operation.</p>
+        </section>
         <section aria-labelledby="draft-title" className="draft-panel">
           <h2 id="draft-title">1. Prepare a publication</h2>
           <form onSubmit={event => { event.preventDefault(); void perform('/api/proposals', { content: draft }).catch(() => {}); }}>
@@ -123,20 +160,24 @@ export function App() {
             <ApprovalGate proposal={item.proposal} status={item.status} approveLabel={'Approve: ' + item.proposal.action.toLowerCase()}
               onDecision={decide} blockedReason={busy ? 'Another host request is pending.' : undefined} />
             {item.status === 'approved' && !item.operationId && <button className="execute" disabled={busy}
-              onClick={() => { void perform('/api/execute', { proposalId: item.proposal.id, proposalVersion: item.proposal.version, loseResponse }).catch(() => {}); }}>
-              Execute approved action
+              onClick={() => { void perform('/api/reserve', { proposalId: item.proposal.id, proposalVersion: item.proposal.version }).catch(() => {}); }}>
+              Queue approved action
             </button>}
           </div>)}</div>
         </section>
         <section aria-labelledby="history-title"><h2 id="history-title">3. Inspect evidence and history</h2>
-          {!view.operations.length && <p className="empty">An approval is not an action receipt. Execute an approved proposal to begin an operation.</p>}
-          <div className="cards">{view.operations.map(item => <article key={item.id}>
-            <ActionReceipt receipt={item.receipt} />
-            {item.originalId && <p className="lineage">Recovery for operation {item.originalId}. Original history is preserved.</p>}
-            <button disabled={busy} onClick={() => { void perform('/api/reconcile', { operationId: item.id }).catch(() => {}); }}>
-              Reconcile operation
-            </button>
-          </article>)}</div>
+          {!view.operations.length && <p className="empty">An approval is not an action receipt. Queue an approved proposal to begin an operation.</p>}
+          <div className="cards">{view.operations.map(item => <OperationPanel key={item.id} item={item}
+            busy={busy} remaining={view.budget.remaining} loseResponse={loseResponse} perform={perform} />)}</div>
+        </section>
+        <section aria-labelledby="controls-title"><h2 id="controls-title">Cancellation evidence</h2>
+          {!view.controls.length && <p className="empty">Cancellation results appear here, separately from action receipts.</p>}
+          {view.controls.map(control => <article key={control.id} className="resource">
+            <h3>{control.outcome === 'effective' ? 'Cancellation effective before dispatch' :
+              control.outcome === 'stale' ? 'Stale cancellation — no action taken' : 'Cancellation too late — no action taken'}</h3>
+            <p className="lineage">Operation {control.operationId} · requested revision {control.requestedVersion}</p>
+            <p>Observed operation state: {control.observedState}. No restoration of earlier effects is claimed.</p>
+          </article>)}
         </section>
         <section aria-labelledby="board-title"><h2 id="board-title">Current provider board</h2>
           <p>The board shows current local state. Receipts above describe historical operation outcomes.</p>

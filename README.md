@@ -50,7 +50,7 @@ The local host supplies presentation records to the actual `ApprovalGate` and `A
 
 The [local pilot](docs/PILOT.md) implements fixture approval, current authorization checks, durable operation records, local provider duplicate protection, and verification through readback. Its demonstration loses a provider response and recovers the original publication after reopening the stores.
 
-The [review and recovery guide](docs/REVIEW-AND-RECOVERY-PILOT.md) adds a browser journey with distinct review, approval, execution, and verification steps. Correction and withdrawal require fresh approval, action-specific permission, and an unchanged resource revision. Next: pre-dispatch cancellation, budget controls, and a controlled remote provider. Real authentication remains unimplemented.
+The [review and recovery guide](docs/REVIEW-AND-RECOVERY-PILOT.md) adds a browser journey with distinct review, approval, execution, and verification steps. Correction and withdrawal require fresh approval, action-specific permission, and an unchanged resource revision. The [local supervision guide](docs/LOCAL-SUPERVISION-PILOT.md) adds an explicit queue, pre-dispatch cancellation evidence, and a durable dispatch-attempt cap. Next: controlled remote-provider integration and production identity; neither is implemented.
 
 The [concept note](docs/CONCEPT-NOTE-v0.1.md#9-first-pilot-and-acceptance-criteria) defines the acceptance criteria. Model, retrieval, and product-quality evaluations remain separate responsibilities.
 

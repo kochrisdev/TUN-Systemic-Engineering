@@ -15,6 +15,7 @@ def run(directory):
     host = Host(host_path, provider)
     alice = Principal("alice-fixture", "sandbox")
     host.set_permission(alice, "project-board", True)
+    host.set_dispatch_budget(alice, 3)
     proposal = host.propose(alice, "project-board", "Synthetic project update: the pilot is ready for review.")
     ref = {"id": proposal["id"], "version": proposal["version"]}
     decision = host.decide(alice, ref, "approve", "fixture-approval-1")

@@ -85,3 +85,7 @@ The design timestamp parser expects an explicit timezone, seconds, and at most m
 Exercise exact proposal revisions, lost decision acknowledgements, a denied dispatch after approval, unknown and partial effects, evidence contradictions, late control results, and cross-tenant reads.
 
 Also review keyboard operation, focus, announcements, readable action details, reduced motion, and status meaning without color. Component samples cannot establish complete accessibility of a consuming application. Record the tested design commit and host revision with the evidence.
+
+## Local supervision presentation
+
+The v0.3 [local supervision slice](LOCAL-SUPERVISION-PILOT.md) renders queued, cancelled, and blocked work in host status cards, with no ActionReceipt projection for those uninvoked operations. The pinned receipt enum has no queued/cancelled value; it is not forced into failed, completed, or reversed. Cancellation evidence and dispatch-budget counters are separate host views. HumanOverride and RecoveryControl remain mapped but are not integrated, and no general run-control compatibility is claimed.

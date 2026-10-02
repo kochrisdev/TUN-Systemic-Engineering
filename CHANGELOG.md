@@ -2,6 +2,14 @@
 
 This log records documentation milestones. The v0.1 label denotes an evolving draft, not a package release. Source commits identify exact revisions.
 
+## 2026-10-02 — Bounded local supervision
+
+- Added an explicit reservation/queue step before dispatch in the local interface and HTTP API.
+- Added exact-revision cancellation with durable effective, too-late, or stale outcomes; dispatch and cancellation serialize on the same host transaction boundary.
+- Added versioned dispatch budgets, charged atomically with attempt ownership. Restart, duplicate dispatch, readback, and cancellation cannot refill usage.
+- Added the tse-pilot/0.3 storage profile and tse-design-view/0.2 projection, preserving historical schemas without automatic migration.
+- Added host/HTTP/component tests and documented the limited local supervision model; production identity, external cancellation, other budget dimensions, and full conformance remain open.
+
 ## 2026-10-01 — Local review and separately approved recovery
 
 - Added the experimental tse-pilot/0.2 profile while preserving the historical v0.1 schema and fixtures.

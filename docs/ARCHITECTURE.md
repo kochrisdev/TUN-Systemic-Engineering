@@ -90,6 +90,14 @@ Define the ordering between revocation and dispatch reservation. Recheck permiss
 
 ## Evidence and projections
 
+### Implemented local dispatch boundary
+
+The v0.3 [supervision slice](LOCAL-SUPERVISION-PILOT.md) distinguishes a reserved queue entry from a committed dispatch claim. Reserved work is known to be uninvoked in this host; attempted work can be uncertain after a crash.
+
+Cancellation and dispatch serialize through the same host write transaction. Cancellation atomically records the terminal queue state, ended attempt, and control evidence. Dispatch atomically records ownership, consumes one configured dispatch-budget slot, and links the attempt to that budget revision before invoking the provider.
+
+This narrows the local race without closing the provider gap. A crash between dispatch claim and invocation retains the spent slot and unresolved action. Historical control evidence never replaces provider readback.
+
 The journal records facts and assessments with producer and causal references. The action projection combines them for a particular operation. Verification does not overwrite raw observations; it explains which claim they support and what remains unresolved.
 
 Receipts and audit views are different access-filtered projections. A viewer may be entitled to the action status without seeing its private source content. Evidence links need access enforcement when followed, not just when generated.

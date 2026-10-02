@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Status and Roadmap
 
-Updated: 1 October 2026.
+Updated: 2 October 2026.
 
 [Documentation index](README.md) · [Scope](SCOPE.md) · [Validation plan](VALIDATION-PLAN-v0.1.md)
 
@@ -17,7 +17,7 @@ The project has draft documentation, a documentation checker, and an [experiment
 | Design component integration | Two pinned React components integrated locally; broader mapping remains proposed | [Design integration](DESIGN-INTEGRATION-v0.1.md) |
 | Threats and assessment | Full procedures unassessed; limited pilot tests exist | [Threat model](THREAT-MODEL.md), [Conformance matrix](CONFORMANCE-MATRIX.md) |
 | Documentation checker | Implemented | [Check description](DOCUMENTATION-CHECKS.md), [source](../scripts/check_docs.py) |
-| Runtime schemas and types | Experimental v0.2 publication/recovery profile implemented | [Schema and fixtures](../schemas/README.md); general schemas and migration remain open |
+| Runtime schemas and types | Experimental v0.3 publication/recovery/supervision profile implemented | [Schema and fixtures](../schemas/README.md); general schemas and migration remain open |
 | Authority and execution kernel | Narrow local host implemented | [Pilot](PILOT.md); fixture identity only, no production kernel |
 | Provider and verification adapters | Local SQLite publication, correction, withdrawal, and readback implemented | [Pilot](PILOT.md); no remote provider; two-component React view exists |
 | Runtime conformance runner | Complete runner not implemented | [Focused tests](../tests/test_pilot.py), not full procedure coverage |
@@ -53,7 +53,7 @@ Exit: a version-bound approval can produce one verified local publication; stale
 
 ## Milestone 4 — Add supervision and recovery
 
-Progress: separately approved correction and withdrawal now check action-specific authority and the exact provider resource revision. Both preserve the original history. Cancellation and budget controls remain unimplemented; this milestone is not complete.
+Progress: separately approved correction and withdrawal now check action-specific authority and the exact provider resource revision. Both preserve the original history. The local v0.3 pilot now adds queued cancellation and a durable per-actor/scope dispatch-attempt budget. The local subset is implemented; general run controls, time/token/money budgets, polling limits, partial effects, and full assessment remain open.
 
 Implement cancellation before dispatch, budget controls, reconciliation, and separately authorized withdrawal or correction. Expand to partial effects only when the provider model supports them.
 

@@ -45,6 +45,7 @@ The documents define an initial engineering draft. An experimental local pilot p
 |---|---|
 | [Getting started](GETTING-STARTED.md) | First reading and implementation decisions; actual documentation-check command |
 | [Local pilot](PILOT.md) | Run the implementation, understand its tests, and inspect its limits |
+| [Local supervision pilot](LOCAL-SUPERVISION-PILOT.md) | Queued cancellation, dispatch budgets, races, and operational limits |
 | [Review and recovery pilot](REVIEW-AND-RECOVERY-PILOT.md) | Build the local interface and exercise publication, correction, and withdrawal |
 | [Review/recovery validation — 1 October 2026](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) | Revision-bound automated tests, browser observations, and limitations |
 | [Pilot validation — 1 October 2026](PILOT-VALIDATION-2026-10-01.md) | Revision-bound executed results, captured output, and coverage limits |

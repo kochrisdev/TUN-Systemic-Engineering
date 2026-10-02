@@ -259,7 +259,7 @@ The first experimental slice uses Python, JSON Schema, and separate SQLite store
 
 ## 10. Development sequence
 
-The [glossary](GLOSSARY.md), draft requirements, record semantics, lifecycle rules, and planned validation procedures are documented. Specialized schemas, publication/readback, separately approved correction/withdrawal, and a two-component local React interface now exist. General contracts, richer supervision, production integration, and full assessment remain open. The [status and roadmap](STATUS-AND-ROADMAP.md) tracks those distinctions.
+The [glossary](GLOSSARY.md), draft requirements, record semantics, lifecycle rules, and planned validation procedures are documented. Specialized schemas, publication/readback, separately approved correction/withdrawal, queued cancellation, a dispatch-attempt cap, and a two-component local React interface now exist. General contracts, richer supervision, production integration, and full assessment remain open. The [status and roadmap](STATUS-AND-ROADMAP.md) tracks those distinctions.
 
 | Milestone | Deliverable | Exit condition |
 |---|---|---|

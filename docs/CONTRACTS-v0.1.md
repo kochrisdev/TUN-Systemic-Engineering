@@ -6,7 +6,7 @@ Status: proposed general record model; a narrower experimental pilot schema exis
 
 ## Reading this document
 
-This document translates the specification into candidate record shapes. Field names are design proposals, not supported imports or a promise of wire compatibility. The specification defines required behavior. The [pilot schema profile](../schemas/README.md) fixes a smaller set of fields and states for publication, correction, and withdrawal. Its current namespace is tse-pilot/0.2; this document's v0.1 refers to the separate general draft. It does not stabilize this general model or implement migrations.
+This document translates the specification into candidate record shapes. Field names are design proposals, not supported imports or a promise of wire compatibility. The specification defines required behavior. The [pilot schema profile](../schemas/README.md) fixes a smaller set of fields and states for publication, correction, and withdrawal. Its current namespace is tse-pilot/0.3, with specialized cancellation and dispatch-budget records; this document's v0.1 refers to the separate general draft. It does not stabilize this general model or implement migrations.
 
 Engineering and design records can share names such as `ActionProposal` or `ContextSnapshot` without being interchangeable. The [presentation adapter](DESIGN-INTEGRATION-v0.1.md) owns that conversion.
 

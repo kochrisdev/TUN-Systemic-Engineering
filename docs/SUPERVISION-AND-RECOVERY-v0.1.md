@@ -1,6 +1,6 @@
 # TUN Systemic Engineering — Supervision and Recovery v0.1
 
-Status: proposed control and recovery contracts; no worker-control service is implemented here.
+Status: general control contracts remain proposed; the local pilot implements queued cancellation, a dispatch-attempt cap, and separately approved recovery.
 
 [Documentation index](README.md) · [Specification](SPECIFICATION-v0.1.md) · [Lifecycles](LIFECYCLES-v0.1.md) · [Design integration](DESIGN-INTEGRATION-v0.1.md)
 
@@ -17,7 +17,7 @@ A control names the intended run, the requested effect, where it takes effect, a
 | Take over | Transfer responsibility and disable conflicting automation | Existing provider actions need separate reconciliation |
 | Escalate | Assign the unresolved decision to an authorized responder | Assignment is not resolution |
 
-Availability depends on the executor and provider. The first local pilot can support cancellation before dispatch without claiming cancellation of an accepted remote write.
+Availability depends on the executor and provider. The [local supervision pilot](LOCAL-SUPERVISION-PILOT.md) supports cancellation before dispatch without claiming cancellation of an accepted remote write.
 
 ## Control lifecycle
 
@@ -77,6 +77,6 @@ Exercise budget and intervention scenarios in [V-23 through V-27](VALIDATION-PLA
 
 ## Local recovery implementation
 
-The [v0.2 pilot walkthrough](REVIEW-AND-RECOVERY-PILOT.md) implements correction and withdrawal as fresh proposals, approvals, action-specific authorizations, operations, and receipts. The provider checks the exact active resource revision atomically with the change. A stale precondition produces a correlated rejection record and no resource change. Readback establishes that outcome; a timeout does not.
+The [pilot walkthrough](REVIEW-AND-RECOVERY-PILOT.md) implements correction and withdrawal as fresh proposals, approvals, action-specific authorizations, operations, and receipts. The provider checks the exact active resource revision atomically with the change. A stale precondition produces a correlated rejection record and no resource change. Readback establishes that outcome; a timeout does not.
 
-This subset does not implement the general supervision controller, cancellation, budgets, retry, partial effects, or restoration. Withdrawal hides the active resource but retains its content in authorized historical records; it is neither erasure nor reversal of external consequences.
+The v0.3 extension adds queued cancellation and a dispatch-attempt cap, recorded separately from provider outcomes. This subset does not implement a general supervision controller, provider cancellation, time/token/money budgets, retry, partial effects, or restoration. Withdrawal hides the active resource but retains its content in authorized historical records; it is neither erasure nor reversal of external consequences.

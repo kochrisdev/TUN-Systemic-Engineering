@@ -30,7 +30,7 @@ Start with canonical proposals, recorded human decisions, host authorization, an
 
 Inject a lost acknowledgement after provider commit. Restart the host and reconcile the original operation. Demonstrate that the outcome becomes known without another publication.
 
-The pilot demonstrates publication/readback plus separately approved correction and withdrawal through a local React review interface. Follow the [review and recovery walkthrough](REVIEW-AND-RECOVERY-PILOT.md). Richer supervision, production identity, and additional providers remain future increments. The [roadmap](STATUS-AND-ROADMAP.md) gives exit criteria.
+The pilot demonstrates publication/readback plus separately approved correction and withdrawal through a local React review interface. Follow the [review and recovery walkthrough](REVIEW-AND-RECOVERY-PILOT.md). The [supervision slice](LOCAL-SUPERVISION-PILOT.md) adds queued cancellation and a dispatch-attempt cap. Richer run controls, production identity, and additional providers remain future increments. The [roadmap](STATUS-AND-ROADMAP.md) gives exit criteria.
 
 ## Check the documentation
 

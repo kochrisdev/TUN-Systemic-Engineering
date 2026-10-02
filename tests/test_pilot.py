@@ -46,6 +46,7 @@ class PilotCase(unittest.TestCase):
         self.host = Host(self.host_path, self.provider, clock=lambda: self.now)
         self.alice = Principal("alice", "tenant-a")
         self.host.set_permission(self.alice, "board", True)
+        self.host.set_dispatch_budget(self.alice, 8)
 
     def prepare(self, content="Synthetic update"):
         proposal = self.host.propose(self.alice, "board", content)
@@ -82,6 +83,7 @@ class PilotCase(unittest.TestCase):
         _, op = self.reserve()
         self.host.dispatch(self.alice, op)
         self.host.reconcile(self.alice, op)
+        self.host.cancel(self.alice, op, "1")
         seen = set()
         with connection(self.host_path) as db:
             for row in db.execute("SELECT payload FROM records"):

@@ -172,6 +172,69 @@ class Host:
                 scope TEXT NOT NULL, proposal_id TEXT NOT NULL, proposal_version TEXT NOT NULL,
                 operation_id TEXT UNIQUE NOT NULL,
                 PRIMARY KEY(scope,proposal_id,proposal_version))""")
+            db.execute("""CREATE TABLE IF NOT EXISTS budget_heads (
+                scope TEXT NOT NULL, principal TEXT NOT NULL, budget_id TEXT NOT NULL,
+                PRIMARY KEY(scope,principal))""")
+
+    def _budget(self, db, principal):
+        row = db.execute("SELECT budget_id FROM budget_heads WHERE scope=? AND principal=?",
+                         (principal.scope, principal.name)).fetchone()
+        if row is None:
+            return None
+        value = self._load(db, "DispatchBudget", row["budget_id"])
+        if value["scope"] != principal.scope or value["principal"] != principal.name:
+            raise ContractError("budget principal mismatch")
+        return value
+
+    def set_dispatch_budget(self, principal, limit):
+        """Trusted fixture administration; changes the total cap, never resets usage."""
+        if type(limit) is not int or not 0 <= limit <= 1000:
+            raise ValueError("dispatch cap must be an integer from 0 to 1000")
+        with connection(self.path) as db:
+            old = self._budget(db, principal)
+            if old is not None:
+                return self._advance(db, old, limit=limit, lastOperationId=None)
+            value = self._put(db, record("DispatchBudget", principal.scope, self.clock(),
+                              principal=principal.name, limit=limit, used=0, lastOperationId=None))
+            db.execute("INSERT INTO budget_heads VALUES(?,?,?)", (principal.scope, principal.name, value["id"]))
+            return value
+
+    def budget(self, principal):
+        with connection(self.path) as db:
+            value = self._budget(db, principal)
+            return {"configured": value is not None, "limit": value["limit"] if value else None,
+                    "used": value["used"] if value else 0,
+                    "remaining": max(0, value["limit"] - value["used"]) if value else 0}
+
+    def cancel(self, principal, op_id, expected_version):
+        """Cancel only an exact queued operation revision; duplicate requests are stable."""
+        if type(expected_version) is not str or not expected_version.isascii() or not expected_version.isdigit() or not 0 < len(expected_version) <= 10:
+            raise ContractError("invalid control revision")
+        with connection(self.path) as db:
+            op, proposal = self._operation(db, principal, op_id)
+            identity = "cancel-" + op_id + "-" + expected_version
+            requested = {"id": op_id, "version": expected_version}
+            if db.execute("SELECT 1 FROM records WHERE kind='CancellationRecord' AND id=?", (identity,)).fetchone():
+                existing = self._load(db, "CancellationRecord", identity)
+                validate_binding(existing, proposal)
+                if existing["principal"] != principal.name or existing["operationRef"] != requested:
+                    raise ContractError("control binding mismatch")
+                return existing
+            outcome = "too-late" if op["state"] != "reserved" else "stale"
+            if op["state"] == "reserved" and op["version"] == expected_version:
+                attempt = self._load(db, "ExecutionAttempt", op["attemptId"])
+                if (attempt["scope"] != principal.scope or attempt["operationId"] != op_id
+                        or attempt["grantId"] != op["grantId"] or attempt["state"] != "reserved"
+                        or attempt["budgetRef"] is not None):
+                    raise ContractError("queued attempt binding mismatch")
+                op = self._advance(db, op, state="cancelled")
+                self._advance(db, attempt, state="ended", observation="cancelled-before-dispatch")
+                self._project(db, op, proposal)
+                outcome = "effective"
+            return self._put(db, record("CancellationRecord", principal.scope, self.clock(),
+                             identifier=identity, principal=principal.name, proposalRef=op["proposalRef"],
+                             binding=op["binding"], operationRef=requested,
+                             observedOperationVersion=op["version"], observedState=op["state"], outcome=outcome))
 
     def set_permission(self, principal, target, allowed, *, action="publish"):
         """Trusted fixture administration; deliberately not an exposed endpoint."""
@@ -337,7 +400,7 @@ class Host:
                 equivalent = (old["actionType"] == proposal["actionType"] == "publish"
                               and old["target"] == proposal["target"] and old["content"] == proposal["content"])
                 same_recovery_target = (old["recoveryFor"] is not None and old["recoveryFor"] == proposal["recoveryFor"])
-                if other["state"] not in ("verified", "blocked", "failed") and (equivalent or same_recovery_target):
+                if other["state"] not in ("verified", "blocked", "failed", "cancelled") and (equivalent or same_recovery_target):
                     raise Conflict("equivalent original operation remains unresolved")
             op_id = str(uuid4())
             auth = self._authorization(db, principal, proposal, decision_id, op_id)
@@ -349,7 +412,7 @@ class Host:
                                authorizationId=auth["id"], expiresAt=proposal["expiresAt"])
                 self._put(db, grant)
                 attempt = record("ExecutionAttempt", principal.scope, self.clock(), operationId=op_id,
-                                 grantId=grant["id"], state="reserved", observation="pending")
+                                 grantId=grant["id"], state="reserved", observation="pending", budgetRef=None)
                 self._put(db, attempt)
                 op = record("OperationRecord", principal.scope, self.clock(), identifier=op_id,
                             proposalRef=ref, binding=proposal["binding"], principal=principal.name,
@@ -395,7 +458,8 @@ class Host:
                 raise Denied("particular approval required")
             attempt = self._load(db, "ExecutionAttempt", op["attemptId"])
             if (attempt["operationId"] != op_id or attempt["grantId"] != grant["id"]
-                    or attempt["scope"] != principal.scope):
+                    or attempt["scope"] != principal.scope or attempt["state"] != "reserved"
+                    or attempt["budgetRef"] is not None):
                 raise ContractError("attempt binding mismatch")
             try:
                 self._proposal(db, principal, op["proposalRef"], active=True)
@@ -405,9 +469,18 @@ class Host:
                 denied = True
             current = self._authorization(db, principal, proposal, decision["id"], op_id)
             denied = denied or current["result"] == "deny"
+            observation = "dispatch-denied" if denied else "pending"
+            budget_ref = None
+            if not denied:
+                budget = self._budget(db, principal)
+                if budget is None or budget["used"] >= budget["limit"]:
+                    denied, observation = True, "budget-exhausted"
+                else:
+                    charged = self._advance(db, budget, used=budget["used"] + 1, lastOperationId=op_id)
+                    budget_ref = {"id": charged["id"], "version": charged["version"]}
             op = self._advance(db, op, state="blocked" if denied else "attempted")
             self._advance(db, attempt, state="ended" if denied else "dispatching",
-                          observation="dispatch-denied" if denied else "pending")
+                          observation=observation, budgetRef=budget_ref)
             self._project(db, op, proposal)
         if denied:
             raise Denied("dispatch checks failed")
@@ -439,6 +512,10 @@ class Host:
     def reconcile(self, principal, op_id):
         with connection(self.path) as db:
             op, proposal = self._operation(db, principal, op_id)
+            if op["state"] in ("reserved", "blocked", "cancelled"):
+                # No dispatch ownership was committed. Readback must not turn queued
+                # or cancelled work into unknown work or resurrect its eligibility.
+                return self._receipt(db, op, proposal)
         result, effect_id, outcome = "pending", None, None
         try:
             effect = self.provider.lookup(principal.scope, op_id)
@@ -490,11 +567,11 @@ class Host:
         status = "completed" if state == "verified" else ("contradicted" if state == "contradicted" else "pending-verification")
         if latest and state == "verified" and latest["outcome"] == "rejected":
             status = "failed"
-        if op["state"] == "blocked" and not assessments:
-            status = "blocked"
+        if op["state"] in ("reserved", "blocked", "cancelled") and not assessments:
+            status = "queued" if op["state"] == "reserved" else op["state"]
         return dict(proposalRef=op["proposalRef"], binding=op["binding"],
                          operationId=op["id"], target=op["target"],
-                         effectKnowledge="observed" if known else ("none" if status in ("blocked", "failed") else "unknown"),
+                         effectKnowledge="observed" if known else ("none" if status in ("queued", "blocked", "failed", "cancelled") else "unknown"),
                          verificationState=state, status=status,
                          verificationRef={"id": latest["id"], "version": latest["version"]} if latest else None,
                          limitations="Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.")

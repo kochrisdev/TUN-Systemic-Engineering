@@ -8,7 +8,7 @@ Status: experimental local reference code, not a production service or full conf
 
 Python and two separate SQLite files provide canonical proposals, fixture human decisions, authorization evaluations, grants, reservations, attempts, verification assessments, and receipt projections. The provider stores an immutable operation-outcome journal and a separately versioned current-resource table.
 
-The v0.2 pilot supports publication, correction, and withdrawal. Each recovery action is a new proposal and operation with fresh approval, action-specific permission, and an exact resource-revision precondition. A local React interface renders the actual pinned TUN ApprovalGate and ActionReceipt components.
+The v0.3 pilot supports publication, correction, withdrawal, queued cancellation, and a persistent dispatch-attempt cap. Each recovery action is a new proposal and operation with fresh approval, action-specific permission, and an exact resource-revision precondition. A local React interface renders the actual pinned TUN ApprovalGate and ActionReceipt components.
 
 There is no model invocation, real identity service, or external publishing account. Everything is synthetic and local.
 
@@ -40,7 +40,7 @@ By default, the demo creates and cleans up temporary databases. To retain fixtur
 
 | File | Responsibility |
 |---|---|
-| [Current schema](../schemas/pilot-v0.2.schema.json) | Eight specialized action-record families plus provider evidence |
+| [Current schema](../schemas/pilot-v0.3.schema.json) | Eight specialized action-record families, provider evidence, DispatchBudget, and CancellationRecord |
 | [Contract validation](../reference/tse_pilot/contracts.py) | Strict JSON, schema checks, dates, fingerprints, cross-record bindings |
 | [Local runtime](../reference/tse_pilot/runtime.py) | Host journal, fixture policy, durable dispatch, provider preconditions, readback |
 | [Presentation adapter](../reference/tse_pilot/presentation.py) | Access-filtered proposal and receipt views |
@@ -48,6 +48,7 @@ By default, the demo creates and cleans up temporary databases. To retain fixtur
 | [React interface](../ui/src/App.tsx) | Explicit review, decision, execution, readback, and recovery controls |
 | [Publication tests](../tests/test_pilot.py) | Contract, authority, concurrency, corruption, and crash fixtures |
 | [Recovery tests](../tests/test_recovery.py) | Fresh decisions, action-specific permission, stale revisions, retained history |
+| [Supervision tests](../tests/test_supervision.py) | Cancellation races, budget concurrency, restart, rollback, and scope |
 | [HTTP tests](../tests/test_review_server.py) | Command boundaries and host-to-design projections |
 | [Component tests](../ui/src/components.test.tsx) | Rendering and review/receipt semantics against pinned design code |
 
@@ -59,6 +60,8 @@ By default, the demo creates and cleans up temporary databases. To retain fixtur
 - One terminal approval or rejection is allowed per proposal revision. Repeated submission identity returns the original decision. Revoking or replacing a human decision is not implemented; withdrawing a published resource is a different action.
 - Publication proposals can be revised before reservation. Recovery uses a new proposal. Existing grants never silently transfer to changed material.
 - The committed reserved-to-attempted transition is the dispatch/revocation boundary. Later permission changes cannot cancel the in-flight provider call.
+- Reservation queues the operation without a provider write. Exact-revision cancellation can terminate that queue; it cannot cancel attempted work. Cancellation has its own durable evidence.
+- At the reserved-to-attempted boundary, a configured per-principal/scope budget consumes one dispatch slot in the same transaction. Missing/exhausted budgets block dispatch. Usage never resets on restart and is not refunded after response loss, provider rejection, or a crash after the boundary.
 - At most one host invocation is allowed per operation. Unknown work is never automatically reissued.
 - Exact same-target/content publications and recovery operations for the same original resource cannot replace unresolved work. This is not semantic similarity detection.
 - The provider atomically stores the resource change or precondition rejection with its unique scope/operation key. Keys persist for the database lifetime, with no expiry or protection against database loss/rollback.
@@ -75,10 +78,10 @@ The [review/recovery validation](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) recor
 
 Current tests remain narrower than the [planned procedures](VALIDATION-PLAN-v0.1.md); complete [conformance requirements](CONFORMANCE-MATRIX.md) remain unassessed. The child-process interruption test is not power-loss, disk-corruption, or multi-host resilience testing.
 
-No general supervision controls, cancellation, budgets, delegation, partial effects, automatic retry, production identity, operational monitoring, retention/deletion service, or schema migration is implemented. UI smoke tests are not a full accessibility audit.
+No general run supervision, provider cancellation, time/token/money budgets, delegation, partial effects, automatic retry, production identity, operational monitoring, retention/deletion service, or schema migration is implemented. See the [implemented local supervision boundary](LOCAL-SUPERVISION-PILOT.md). UI smoke tests are not a full accessibility audit.
 
 A verified claim establishes only the bound local provider outcome at the recorded observation time. It does not establish delivery, factual truth, product value, or present resource state.
 
 ## Version boundary
 
-New records use tse-pilot/0.2. The validator can decode the retained v0.1 fixtures, but the runtime rejects nonempty v0.1 host/provider stores. Use new synthetic stores; do not overwrite old evidence. No automatic migration or upgrade compatibility is promised.
+New records use tse-pilot/0.3. The validator can decode retained v0.1/v0.2 records, but the runtime rejects nonempty v0.1/v0.2 host/provider stores. Use new synthetic stores; do not overwrite old evidence. No automatic migration or upgrade compatibility is promised.
