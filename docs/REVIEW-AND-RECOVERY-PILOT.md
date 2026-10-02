@@ -104,7 +104,7 @@ The server enforces loopback binding, exact Host/Origin, a per-instance request 
 
 ## Verification and remaining work
 
-The [validation record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) identifies the tested source revision, automated results, browser observations, and remaining gaps.
+The [current supervision validation](SUPERVISION-VALIDATION-2026-10-02.md) identifies the tested v0.3 source revision, automated results, browser observations, and remaining gaps. The [earlier review/recovery record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) preserves its v0.2 evidence.
 
 Run the Python suite from the repository root and the component tests/build from ui. The suites cover approval binding, duplicate protection, revision conflicts, permission separation, HTTP boundaries, and selected rendering semantics. The full [conformance matrix](CONFORMANCE-MATRIX.md) remains unassessed.
 

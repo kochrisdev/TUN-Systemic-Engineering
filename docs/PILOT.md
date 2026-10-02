@@ -76,6 +76,8 @@ The [original publication validation](PILOT-VALIDATION-2026-10-01.md) preserves 
 
 The [review/recovery validation](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) records the v0.2 source revision, 58 Python tests, six component tests, and the browser walkthrough.
 
+The [supervision validation](SUPERVISION-VALIDATION-2026-10-02.md) records the v0.3 source revision, 82 Python tests, ten component tests, and browser observations of cancellation and the shared dispatch cap.
+
 Current tests remain narrower than the [planned procedures](VALIDATION-PLAN-v0.1.md); complete [conformance requirements](CONFORMANCE-MATRIX.md) remain unassessed. The child-process interruption test is not power-loss, disk-corruption, or multi-host resilience testing.
 
 No general run supervision, provider cancellation, time/token/money budgets, delegation, partial effects, automatic retry, production identity, operational monitoring, retention/deletion service, or schema migration is implemented. See the [implemented local supervision boundary](LOCAL-SUPERVISION-PILOT.md). UI smoke tests are not a full accessibility audit.

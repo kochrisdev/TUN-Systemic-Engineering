@@ -1,0 +1,892 @@
+TUN Systemic Engineering — local supervision validation
+Executed 2026-10-02
+Tested implementation: 8255167d16389d7edff53b76de32d8c699142aa0
+Paths normalized to <workspace> or <repo>. Request tokens are excluded. The server was intentionally stopped after verification.
+
+
+=== Python suite ===
+Command:
+& '<workspace>/work/tse-pilot-venv/Scripts/python.exe' -B -m unittest discover -s tests -v
+Exit: 0
+test_child_process_exits_after_provider_commit (test_pilot.PilotCase.test_child_process_exits_after_provider_commit) ... ok
+test_completed_publication_allows_explicit_new_occurrence (test_pilot.PilotCase.test_completed_publication_allows_explicit_new_occurrence) ... ok
+test_corrupt_stored_proposal_blocks_dispatch (test_pilot.PilotCase.test_corrupt_stored_proposal_blocks_dispatch) ... ok
+test_crash_before_provider_blocks_blind_replay (test_pilot.PilotCase.test_crash_before_provider_blocks_blind_replay) ... ok
+test_cross_scope_paths_are_denied (test_pilot.PilotCase.test_cross_scope_paths_are_denied) ... ok
+test_decision_redelivery_is_idempotent (test_pilot.PilotCase.test_decision_redelivery_is_idempotent) ... ok
+test_denial_is_persisted_without_grant (test_pilot.PilotCase.test_denial_is_persisted_without_grant) ... ok
+test_duplicate_keys_constants_and_oversize_json (test_pilot.PilotCase.test_duplicate_keys_constants_and_oversize_json) ... ok
+test_expired_grant_blocks_dispatch_but_not_historical_read (test_pilot.PilotCase.test_expired_grant_blocks_dispatch_but_not_historical_read) ... ok
+test_expired_proposal_cannot_receive_new_decision (test_pilot.PilotCase.test_expired_proposal_cannot_receive_new_decision) ... ok
+test_explicit_fixture_files (test_pilot.PilotCase.test_explicit_fixture_files) ... ok
+test_failed_reservation_transaction_never_invokes_provider (test_pilot.PilotCase.test_failed_reservation_transaction_never_invokes_provider) ... ok
+test_generated_records_cover_every_schema_family (test_pilot.PilotCase.test_generated_records_cover_every_schema_family) ... ok
+test_grant_operation_substitution_blocks_dispatch (test_pilot.PilotCase.test_grant_operation_substitution_blocks_dispatch) ... ok
+test_happy_path_requires_separate_readback (test_pilot.PilotCase.test_happy_path_requires_separate_readback) ... ok
+test_lost_response_reopens_and_reconciles_one_effect (test_pilot.PilotCase.test_lost_response_reopens_and_reconciles_one_effect) ... ok
+test_material_change_requires_rebinding (test_pilot.PilotCase.test_material_change_requires_rebinding) ... ok
+test_new_unavailability_preserves_prior_observation (test_pilot.PilotCase.test_new_unavailability_preserves_prior_observation) ... ok
+test_outcome_persistence_failure_leaves_reconcilable_reservation (test_pilot.PilotCase.test_outcome_persistence_failure_leaves_reconcilable_reservation) ... ok
+test_provider_repeated_key_checks_parameters (test_pilot.PilotCase.test_provider_repeated_key_checks_parameters) ... ok
+test_receipt_cannot_invent_verified_completion (test_pilot.PilotCase.test_receipt_cannot_invent_verified_completion) ... ok
+test_rejected_proposal_cannot_dispatch (test_pilot.PilotCase.test_rejected_proposal_cannot_dispatch) ... ok
+test_revocation_after_queue_blocks_dispatch (test_pilot.PilotCase.test_revocation_after_queue_blocks_dispatch) ... ok
+test_revoked_write_permission_still_allows_owned_readback (test_pilot.PilotCase.test_revoked_write_permission_still_allows_owned_readback) ... ok
+test_separate_stores_required (test_pilot.PilotCase.test_separate_stores_required) ... ok
+test_stale_approval_does_not_transfer_to_revision (test_pilot.PilotCase.test_stale_approval_does_not_transfer_to_revision) ... ok
+test_stored_revision_mismatch_is_rejected (test_pilot.PilotCase.test_stored_revision_mismatch_is_rejected) ... ok
+test_stored_unknown_schema_blocks_dispatch (test_pilot.PilotCase.test_stored_unknown_schema_blocks_dispatch) ... ok
+test_structural_and_semantic_validation_are_separate (test_pilot.PilotCase.test_structural_and_semantic_validation_are_separate) ... ok
+test_two_workers_dispatch_only_once (test_pilot.PilotCase.test_two_workers_dispatch_only_once) ... ok
+test_two_workers_reserve_same_operation (test_pilot.PilotCase.test_two_workers_reserve_same_operation) ... ok
+test_unavailable_lookup_preserves_unknown (test_pilot.PilotCase.test_unavailable_lookup_preserves_unknown) ... ok
+test_unknown_equivalent_replacement_is_blocked (test_pilot.PilotCase.test_unknown_equivalent_replacement_is_blocked) ... ok
+test_unknown_fields_versions_types_and_bad_dates (test_pilot.PilotCase.test_unknown_fields_versions_types_and_bad_dates) ... ok
+test_wrong_operation_verification_is_rejected (test_pilot.PilotCase.test_wrong_operation_verification_is_rejected) ... ok
+test_wrong_readback_cannot_verify (test_pilot.PilotCase.test_wrong_readback_cannot_verify) ... ok
+test_another_actor_cannot_recover_original (test_recovery.RecoveryCase.test_another_actor_cannot_recover_original) ... ok
+test_correction_and_withdrawal_preserve_original_history (test_recovery.RecoveryCase.test_correction_and_withdrawal_preserve_original_history) ... ok
+test_intervening_resource_change_is_verified_no_effect_failure (test_recovery.RecoveryCase.test_intervening_resource_change_is_verified_no_effect_failure) ... ok
+test_legacy_nonempty_store_requires_explicit_migration (test_recovery.RecoveryCase.test_legacy_nonempty_store_requires_explicit_migration) ... ok
+test_lost_recovery_response_and_repeated_dispatch_have_one_effect (test_recovery.RecoveryCase.test_lost_recovery_response_and_repeated_dispatch_have_one_effect) ... ok
+test_original_approval_cannot_approve_recovery (test_recovery.RecoveryCase.test_original_approval_cannot_approve_recovery) ... ok
+test_pending_recovery_prevents_equivalent_replacement (test_recovery.RecoveryCase.test_pending_recovery_prevents_equivalent_replacement) ... ok
+test_publish_permission_does_not_grant_recovery (test_recovery.RecoveryCase.test_publish_permission_does_not_grant_recovery) ... ok
+test_queued_recovery_revocation_blocks_provider (test_recovery.RecoveryCase.test_queued_recovery_revocation_blocks_provider) ... ok
+test_recovery_fields_require_complete_semantic_binding (test_recovery.RecoveryCase.test_recovery_fields_require_complete_semantic_binding) ... ok
+test_recovery_grant_cannot_substitute_publication_authority (test_recovery.RecoveryCase.test_recovery_grant_cannot_substitute_publication_authority) ... ok
+test_unknown_original_requires_reconciliation (test_recovery.RecoveryCase.test_unknown_original_requires_reconciliation) ... ok
+test_verified_record_cannot_omit_its_outcome (test_recovery.RecoveryCase.test_verified_record_cannot_omit_its_outcome) ... ok
+test_withdrawn_resource_cannot_be_silently_restored (test_recovery.RecoveryCase.test_withdrawn_resource_cannot_be_silently_restored) ... ok
+test_client_cannot_supply_actor_target_or_replacement_parameters (test_review_server.ReviewServerCase.test_client_cannot_supply_actor_target_or_replacement_parameters) ... 127.0.0.1 - - [02/Oct/2026 08:16:20] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:20] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:20] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:20] "POST /api/proposals HTTP/1.1" 409 -
+ok
+test_contradiction_mapping_preserves_explicit_meaning (test_review_server.ReviewServerCase.test_contradiction_mapping_preserves_explicit_meaning) ... 127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/reconcile HTTP/1.1" 200 -
+ok
+test_duplicate_json_and_oversize_bodies_are_rejected (test_review_server.ReviewServerCase.test_duplicate_json_and_oversize_bodies_are_rejected) ... 127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/proposals HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/proposals HTTP/1.1" 409 -
+ok
+test_execute_requires_existing_exact_decision (test_review_server.ReviewServerCase.test_execute_requires_existing_exact_decision) ... 127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:21] "POST /api/reserve HTTP/1.1" 403 -
+ok
+test_existing_fixture_restart_never_refills_budget (test_review_server.ReviewServerCase.test_existing_fixture_restart_never_refills_budget) ... 127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/dispatch HTTP/1.1" 200 -
+ok
+test_http_dispatch_enforces_zero_budget (test_review_server.ReviewServerCase.test_http_dispatch_enforces_zero_budget) ... 127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "POST /api/dispatch HTTP/1.1" 403 -
+127.0.0.1 - - [02/Oct/2026 08:16:22] "GET /api/state HTTP/1.1" 200 -
+ok
+test_late_control_does_not_change_verified_receipt (test_review_server.ReviewServerCase.test_late_control_does_not_change_verified_receipt) ... 127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/cancel HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:23] "POST /api/reconcile HTTP/1.1" 200 -
+ok
+test_legacy_execute_route_and_client_budget_override_are_rejected (test_review_server.ReviewServerCase.test_legacy_execute_route_and_client_budget_override_are_rejected) ... 127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/execute HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/reserve HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/dispatch HTTP/1.1" 409 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/cancel HTTP/1.1" 409 -
+ok
+test_origin_token_host_and_fetch_site_boundaries (test_review_server.ReviewServerCase.test_origin_token_host_and_fetch_site_boundaries) ... 127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/proposals HTTP/1.1" 403 -
+127.0.0.1 - - [02/Oct/2026 08:16:24] "POST /api/proposals HTTP/1.1" 403 -
+ok
+test_queue_cancel_redelivery_and_attempted_dispatch (test_review_server.ReviewServerCase.test_queue_cancel_redelivery_and_attempted_dispatch) ... 127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/cancel HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/cancel HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:25] "POST /api/dispatch HTTP/1.1" 200 -
+ok
+test_rejection_does_not_execute (test_review_server.ReviewServerCase.test_rejection_does_not_execute) ... 127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/decision HTTP/1.1" 200 -
+ok
+test_review_execute_readback_and_withdrawal_flow (test_review_server.ReviewServerCase.test_review_execute_readback_and_withdrawal_flow) ... 127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/recovery HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:26] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:27] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:27] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:16:27] "POST /api/reconcile HTTP/1.1" 200 -
+ok
+test_static_path_cannot_escape_build (test_review_server.ReviewServerCase.test_static_path_cannot_escape_build) ... 127.0.0.1 - - [02/Oct/2026 08:16:27] "GET /assets/../../host.sqlite3 HTTP/1.1" 404 -
+ok
+test_attempt_claim_crash_remains_charged_without_provider_call (test_supervision.SupervisionCase.test_attempt_claim_crash_remains_charged_without_provider_call) ... ok
+test_budget_write_failure_rolls_back_dispatch_ownership (test_supervision.SupervisionCase.test_budget_write_failure_rolls_back_dispatch_ownership) ... ok
+test_cancel_dispatch_race_has_one_atomic_winner (test_supervision.SupervisionCase.test_cancel_dispatch_race_has_one_atomic_winner) ... ok
+test_cancelled_original_does_not_block_fresh_reviewed_occurrence (test_supervision.SupervisionCase.test_cancelled_original_does_not_block_fresh_reviewed_occurrence) ... ok
+test_cancelled_queue_never_dispatches_or_spends (test_supervision.SupervisionCase.test_cancelled_queue_never_dispatches_or_spends) ... ok
+test_cap_changes_and_restart_never_reset_consumption (test_supervision.SupervisionCase.test_cap_changes_and_restart_never_reset_consumption) ... ok
+test_control_evidence_write_failure_rolls_back_cancellation (test_supervision.SupervisionCase.test_control_evidence_write_failure_rolls_back_cancellation) ... ok
+test_duplicate_cancellation_survives_restart_and_permission_revocation (test_supervision.SupervisionCase.test_duplicate_cancellation_survives_restart_and_permission_revocation) ... ok
+test_invalid_caps_and_control_revisions_are_rejected (test_supervision.SupervisionCase.test_invalid_caps_and_control_revisions_are_rejected) ... ok
+test_late_cancel_during_provider_call_cannot_claim_success (test_supervision.SupervisionCase.test_late_cancel_during_provider_call_cannot_claim_success) ... ok
+test_missing_and_zero_budget_fail_closed (test_supervision.SupervisionCase.test_missing_and_zero_budget_fail_closed) ... ok
+test_nonempty_v02_stores_require_explicit_migration (test_supervision.SupervisionCase.test_nonempty_v02_stores_require_explicit_migration) ... ok
+test_other_actor_and_scope_cannot_cancel (test_supervision.SupervisionCase.test_other_actor_and_scope_cannot_cancel) ... ok
+test_permission_denial_does_not_spend (test_supervision.SupervisionCase.test_permission_denial_does_not_spend) ... ok
+test_recovery_uses_same_budget_and_readback_remains_available (test_supervision.SupervisionCase.test_recovery_uses_same_budget_and_readback_remains_available) ... ok
+test_repeated_dispatch_and_readback_do_not_spend_again (test_supervision.SupervisionCase.test_repeated_dispatch_and_readback_do_not_spend_again) ... ok
+test_stale_control_records_no_effect_and_leaves_queue (test_supervision.SupervisionCase.test_stale_control_records_no_effect_and_leaves_queue) ... ok
+test_two_workers_cannot_overspend_shared_budget (test_supervision.SupervisionCase.test_two_workers_cannot_overspend_shared_budget) ... ok
+test_uninvoked_readback_never_changes_queue_or_terminal_state (test_supervision.SupervisionCase.test_uninvoked_readback_never_changes_queue_or_terminal_state) ... ok
+
+----------------------------------------------------------------------
+Ran 82 tests in 15.677s
+
+OK
+
+
+=== Documentation ===
+Command:
+& '<workspace>/work/tse-pilot-venv/Scripts/python.exe' -B scripts/check_docs.py
+& '<workspace>/work/tse-pilot-venv/Scripts/python.exe' -B scripts/test_check_docs.py
+Exit: 0
+Documentation checks passed: 33 Markdown files, 515 local links, 1 illustrative JSON block(s), 32 requirements, 12 components, 32 planned procedures.
+No runtime conformance procedures were executed; external URLs and diagram rendering were not tested.
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.263s
+
+OK
+
+
+=== UI reproducible install, build and tests ===
+Command:
+$env:npm_config_cache='<workspace>/work/npm-cache'
+npm.cmd ci --no-fund
+if ($LASTEXITCODE -ne 0) { throw 'Install failed' }
+npm.cmd run build
+if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
+npm.cmd test
+Exit: 0
+
+added 49 packages, and audited 50 packages in 3s
+
+found 0 vulnerabilities
+
+> tun-engineering-local-review@0.3.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+vendor/tun-design/ActionReceipt.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+vendor/tun-design/ActionReceipt.tsx (1:0): Module level directives cause errors when bundled, "use client" in "vendor/tun-design/ActionReceipt.tsx" was ignored.
+vendor/tun-design/ApprovalGate.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+vendor/tun-design/ApprovalGate.tsx (1:0): Module level directives cause errors when bundled, "use client" in "vendor/tun-design/ApprovalGate.tsx" was ignored.
+✓ 33 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.38 kB │ gzip:  0.28 kB
+dist/assets/index-Dn7DxSkD.css   18.40 kB │ gzip:  3.84 kB
+dist/assets/index-Ci_uq-K5.js   240.48 kB │ gzip: 74.77 kB
+✓ built in 1.48s
+
+> tun-engineering-local-review@0.3.0 test
+> vitest run
+
+
+ RUN  v4.1.11 <repo>/ui
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  08:16:23
+   Duration  1.26s (transform 190ms, setup 0ms, import 532ms, tests 21ms, environment 0ms)
+
+
+
+=== Browser initial segment (automation connection interrupted) ===
+agent-browser click @e18
+✓ Done
+agent-browser focus @e23
+✓ Done
+agent-browser press Enter
+✓ Done
+agent-browser click @e24
+✓ Done
+PASS Queued without charge : used=0 operations=1 controls=0 last=queued
+agent-browser click @e27
+✓ Done
+PASS Cancellation before dispatch : used=0 operations=1 controls=1 last=cancelled
+agent-browser fill @e17 Synthetic supervised publication: reviewed before dispatch.
+✓ Done
+agent-browser click @e18
+✓ Done
+agent-browser click @e33
+✓ Done
+✗ CDP connection closed
+Exception: <workspace>\work\verify-supervision-browser.ps1:7
+Line |
+   7 |      if ($LASTEXITCODE -ne 0) { throw ($taskResult -join "`n") }
+     |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 
+
+
+=== Expired approval after browser reconnect ===
+agent-browser click @e50
+✓ Done
+Exception: <workspace>\work\verify-supervision-browser.ps1:26
+Line |
+  26 |      if(!$taskRows.Count) { throw "Missing enabled $Role $Label" }
+     |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Missing enabled button Dispatch queued action
+
+Read-only inspection found expired proposal; host returned HTTP 403. No provider resources; budget used 0. A fresh proposal was then reviewed.
+
+=== Browser continued from persisted cancellation with fresh proposal ===
+agent-browser fill @e54 Synthetic supervised publication: reviewed before dispatch.
+✓ Done
+agent-browser click @e55
+✓ Done
+agent-browser click @e70
+✓ Done
+agent-browser click @e71
+✓ Done
+agent-browser click @e73
+✓ Done
+PASS Lost response retains pending verification : used=1 operations=2 controls=1 last=pending-verification
+agent-browser click @e76
+✓ Done
+PASS Publication readback : used=1 operations=2 controls=1 last=completed
+agent-browser fill @e79 Corrected synthetic supervised publication.
+✓ Done
+agent-browser click @e80
+✓ Done
+agent-browser click @e86
+✓ Done
+agent-browser click @e87
+✓ Done
+agent-browser click @e89
+✓ Done
+agent-browser click @e92
+✓ Done
+PASS Correction shares budget : used=2 operations=3 controls=1 last=completed
+agent-browser click @e97
+✓ Done
+agent-browser click @e102
+✓ Done
+agent-browser click @e103
+✓ Done
+agent-browser click @e105
+✓ Done
+agent-browser click @e108
+✓ Done
+PASS Withdrawal shares budget : used=3 operations=4 controls=1 last=completed
+agent-browser fill @e54 Synthetic extra publication: must not dispatch at zero budget.
+✓ Done
+agent-browser click @e55
+✓ Done
+agent-browser click @e115
+✓ Done
+agent-browser click @e116
+✓ Done
+- generic "TUN Systemic EngineeringLocal fixture · v0.3THE ACTION CONTRACTReview. Execute. Verify.Approval reco" [ref=e35] clickable [onclick]
+  - heading "Review. Execute. Verify." [level=1, ref=e44]
+  - button "Refresh history" [ref=e36]
+  - checkbox "Simulate a lost provider response" [checked=true, ref=e37]
+  - region "Dispatch budget" [ref=e38]
+    - heading "Dispatch budget" [level=2, ref=e45]
+  - region "1. Prepare a publication" [ref=e39]
+    - heading "1. Prepare a publication" [level=2, ref=e46]
+    - textbox "Publication content" [ref=e54]: Synthetic extra publication: must not dispatch at zero budget.
+    - button "Prepare publication for review" [ref=e55]
+  - region "2. Review and authorize" [ref=e40]
+    - heading "2. Review and authorize" [level=2, ref=e47]
+    - region "Publish update" [ref=e48]
+      - heading "Publish update" [level=2, ref=e56]
+      - heading "Content preview" [level=3, ref=e57]
+      - button "Reject action" [disabled, ref=e58]
+      - button "Approve: publish update" [disabled, ref=e59]
+    - region "Publish update" [ref=e49]
+      - heading "Publish update" [level=2, ref=e60]
+      - heading "Content preview" [level=3, ref=e61]
+      - button "Reject action" [disabled, ref=e62]
+      - button "Approve: publish update" [disabled, ref=e63]
+    - button "Queue approved action" [ref=e50]
+    - region "Publish update" [ref=e66]
+      - heading "Publish update" [level=2, ref=e67]
+      - heading "Content preview" [level=3, ref=e68]
+      - button "Reject action" [disabled, ref=e69]
+      - button "Approve: publish update" [disabled, ref=e70]
+    - region "Correct publication" [ref=e82]
+      - heading "Correct publication" [level=2, ref=e83]
+      - heading "Content preview" [level=3, ref=e84]
+      - button "Reject action" [disabled, ref=e85]
+      - button "Approve: correct publication" [disabled, ref=e86]
+    - region "Withdraw publication" [ref=e98]
+      - heading "Withdraw publication" [level=2, ref=e99]
+      - heading "Content preview" [level=3, ref=e100]
+      - button "Reject action" [disabled, ref=e101]
+      - button "Approve: withdraw publication" [disabled, ref=e102]
+    - region "Publish update" [ref=e111]
+      - heading "Publish update" [level=2, ref=e112]
+      - heading "Content preview" [level=3, ref=e113]
+      - button "Reject action" [disabled, ref=e114]
+      - button "Approve: publish update" [disabled, ref=e115]
+  - region "3. Inspect evidence and history" [ref=e41]
+    - heading "3. Inspect evidence and history" [level=2, ref=e51]
+    - heading "Publish update" [level=3, ref=e64]
+    - region "Publish update" [ref=e75]
+      - heading "Publish update" [level=2, ref=e78]
+    - button "Reconcile operation" [ref=e76]
+    - region "Correct publication" [ref=e91]
+      - heading "Correct publication" [level=2, ref=e94]
+    - button "Reconcile operation" [ref=e92]
+    - region "Withdraw publication" [ref=e107]
+      - heading "Withdraw publication" [level=2, ref=e110]
+    - button "Reconcile operation" [ref=e108]
+    - heading "Publish update" [level=3, ref=e117]
+    - button "Dispatch queued action" [disabled, ref=e118]
+    - button "Cancel queued action" [ref=e119]
+  - region "Cancellation evidence" [ref=e42]
+    - heading "Cancellation evidence" [level=2, ref=e52]
+    - heading "Cancellation effective before dispatch" [level=3, ref=e65]
+  - region "Current provider board" [ref=e43]
+    - heading "Current provider board" [level=2, ref=e53]
+    - heading "project-board" [level=3, ref=e109]
+agent-browser screenshot <workspace>/work/supervision-zero-budget.png --full
+✓ Screenshot saved to <workspace>/work/supervision-zero-budget.png
+agent-browser click @e119
+✓ Done
+agent-browser click @e108
+✓ Done
+agent-browser reload
+http://127.0.0.1:8765/
+agent-browser wait --load networkidle
+✓ Done
+PASS Reload retains cap and cancellations; readback at zero : used=3 operations=5 controls=2 last=cancelled
+agent-browser get text body
+TUN Systemic Engineering
+Local fixture · v0.3
+
+THE ACTION CONTRACT
+
+Review. Execute. Verify.
+
+Approval records a decision. The host enforces permission. Evidence establishes what happened.
+
+Synthetic data and fixture identity only. Nothing is published to an external service.
+
+Refresh history
+Simulate a lost provider response
+No automatic execution or replay
+Dispatch budget
+
+3 of 3 dispatch slots consumed · 0 remaining
+
+Shared across this fixture actor's publications and recovery actions. No automatic reset or refund; this is not a money or token budget.
+
+Cancellation only prevents queued work from crossing the dispatch boundary. It cannot stop an accepted provider operation.
+
+1. Prepare a publication
+Publication content
+Prepare publication for review
+2. Review and authorize
+
+Proposed action · not an action receipt
+
+Publish update
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board
+Effect
+one sandbox publication. new publication
+Authority requested
+Current publish permission is checked separately at dispatch.
+Recovery
+Compensation only. separate approved correction or withdrawal; history and external copies are not erased
+Expires
+2026-10-02 01:25:24.250 UTC
+Content preview
+
+Synthetic project update: ready for review.
+
+This proposal has expired. Request a fresh proposal.
+Reject action
+Approve: publish update
+
+Proposal 78ada9ad-20e0-429a-b79d-9c2bb0369a1b · version 1. Application services must validate and record authorization.
+
+Proposed action · not an action receipt
+
+Publish update
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board
+Effect
+one sandbox publication. new publication
+Authority requested
+Current publish permission is checked separately at dispatch.
+Recovery
+Compensation only. separate approved correction or withdrawal; history and external copies are not erased
+Expires
+2026-10-02 01:25:25.316 UTC
+Content preview
+
+Synthetic supervised publication: reviewed before dispatch.
+
+This proposal has expired. Request a fresh proposal.
+Reject action
+Approve: publish update
+
+Proposal f812efef-49d9-44cd-8b41-ef9771d30f75 · version 1. Application services must validate and record authorization.
+
+Queue approved action
+
+Proposed action · not an action receipt
+
+Publish update
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board
+Effect
+one sandbox publication. new publication
+Authority requested
+Current publish permission is checked separately at dispatch.
+Recovery
+Compensation only. separate approved correction or withdrawal; history and external copies are not erased
+Expires
+2026-10-02 01:40:40.423 UTC
+Content preview
+
+Synthetic supervised publication: reviewed before dispatch.
+
+Approved. Execution is not confirmed by this gate.
+Reject action
+Approve: publish update
+
+Proposal 2b66bfb0-2f34-40e6-8cb1-c34ea21e77bc · version 1. Application services must validate and record authorization.
+
+Proposed action · not an action receipt
+
+Correct publication
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board / publication e349440f-7617-49ba-8646-3d4ad8eeddbd
+Effect
+correct one existing sandbox publication. active publication at resource revision 1
+Authority requested
+Current correct permission is checked separately at dispatch.
+Recovery
+Compensation only. history and external copies remain; no undo or restoration is promised
+Expires
+2026-10-02 01:40:42.448 UTC
+Content preview
+
+Corrected synthetic supervised publication.
+
+Approved. Execution is not confirmed by this gate.
+Reject action
+Approve: correct publication
+
+Proposal 37d866d9-2cd0-4b7a-80cf-0e2362f8f0ca · version 1. Application services must validate and record authorization.
+
+Proposed action · not an action receipt
+
+Withdraw publication
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board / publication e349440f-7617-49ba-8646-3d4ad8eeddbd
+Effect
+withdraw one existing sandbox publication. active publication at resource revision 2
+Authority requested
+Current withdraw permission is checked separately at dispatch.
+Recovery
+Compensation only. history and external copies remain; no undo or restoration is promised
+Expires
+2026-10-02 01:40:44.321 UTC
+Content preview
+
+Corrected synthetic supervised publication.
+
+Approved. Execution is not confirmed by this gate.
+Reject action
+Approve: withdraw publication
+
+Proposal 095e4106-d4c0-472d-832a-973ff13a6ac3 · version 1. Application services must validate and record authorization.
+
+Proposed action · not an action receipt
+
+Publish update
+C3 · External consequential
+Actor
+alice-fixture (human)
+Target
+project-board
+Effect
+one sandbox publication. new publication
+Authority requested
+Current publish permission is checked separately at dispatch.
+Recovery
+Compensation only. separate approved correction or withdrawal; history and external copies are not erased
+Expires
+2026-10-02 01:40:46.092 UTC
+Content preview
+
+Synthetic extra publication: must not dispatch at zero budget.
+
+Approved. Execution is not confirmed by this gate.
+Reject action
+Approve: publish update
+
+Proposal 475f41d1-18a5-4731-ab7f-6157246d7159 · version 1. Application services must validate and record authorization.
+
+3. Inspect evidence and history
+Publish update
+
+Cancelled before dispatch
+
+No effectful provider call was made for this operation.
+
+Operation 393208b5-f797-469b-9929-19bddfed4fad · revision 2
+
+Action receipt · application record
+
+Publish update
+
+Completed
+
+The bound operation was verified in provider history; this is not a claim about current resource state.
+
+Actor
+alice-fixture (human)
+Target
+project-board
+Recorded at
+2026-10-02 01:35:41.879 UTC
+Verification
+The bound operation was verified in provider history; this is not a claim about current resource state. Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.
+Recovery
+Compensation only. separate approved correction or withdrawal; history and external copies are not erased
+
+Receipt e349440f-7617-49ba-8646-3d4ad8eeddbd:4
+
+Operation e349440f-7617-49ba-8646-3d4ad8eeddbd · revision 4
+
+Reconcile operation
+
+Action receipt · application record
+
+Correct publication
+
+Completed
+
+The bound operation was verified in provider history; this is not a claim about current resource state.
+
+Actor
+alice-fixture (human)
+Target
+project-board / publication e349440f-7617-49ba-8646-3d4ad8eeddbd
+Recorded at
+2026-10-02 01:35:43.859 UTC
+Verification
+The bound operation was verified in provider history; this is not a claim about current resource state. Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.
+Recovery
+Compensation only. history and external copies remain; no undo or restoration is promised
+
+Receipt 6a9050c2-7f09-4666-b8c1-b953771b34eb:4
+
+Operation 6a9050c2-7f09-4666-b8c1-b953771b34eb · revision 4
+
+Recovery for operation e349440f-7617-49ba-8646-3d4ad8eeddbd. Original history is preserved.
+
+Reconcile operation
+
+Action receipt · application record
+
+Withdraw publication
+
+Completed
+
+The bound operation was verified in provider history; this is not a claim about current resource state.
+
+Actor
+alice-fixture (human)
+Target
+project-board / publication e349440f-7617-49ba-8646-3d4ad8eeddbd
+Recorded at
+2026-10-02 01:35:47.837 UTC
+Verification
+The bound operation was verified in provider history; this is not a claim about current resource state. Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.
+Recovery
+Compensation only. history and external copies remain; no undo or restoration is promised
+
+Receipt f1373af3-9d2d-4930-867e-ea2f65cf00ba:5
+
+Operation f1373af3-9d2d-4930-867e-ea2f65cf00ba · revision 5
+
+Recovery for operation e349440f-7617-49ba-8646-3d4ad8eeddbd. Original history is preserved.
+
+Reconcile operation
+Publish update
+
+Cancelled before dispatch
+
+No effectful provider call was made for this operation.
+
+Operation a8fc063d-2d0d-4404-9518-2594f6b86889 · revision 2
+
+Cancellation evidence
+Cancellation effective before dispatch
+
+Operation 393208b5-f797-469b-9929-19bddfed4fad · requested revision 1
+
+Observed operation state: cancelled. No restoration of earlier effects is claimed.
+
+Cancellation effective before dispatch
+
+Operation a8fc063d-2d0d-4404-9518-2594f6b86889 · requested revision 1
+
+Observed operation state: cancelled. No restoration of earlier effects is claimed.
+
+Current provider board
+
+The board shows current local state. Receipts above describe historical operation outcomes.
+
+project-board
+withdrawn · revision 3
+
+Publication e349440f-7617-49ba-8646-3d4ad8eeddbd
+
+Withdrawn from the active board. Historical records remain; this is not deletion or undo.
+
+Experimental host and provider · Real TUN design components · No production-readiness or full accessibility claim
+agent-browser set viewport 1280 900
+✓ Done
+agent-browser screenshot <workspace>/outputs/tun-supervision.png --full
+✓ Screenshot saved to <workspace>/outputs/tun-supervision.png
+agent-browser set viewport 390 844
+✓ Done
+agent-browser screenshot <workspace>/work/supervision-mobile.png --full
+✓ Screenshot saved to <workspace>/work/supervision-mobile.png
+agent-browser eval ({hasContent: document.body.innerText.length > 0, errorOverlay: !!document.querySelector("vite-error-overlay, [data-nextjs-dialog]"), horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth, browser: navigator.userAgent})
+{
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "errorOverlay": false,
+  "hasContent": true,
+  "horizontalOverflow": false
+}
+agent-browser errors
+
+agent-browser console
+
+{
+  "controls": [
+    {
+      "id": "cancel-393208b5-f797-469b-9929-19bddfed4fad-1",
+      "operationId": "393208b5-f797-469b-9929-19bddfed4fad",
+      "requestedVersion": "1",
+      "outcome": "effective",
+      "observedState": "cancelled"
+    },
+    {
+      "id": "cancel-a8fc063d-2d0d-4404-9518-2594f6b86889-1",
+      "operationId": "a8fc063d-2d0d-4404-9518-2594f6b86889",
+      "requestedVersion": "1",
+      "outcome": "effective",
+      "observedState": "cancelled"
+    }
+  ],
+  "resources": [
+    {
+      "rootId": "e349440f-7617-49ba-8646-3d4ad8eeddbd",
+      "target": "project-board",
+      "revision": 3,
+      "status": "withdrawn",
+      "content": ""
+    }
+  ],
+  "operations": [
+    {
+      "id": "393208b5-f797-469b-9929-19bddfed4fad",
+      "version": "2",
+      "state": "cancelled",
+      "actionType": "publish",
+      "originalId": null,
+      "hostStatus": "cancelled",
+      "dispatchObservation": "cancelled-before-dispatch"
+    },
+    {
+      "id": "e349440f-7617-49ba-8646-3d4ad8eeddbd",
+      "version": "4",
+      "state": "verified",
+      "actionType": "publish",
+      "originalId": null,
+      "hostStatus": "completed",
+      "dispatchObservation": "response-lost"
+    },
+    {
+      "id": "6a9050c2-7f09-4666-b8c1-b953771b34eb",
+      "version": "4",
+      "state": "verified",
+      "actionType": "correct",
+      "originalId": "e349440f-7617-49ba-8646-3d4ad8eeddbd",
+      "hostStatus": "completed",
+      "dispatchObservation": "response-lost"
+    },
+    {
+      "id": "f1373af3-9d2d-4930-867e-ea2f65cf00ba",
+      "version": "5",
+      "state": "verified",
+      "actionType": "withdraw",
+      "originalId": "e349440f-7617-49ba-8646-3d4ad8eeddbd",
+      "hostStatus": "completed",
+      "dispatchObservation": "response-lost"
+    },
+    {
+      "id": "a8fc063d-2d0d-4404-9518-2594f6b86889",
+      "version": "2",
+      "state": "cancelled",
+      "actionType": "publish",
+      "originalId": null,
+      "hostStatus": "cancelled",
+      "dispatchObservation": "cancelled-before-dispatch"
+    }
+  ],
+  "budget": {
+    "configured": true,
+    "limit": 3,
+    "used": 3,
+    "remaining": 0
+  }
+}
+Final browser and host assertions passed.
+agent-browser close
+✓ Browser closed
+
+
+=== Local server request log ===
+127.0.0.1 - - [02/Oct/2026 08:18:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:18:50] "GET /assets/index-Ci_uq-K5.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:18:50] "GET /assets/index-Dn7DxSkD.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:18:50] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:18:50] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [02/Oct/2026 08:20:24] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:24] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:24] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:24] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:25] "POST /api/cancel HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:25] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:25] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:20:25] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:37] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:50] "GET /assets/index-Ci_uq-K5.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:50] "GET /assets/index-Dn7DxSkD.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:50] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:34:50] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [02/Oct/2026 08:35:05] "POST /api/reserve HTTP/1.1" 403 -
+127.0.0.1 - - [02/Oct/2026 08:35:40] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:40] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:41] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:41] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:41] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:41] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:42] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:42] "POST /api/recovery HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:42] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:43] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:43] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:43] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:44] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:44] "POST /api/recovery HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:44] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:45] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:45] "POST /api/dispatch HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:45] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:45] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:46] "POST /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:46] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:46] "POST /api/reserve HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:47] "POST /api/cancel HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:47] "POST /api/reconcile HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:47] "GET /assets/index-Dn7DxSkD.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:47] "GET /assets/index-Ci_uq-K5.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:48] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:35:49] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:36:34] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:36:34] "GET /assets/index-Ci_uq-K5.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:36:34] "GET /assets/index-Dn7DxSkD.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:36:34] "GET /api/state HTTP/1.1" 200 -
+127.0.0.1 - - [02/Oct/2026 08:36:34] "GET /favicon.ico HTTP/1.1" 404 -
+
+
+=== Command-line demonstration ===
+Exit: 0
+{
+  "scenario": "fixture approval -> publication -> lost response -> reopen -> readback",
+  "beforeReadback": {
+    "binding": "sha256:44b163ceef826698419ed45bca1285ac550345adfc9582460c07344050b40384",
+    "createdAt": "2026-10-02T01:36:54.180Z",
+    "effectKnowledge": "unknown",
+    "id": "9d96dc4f-91ab-4e41-a9f3-a092c9651a54",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "9d96dc4f-91ab-4e41-a9f3-a092c9651a54",
+    "proposalRef": {
+      "id": "f2dcafaf-7f25-42e5-8751-fab20a6c1ed0",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.3",
+    "scope": "sandbox",
+    "status": "pending-verification",
+    "target": "project-board",
+    "verificationRef": null,
+    "verificationState": "pending",
+    "version": "3"
+  },
+  "afterReadback": {
+    "binding": "sha256:44b163ceef826698419ed45bca1285ac550345adfc9582460c07344050b40384",
+    "createdAt": "2026-10-02T01:36:54.227Z",
+    "effectKnowledge": "observed",
+    "id": "9d96dc4f-91ab-4e41-a9f3-a092c9651a54",
+    "kind": "ActionRecord",
+    "limitations": "Local-store observation only. No delivery or content-truth claim. Prior observations do not establish current state.",
+    "operationId": "9d96dc4f-91ab-4e41-a9f3-a092c9651a54",
+    "proposalRef": {
+      "id": "f2dcafaf-7f25-42e5-8751-fab20a6c1ed0",
+      "version": "1"
+    },
+    "schemaVersion": "tse-pilot/0.3",
+    "scope": "sandbox",
+    "status": "completed",
+    "target": "project-board",
+    "verificationRef": {
+      "id": "9d96dc4f-91ab-4e41-a9f3-a092c9651a54",
+      "version": "1"
+    },
+    "verificationState": "verified",
+    "version": "4"
+  },
+  "providerPublicationCount": 1,
+  "limits": "Synthetic identities, local stores, no model, no remote publishing, no full conformance claim."
+}
+

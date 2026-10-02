@@ -25,7 +25,7 @@ The project has draft documentation, a documentation checker, and an [experiment
 
 ## Design baseline
 
-See the [review/recovery validation record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) for the tested v0.2 source revision, automated checks, browser journey, and limits. The [earlier publication report](PILOT-VALIDATION-2026-10-01.md) retains its original revision and scope.
+See the [supervision validation record](SUPERVISION-VALIDATION-2026-10-02.md) for the tested v0.3 source revision, 82 Python tests, ten component tests, cancellation/budget browser journey, and limits. The [v0.2 review/recovery record](REVIEW-RECOVERY-VALIDATION-2026-10-01.md) and [earlier publication report](PILOT-VALIDATION-2026-10-01.md) retain their original revisions and scopes.
 
 The [design integration guide](DESIGN-INTEGRATION-v0.1.md) records the exact companion source revision inspected. The design project has an existing local host pilot; the engineering project can build on its lessons without claiming it already satisfies this draft.
 

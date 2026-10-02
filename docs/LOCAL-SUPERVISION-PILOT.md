@@ -91,6 +91,8 @@ Only ApprovalGate and ActionReceipt are integrated from the pinned design librar
 
 ## Verification and open work
 
+The [2 October validation record](SUPERVISION-VALIDATION-2026-10-02.md) binds the executed automated checks and browser journey to a specific source revision. It distinguishes observed behavior from open work and records known usability limits.
+
 [Supervision tests](../tests/test_supervision.py) cover cancellation/dispatch races, late controls during an in-flight provider call, duplicate cancellation across restart, stale revisions, owner/scope restrictions, shared-cap concurrency, rollback, conservative crash accounting, and old-store refusal. [HTTP tests](../tests/test_review_server.py) check queue/control commands and reject client budget overrides. [Component tests](../ui/src/components.test.tsx) check explicit controls, disabled dispatch at zero budget, and truthful cancelled labels.
 
 Full [conformance procedures](VALIDATION-PLAN-v0.1.md) remain unassessed. Production identity, delegation, cancellation of accepted remote work, general run controls, budgets for time/tokens/money, bounded reconciliation polling, partial effects, load/security/accessibility assessment, and migration are not implemented.

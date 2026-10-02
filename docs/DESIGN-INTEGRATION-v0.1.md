@@ -62,7 +62,7 @@ At the inspected design revision, `ReceiptStatus` contains `completed`, `partial
 
 If a flat receipt cannot faithfully express verified partial effects alongside unresolved effects, compose a host detail view. Do not erase information to fit an enum. Receipt timestamps come from the supported observation/assessment, not from the time the browser rendered it.
 
-The local adapter implements completed, pending, unavailable, contradicted, blocked, and verified-rejection projections. Contradictions become pending-verification with explicit contradiction text; blocked dispatch becomes failed with a no-provider-call explanation. A verified correction or withdrawal has a separate completed receipt and never relabels the original reversed. SourceView, partial effects, and reversal are not implemented. Focused tests are not complete adapter acceptance or human-factors validation.
+The local adapter implements completed, pending, unavailable, contradicted, and verified-rejection receipt projections. Contradictions become pending-verification with explicit contradiction text. In v0.3, uninvoked queued, blocked, and cancelled operations use separate host status cards with no ActionReceipt projection, as described below. A verified correction or withdrawal has a separate completed receipt and never relabels the original reversed. SourceView, partial effects, and reversal are not implemented. Focused tests are not complete adapter acceptance or human-factors validation.
 
 ## Activity and controls
 
